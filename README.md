@@ -77,14 +77,13 @@ CardShopSim/
 ### 🔧 最小可用示例（添加 / 覆盖卡数据）
 
 ```lua
--- 假设 dir = 你放置图片的目录（与 main.lua 同级）
--- 假设 R = 卡牌注册子系统（下方给出获取方式）
-local function ChangeCard(dir, R)
+local function ChangeCard()
+    local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
     local D = UE.FCardDataAll()                  -- 创建卡牌数据
     D.Name = "ID1122"                            -- 卡牌名称（用于本地化Key）
     D.Description = "ID1122Description"          -- 描述（用于本地化Key）
     D.CardID = 1122                              -- 内部唯一ID（务必不与其他卡冲突）
-    D.Gen = 0                                    -- 世代：0=第一世代（0~6）
+    D.Gen = 0                                    -- 世代：0=第一世代  （0~6）1-7世代
     D.TexturePath = dir .. "1122.png"            -- 贴图路径（与 main.lua 同目录）
     D.Rarity = UE.ECardRarity.Common             -- 稀有度（枚举见下）
     D.BaseAttack = 10                            -- 基础攻击
@@ -158,7 +157,7 @@ local M = {
 
 -- 你可以把资源放在与 main.lua 同级目录
 
-local function AddGen1Card()
+local function AddCard()
     local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
     local D = UE.FCardDataAll()
     D.Name = "ID1101"
@@ -174,7 +173,7 @@ local function AddGen1Card()
 end
 
 function M.OnInit()
-    AddGen1Card()
+    AddCard()
 end
 
 function M.OnTick(dt)
