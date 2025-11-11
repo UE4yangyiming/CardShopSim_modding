@@ -1,8 +1,8 @@
 # 🃏 《卡牌店模拟器 多人联机版》 Modding 示例 (CardShopSim Modding Example)
 
 _这是一个使用 **Lua 语言** 编写的 Mod 示例，适用于《卡牌店模拟器 多人联机版》。_  
-中文 | [English](README_EN.md)  
-[📚 值得注意的 API](Documents/NotableAPIs_CN.md)
+[中文](README.md)   | [English](README_EN.md)  
+[📚 Notable APIs](NotableAPIs_CH.md)
 
 ---
 
