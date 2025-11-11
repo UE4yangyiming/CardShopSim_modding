@@ -72,7 +72,7 @@ CardShopSim/
 | Super Rare / God | `747×1024` |
 
 > 💡 **Card ID Rule:** Recommended range `1000–9999`, must be **unique**. Card frames use **(CardID × 10) + FrameIndex**, e.g. `11012` means card `1101` with a silver frame.
-
+Card loading and saving are entirely based on IDs.The IDs correspond exactly to the ones shown in the top-right corner of the cards in the game.
 ---
 
 ### 🔧 Minimal Example (Add or Override Card Data)
