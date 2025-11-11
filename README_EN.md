@@ -198,6 +198,5 @@ return M
 2. 🚫 No malicious insults, trolling, or references to real-world persons/events.  
 3. 🚫 No copyrighted resources without permission.  
 4. 🚫 No ads, donations, or paid promotions through Mods.  
-5. 🤖 Mods containing AI-generated content must clearly mark it.  
 
-Violations on Steam Workshop may result in removal or permanent ban without notice.
+If a mod is published on the Steam Workshop and violates any of the above rules, it may be deleted and the creator’s publishing privileges may be permanently revoked.
