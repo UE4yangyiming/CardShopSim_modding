@@ -144,7 +144,7 @@ UE.ECardElementFaction.Ice --冰
 
 ---
 
-## ✅ 完整可运行示例：替换卡面（`main.lua`）
+## ✅ 完整可运行示例：替换\添加卡面（`main.lua`）
 
 ```lua
 -- 必填信息：会显示在 Mods 界面
