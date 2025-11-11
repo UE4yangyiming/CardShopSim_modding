@@ -189,7 +189,7 @@ return M
 - QQ: 780231813  
 - Official QQ Group (Admin): 958628027  
 - Email: yangyiming780@foxmail.com  
-- Steam Community / Thread reply
+- Steam Community / Git issues
 
 ---
 
