@@ -36,6 +36,7 @@ local function AddGen1Card4()
     D.BaseHealth = 60  --生命值
     D.CardElementFaction:Add(UE.ECardElementFaction.Animal)
     R:RegisterCardData(D.CardID,D);
+    --稀有极其稀有卡面分辨率：747*1024
     --稀有卡
     local D = UE.FCardDataAll()
     D.Name = "ID1324"                     --卡牌名称
