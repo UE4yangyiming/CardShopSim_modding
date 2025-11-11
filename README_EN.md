@@ -78,15 +78,13 @@ CardShopSim/
 ### 🔧 Minimal Example (Add or Override Card Data)
 
 ```lua
--- Assume dir = image directory (same as main.lua)
--- Assume R = Card Registry Subsystem (see below)
 local function ChangeCard()
     local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
     local D = UE.FCardDataAll()                  -- Create card data struct
     D.Name = "ID1122"                            -- Card name (used for localization key)
     D.Description = "ID1122Description"          -- Description (used for localization key)
     D.CardID = 1122                              -- Unique internal ID (must not conflict)
-    D.Gen = 0                                    -- Generation: 0 = Gen1 (0–6)
+    D.Gen = 0                                    -- Generation: 0 = Gen1      (0–6) Gen1-7
     D.TexturePath = dir .. "1122.png"            -- Image path (same folder as main.lua)
     D.Rarity = UE.ECardRarity.Common             -- Rarity (see below)
     D.BaseAttack = 10                            -- Base attack
@@ -159,7 +157,7 @@ local M = {
 }
 
 -- Place assets in the same folder as main.lua
-local function AddGen1Card()
+local function AddCard()
     local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
     local D = UE.FCardDataAll()
     D.Name = "ID1101"
@@ -175,7 +173,7 @@ local function AddGen1Card()
 end
 
 function M.OnInit()
-    AddGen1Card()
+    AddCard()
 end
 
 function M.OnTick(dt)
