@@ -1,6 +1,6 @@
-# 🃏 CardShopSim Modding 示例 (CardShopSim Modding Example)
+# 🃏 《卡牌店模拟器 多人联机版》 Modding 示例 (CardShopSim Modding Example)
 
-_《卡牌店模拟器 多人联机版》的 Mod 示例说明。_  
+_这是一个使用 **Lua 语言** 编写的 Mod 示例，适用于《卡牌店模拟器 多人联机版》。_  
 中文 | [English](README_EN.md)  
 [📚 值得注意的 API](Documents/NotableAPIs_CN.md)
 
@@ -10,7 +10,7 @@ _《卡牌店模拟器 多人联机版》的 Mod 示例说明。_
 
 游戏会自动扫描并读取以下位置的 Mod：
 
-- `CardShopSim/Mods` 📁  
+- `游戏根目录/CardShopSim/Mods` 📁  
 - 从 **Steam 创意工坊** 订阅的物品文件夹 🛠️
 
 当找到满足条件的文件：`main.lua` 与 `preview.png`，即可在 **Mods** 菜单中识别、管理并加载该 Mod。
@@ -27,18 +27,18 @@ _《卡牌店模拟器 多人联机版》的 Mod 示例说明。_
 ### 🧠 规则二：全局访问
 - `UE`：全局变量，可访问 Unreal Engine 暴露的函数集合。  
 - `M`：当前 Mod 的信息结构（会在主界面 Mods 列表中显示）。
-
+- `dir`：当前 Mod 的绝对路径。
 ---
 
 ## 📁 Mod 文件夹结构
 
-将 Mod 放入 `CardShopSim/Mods/` 目录即可在游戏内识别。
+将 Mod 放入 `游戏根目录/CardShopSim/Mods/` 目录即可在游戏内识别。
 
 ```
 CardShopSim/
 └── Mods/
     └── MyMod/
-        ├── main.lua       # Mod 逻辑
+        ├── main.lua       # Mod 逻辑（Lua 编写）
         └── preview.png    # 预览图（256×256，正方形）
 ```
 
@@ -72,6 +72,8 @@ CardShopSim/
 
 > 💡 **卡牌 ID 规则**：建议 `1000–9999`，**不可重复**。同一张卡的“卡框”通过 **（卡牌 ID × 10）+ 框位** 表示（例：`11012` = 卡牌 1101 + 银卡框）。
 
+---
+
 ### 🔧 最小可用示例（添加 / 覆盖卡数据）
 
 ```lua
@@ -88,34 +90,56 @@ local function ChangeCard(dir, R)
     D.BaseAttack = 10                            -- 基础攻击
     D.BaseHealth = 30                            -- 基础生命
     D.CardElementFaction:Add(UE.ECardElementFaction.Water) -- 元素（水）
+
+    -- 💥 当前攻击力与生命值计算公式（算法见下方说明）
+    -- 最终攻击力 = 基础攻击力 × 当前卡框倍率
+    -- 最终生命值 = 基础生命值 × 当前卡框倍率
+
     R:RegisterCardData(D.CardID, D)              -- 注册（添加或覆盖）
 end
 ```
+
+---
+
+## 📊 卡框倍率参考表
+
+| 卡框类型 | 倍率 | 示例说明 |
+|-----------|------|-----------|
+| 基础 | 1.0 | 基础倍率 |
+| 白银 | 1.1 | 白银卡框攻击与生命 +10% |
+| 黄金 | 1.2 | 黄金卡框攻击与生命 +20% |
+| 镭射 | 1.3 | 镭射卡框攻击与生命 +30% |
+| 闪亮 | 1.4 | 闪亮卡框攻击与生命 +40% |
+| 稀世 | 1.5 | 稀世卡框攻击与生命 +50% |
+
+> 🧮 计算示例：若基础攻击力为 100，卡框为黄金(1.2)，则最终卡面显示攻击力 = 100 × 1.2 = **120**。
+
+---
 
 ### 🏷️ 枚举（稀有度 / 元素）
 
 ```lua
 -- 稀有度：
-UE.ECardRarity.Common
-UE.ECardRarity.UnCommon
-UE.ECardRarity.Rare
-UE.ECardRarity.SuperRare
-UE.ECardRarity.God
+UE.ECardRarity.Common --普通
+UE.ECardRarity.UnCommon --罕见
+UE.ECardRarity.Rare --稀有
+UE.ECardRarity.SuperRare --极稀有
+UE.ECardRarity.God --神卡
 
 -- 元素：
-UE.ECardElementFaction.Fire
-UE.ECardElementFaction.Water
-UE.ECardElementFaction.Grass
-UE.ECardElementFaction.Electric
-UE.ECardElementFaction.Insect
-UE.ECardElementFaction.Rock
-UE.ECardElementFaction.Earth
-UE.ECardElementFaction.Animal
-UE.ECardElementFaction.Steel
-UE.ECardElementFaction.Dragon
-UE.ECardElementFaction.Psychic
-UE.ECardElementFaction.Mystic
-UE.ECardElementFaction.Ice
+UE.ECardElementFaction.Fire --火
+UE.ECardElementFaction.Water --水
+UE.ECardElementFaction.Grass --草
+UE.ECardElementFaction.Electric --电
+UE.ECardElementFaction.Insect --昆虫
+UE.ECardElementFaction.Rock --岩石
+UE.ECardElementFaction.Earth --土
+UE.ECardElementFaction.Animal --动物
+UE.ECardElementFaction.Steel --钢
+UE.ECardElementFaction.Dragon --龙
+UE.ECardElementFaction.Psychic --超能
+UE.ECardElementFaction.Mystic --神秘
+UE.ECardElementFaction.Ice --冰
 ```
 
 ---
@@ -133,22 +157,9 @@ local M = {
 }
 
 -- 你可以把资源放在与 main.lua 同级目录
-local function get_mod_dir()
-    -- 推荐用工程/打包通用的方式获取目录（任选其一）
-    -- return UE.UModFilesystemLib.GetProjectModsDir() .. "ChangeGen1Card/"
-    -- return UE.UModFilesystemLib.GetLaunchModsDir() .. "ChangeGen1Card/"
-    return UE.UModFilesystemLib.GetSmartModDir("ChangeGen1Card")
-end
 
 local function AddGen1Card()
-    local world = MOD.GAA.WorldUtils:GetCurrentWorld()
-    local R = UE.UCardFunction.GetCardRegistryWS(world)
-    if not R then
-        if MOD and MOD.Logger then MOD.Logger.LogScreen("找不到 CardRegistryWS", 5,1,0,0,1) end
-        return
-    end
-
-    local dir = get_mod_dir()
+    local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
     local D = UE.FCardDataAll()
     D.Name = "ID1101"
     D.Description = "ID1101Description"
@@ -159,7 +170,6 @@ local function AddGen1Card()
     D.BaseAttack = 10
     D.BaseHealth = 30
     D.CardElementFaction:Add(UE.ECardElementFaction.Water)
-
     R:RegisterCardData(D.CardID, D)
 end
 
@@ -168,7 +178,6 @@ function M.OnInit()
 end
 
 function M.OnTick(dt)
-    -- 留空或做心跳逻辑
 end
 
 return M
