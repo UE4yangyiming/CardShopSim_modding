@@ -80,7 +80,8 @@ CardShopSim/
 ```lua
 -- Assume dir = image directory (same as main.lua)
 -- Assume R = Card Registry Subsystem (see below)
-local function ChangeCard(dir, R)
+local function ChangeCard()
+    local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
     local D = UE.FCardDataAll()                  -- Create card data struct
     D.Name = "ID1122"                            -- Card name (used for localization key)
     D.Description = "ID1122Description"          -- Description (used for localization key)
@@ -145,7 +146,7 @@ UE.ECardElementFaction.Ice -- Ice
 
 ---
 
-## ✅ Fully Working Example (`main.lua`)
+## ✅ A Complete Example (`main.lua`)
 
 ```lua
 -- Basic Info: Displayed in the Mods menu
