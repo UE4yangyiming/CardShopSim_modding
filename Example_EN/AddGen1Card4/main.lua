@@ -1,102 +1,111 @@
 local M = {
     id          = "AddGen1Card4",
-    name        = "添加第一世代每个稀有度的图片",
+    name        = "Add Images for Each Rarity in Generation 1",
     version     = "1.0.0",
     author      = "yiming",
-    description = "描述添加第一世代每个稀有度的图片",
+    description = "Adds card images for each rarity in Generation 1",
 }
 
 local function AddGen1Card4()
     local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
     if not R then
-        if MOD and MOD.Logger then MOD.Logger.LogScreen("找不到 UDrinkRegistryWorldSubsystem", 5,1,0,0,1) end
+        if MOD and MOD.Logger then MOD.Logger.LogScreen("Cannot find UCardRegistryWorldSubsystem", 5,1,0,0,1) end
         return
     end
-    --普通 稀有卡面分辨率：512*446
+
+    -- Common / Rare card face resolution: 512×446
     local D = UE.FCardDataAll()
-    D.Name = "ID1122"                     --卡牌名称
-    D.Description = "ID1122Description"   --描述
-    D.CardID = 1122                       --ID
-    D.Gen = 0                             --世代 1-7世代，要从0开始
-    D.TexturePath = dir .. "1122.png"     --图片
+    D.Name = "ID1122"                     -- Card name
+    D.Description = "ID1122Description"   -- Description
+    D.CardID = 1122                       -- ID
+    D.Gen = 0                             -- Generation: starts from 0 (0–6)
+    D.TexturePath = dir .. "1122.png"     -- Image
     D.Rarity = UE.ECardRarity.Common
-    D.BaseAttack = 10  --攻击力
-    D.BaseHealth = 30  --生命值
+    D.BaseAttack = 10  -- Attack
+    D.BaseHealth = 30  -- Health
     D.CardElementFaction:Add(UE.ECardElementFaction.Water)
-    R:RegisterCardData(D.CardID,D);
-    --罕见卡
+    R:RegisterCardData(D.CardID, D)
+
+    -- Uncommon card
     local D = UE.FCardDataAll()
-    D.Name = "ID1214"                     --卡牌名称
-    D.Description = "ID1214Description"   --描述
-    D.CardID = 1214                       --ID
-    D.Gen = 0                             --世代
-    D.TexturePath = dir .. "1214.png"     --图片
+    D.Name = "ID1214"                     -- Card name
+    D.Description = "ID1214Description"   -- Description
+    D.CardID = 1214                       -- ID
+    D.Gen = 0                             -- Generation
+    D.TexturePath = dir .. "1214.png"     -- Image
     D.Rarity = UE.ECardRarity.UnCommon
-    D.BaseAttack = 15  --攻击力
-    D.BaseHealth = 60  --生命值
+    D.BaseAttack = 15  -- Attack
+    D.BaseHealth = 60  -- Health
     D.CardElementFaction:Add(UE.ECardElementFaction.Animal)
-    R:RegisterCardData(D.CardID,D);
-    --稀有卡
+    R:RegisterCardData(D.CardID, D)
+
+    -- Rare card
     local D = UE.FCardDataAll()
-    D.Name = "ID1324"                     --卡牌名称
-    D.Description = "ID1324Description"   --描述
-    D.CardID = 1324                       --ID
-    D.Gen = 0                             --世代
-    D.TexturePath = dir .. "1324.png"     --图片
+    D.Name = "ID1324"                     -- Card name
+    D.Description = "ID1324Description"   -- Description
+    D.CardID = 1324                       -- ID
+    D.Gen = 0                             -- Generation
+    D.TexturePath = dir .. "1324.png"     -- Image
     D.Rarity = UE.ECardRarity.Rare
-    D.BaseAttack = 50  --攻击力
-    D.BaseHealth = 250  --生命值
+    D.BaseAttack = 50  -- Attack
+    D.BaseHealth = 250  -- Health
     D.CardElementFaction:Add(UE.ECardElementFaction.Electric)
-    R:RegisterCardData(D.CardID,D);
-    --极稀有卡
+    R:RegisterCardData(D.CardID, D)
+
+    -- Super Rare card
     local D = UE.FCardDataAll()
-    D.Name = "ID1405"                     --卡牌名称
-    D.Description = "ID1405Description"   --描述
-    D.CardID = 1405                       --ID
-    D.Gen = 0                             --世代
-    D.TexturePath = dir .. "1405.png"     --图片
+    D.Name = "ID1405"                     -- Card name
+    D.Description = "ID1405Description"   -- Description
+    D.CardID = 1405                       -- ID
+    D.Gen = 0                             -- Generation
+    D.TexturePath = dir .. "1405.png"     -- Image
     D.Rarity = UE.ECardRarity.SuperRare
-    D.BaseAttack = 80  --攻击力
-    D.BaseHealth = 350  --生命值
+    D.BaseAttack = 80  -- Attack
+    D.BaseHealth = 350  -- Health
     D.CardElementFaction:Add(UE.ECardElementFaction.Dragon)
-    R:RegisterCardData(D.CardID,D);
+    R:RegisterCardData(D.CardID, D)
 
-
-    --目前卡牌1000-9999. 当前卡牌ID*10内不允许添加新ID。（卡牌ID加一位代表的是卡框数据。例如11012就是白银卡框）
-    if MOD and MOD.Logger then  MOD.Logger.LogScreen(("Mod [%s] 已经加载完成"):format(M.name), 5,1,1,0,1) end --日志
+    -- Current valid CardID range: 1000–9999.
+    -- Do not add new IDs within the same CardID×10 range.
+    -- (For example, 11012 represents the silver frame version of card 1101.)
+    if MOD and MOD.Logger then  
+        MOD.Logger.LogScreen(("Mod [%s] has been successfully loaded"):format(M.name), 5,1,1,0,1)
+    end
 end
 
-
 function M.OnInit()
-    --初始化
-    if MOD and MOD.Logger then  MOD.Logger.LogScreen(("Mod [%s] 开始加载"):format(M.name), 5,1,1,0,1) end --日志
+    -- Initialization
+    if MOD and MOD.Logger then  
+        MOD.Logger.LogScreen(("Mod [%s] is loading"):format(M.name), 5,1,1,0,1)
+    end
     AddGen1Card4()
 end
 
 function M.OnTick(dt)
-
+    -- Called every frame (optional)
 end
 
 return M
---额外说明：
--- 稀有度：
--- UE.ECardRarity.Common       --普通
--- UE.ECardRarity.UnCommon      --罕见
--- UE.ECardRarity.Rare          --稀有
--- UE.ECardRarity.SuperRare     --极稀有
--- UE.ECardRarity.God           --神卡
 
--- 元素：
--- UE.ECardElementFaction.Fire   --火
--- UE.ECardElementFaction.Water  --水
--- UE.ECardElementFaction.Grass  --草
--- UE.ECardElementFaction.Electric --电
--- UE.ECardElementFaction.Insect --昆虫
--- UE.ECardElementFaction.Rock   --岩石
--- UE.ECardElementFaction.Earth --土
--- UE.ECardElementFaction.Animal --动物
--- UE.ECardElementFaction.Steel --钢
--- UE.ECardElementFaction.Dragon --龙
--- UE.ECardElementFaction.Psychic --超能
--- UE.ECardElementFaction.Mystic --神秘
--- UE.ECardElementFaction.Ice --冰
+-- Additional Notes:
+-- Rarity:
+-- UE.ECardRarity.Common       -- Common
+-- UE.ECardRarity.UnCommon     -- Uncommon
+-- UE.ECardRarity.Rare         -- Rare
+-- UE.ECardRarity.SuperRare    -- Super Rare
+-- UE.ECardRarity.God          -- God
+
+-- Elements:
+-- UE.ECardElementFaction.Fire      -- Fire
+-- UE.ECardElementFaction.Water     -- Water
+-- UE.ECardElementFaction.Grass     -- Grass
+-- UE.ECardElementFaction.Electric  -- Electric
+-- UE.ECardElementFaction.Insect    -- Insect
+-- UE.ECardElementFaction.Rock      -- Rock
+-- UE.ECardElementFaction.Earth     -- Earth
+-- UE.ECardElementFaction.Animal    -- Animal
+-- UE.ECardElementFaction.Steel     -- Steel
+-- UE.ECardElementFaction.Dragon    -- Dragon
+-- UE.ECardElementFaction.Psychic   -- Psychic
+-- UE.ECardElementFaction.Mystic    -- Mystic
+-- UE.ECardElementFaction.Ice       -- Ice
