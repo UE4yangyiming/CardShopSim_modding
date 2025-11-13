@@ -100,6 +100,28 @@ end
 ```
 
 ---
+### 🔧 极其稀有卡图片替换示例
+
+```lua
+local function ChangeCard()
+    local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
+    --极稀有卡有6个图层。序号越前，距离玩家摄像机越进。TexturePath6是最底层可以放背景。前面5层可以放透明的图片。做出来分层效果
+    local D = UE.FCardDataAll()
+    D.Name = "ID1401"
+    D.Description = "ID1401Description"
+    D.CardID = 1401
+    D.TexturePath = dir .. "1401.png"      --第一层的人物
+    D.TexturePath2 = dir .. "1401-2.png"    --第二层的特效
+    -- D.TexturePath3 = dir .. "1401-3.png" 演示中只有三层 这三层空置
+    -- D.TexturePath4 = dir .. "1401-4.png" 演示中只有三层 这三层空置
+    -- D.TexturePath5 = dir .. "1401-5.png" 演示中只有三层 这三层空置
+    D.TexturePath6 = dir .. "1401-6.png"    --最下层的背景
+
+    R:RegisterCardData(D.CardID, D)              -- 注册（添加或覆盖）
+end
+```
+
+---
 
 ## 📊 卡框倍率参考表
 
