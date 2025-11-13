@@ -38,12 +38,21 @@ local function ChangeGen1Texture()
     D.TexturePath = dir .. "1301.png"
     R:RegisterCardData(D.CardID, D)
 
+    -- Ultra-rare cards have 6 layers. The earlier the index, the closer it is to the player's camera.
+    -- TexturePath6 is the bottom layer and can be used for the background.
+    -- The first 5 layers can use transparent images to create a multi-layer effect.
     local D = UE.FCardDataAll()
-    D.Name = "ID1302"
-    D.Description = "ID1302Description"
-    D.CardID = 1302
-    D.TexturePath = dir .. "1302.png"
-    R:RegisterCardData(D.CardID, D)
+    D.Name = "ID1401"
+    D.Description = "ID1401Description"
+    D.CardID = 1401
+    D.TexturePath = dir .. "1401.png"      -- First layer: character
+    D.TexturePath2 = dir .. "1401-2.png"   -- Second layer: effect
+    -- D.TexturePath3 = dir .. "1401-3.png" In this demo only three layers, these three remain empty
+    -- D.TexturePath4 = dir .. "1401-4.png" In this demo only three layers, these three remain empty
+    -- D.TexturePath5 = dir .. "1401-5.png" In this demo only three layers, these three remain empty
+    D.TexturePath6 = dir .. "1401-6.png"   -- Bottom layer: background
+
+    R:RegisterCardData(D.CardID, D)        -- Register (add or override)
 
     -- Current valid CardID range: 1000–9999.
     -- You cannot add new IDs within the same CardID×10 range.
