@@ -120,7 +120,8 @@ local function ChangeCard()
     -- D.TexturePath4 = dir .. "1401-4.png" In this demo only three layers, these three remain empty
     -- D.TexturePath5 = dir .. "1401-5.png" In this demo only three layers, these three remain empty
     D.TexturePath6 = dir .. "1401-6.png"   -- Bottom layer: background
-
+    D.FlowTexturePath = dir .. "fire.PNG"  --Background floating images
+    D.FlowValue = 0.5      --The transparency of the background floating image ranges from 0 to 1.
     R:RegisterCardData(D.CardID, D)        -- Register (add or override)
 end
 ```
