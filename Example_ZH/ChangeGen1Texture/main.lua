@@ -18,14 +18,66 @@ local function ChangeGen1Texture()
     D.Description = "ID1101Description"
     D.CardID = 1101
     D.TexturePath = dir .. "1101.png"
-    -- D.BaseAttack = 0  --攻击力
-    -- D.BaseHealth = 0  --生命值
+    D.CardElementFaction:Add(UE.ECardElementFaction.Fire)
     R:RegisterCardData(D.CardID,D);
     local D = UE.FCardDataAll()
     D.Name = "ID1102"
-    D.Description = "ID1102Description"
+    D.Description = ""
     D.CardID = 1102
     D.TexturePath = dir .. "1101.png"
+    D.CardElementFaction:Add(UE.ECardElementFaction.Fire)
+    R:RegisterCardData(D.CardID,D);
+    local D = UE.FCardDataAll()
+    D.Name = "ID1103"
+    D.Description = ""
+    D.CardID = 1103
+    D.TexturePath = dir .. "1101.png"
+    D.CardElementFaction:Add(UE.ECardElementFaction.Fire)
+    R:RegisterCardData(D.CardID,D);
+    local D = UE.FCardDataAll()
+    D.Name = "ID1104"
+    D.Description = ""
+    D.CardID = 1104
+    D.TexturePath = dir .. "1101.png"
+    D.CardElementFaction:Add(UE.ECardElementFaction.Fire)
+    R:RegisterCardData(D.CardID,D);
+        local D = UE.FCardDataAll()
+    D.Name = "ID1105"
+    D.Description = ""
+    D.CardID = 1105
+    D.TexturePath = dir .. "1101.png"
+    D.CardElementFaction:Add(UE.ECardElementFaction.Fire)
+    R:RegisterCardData(D.CardID,D);
+        local D = UE.FCardDataAll()
+    D.Name = "ID1106"
+    D.Description = ""
+    D.CardID = 1106
+    D.TexturePath = dir .. "1101.png"
+    D.CardElementFaction:Add(UE.ECardElementFaction.Fire)
+    R:RegisterCardData(D.CardID,D);
+
+
+
+    local D = UE.FCardDataAll()
+    D.Name = "ID1201"
+    D.Description = ""
+    D.CardID = 1201
+    D.TexturePath = dir .. "1101.png"
+    D.CardElementFaction:Add(UE.ECardElementFaction.Fire)
+    R:RegisterCardData(D.CardID,D);
+    local D = UE.FCardDataAll()
+    D.Name = "ID1202"
+    D.Description = ""
+    D.CardID = 1202
+    D.TexturePath = dir .. "1101.png"
+    D.CardElementFaction:Add(UE.ECardElementFaction.Fire)
+    R:RegisterCardData(D.CardID,D);
+    local D = UE.FCardDataAll()
+    D.Name = "ID1203"
+    D.Description = ""
+    D.CardID = 1203
+    D.TexturePath = dir .. "1101.png"
+    D.CardElementFaction:Add(UE.ECardElementFaction.Fire)
     R:RegisterCardData(D.CardID,D);
 
     
@@ -34,9 +86,10 @@ local function ChangeGen1Texture()
     D.Name = "ID1301"
     D.Description = "ID1301Description"
     D.CardID = 1301
+    
     D.TexturePath = dir .. "1301.png"
     R:RegisterCardData(D.CardID,D);
-
+    
     --极稀有卡有6个图层。序号越前，距离玩家摄像机越进。TexturePath6是最底层可以放背景。前面5层可以放透明的图片。做出来分层效果
     local D = UE.FCardDataAll()
     D.Name = "ID1401"
@@ -48,6 +101,10 @@ local function ChangeGen1Texture()
     -- D.TexturePath4 = dir .. "1401-4.png" 演示中只有三层 这三层空置
     -- D.TexturePath5 = dir .. "1401-5.png" 演示中只有三层 这三层空置
     D.TexturePath6 = dir .. "1401-6.png"
+    D.FlowTexturePath = dir .. "fire.PNG"  --背景漂浮的图片
+    D.FlowValue = 0.5      --背景漂浮图片的透明度 0-1
+
+
     R:RegisterCardData(D.CardID,D);
 
 
