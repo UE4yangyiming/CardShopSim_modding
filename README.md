@@ -370,6 +370,50 @@ end
 ```
 
 ---
+## ✅ 示例：添加的接口 修改稀有度价格倍率
+联系作者添加简单的修改接口
+```lua
+--修改当前卡牌稀有度的价值倍率 当前卡牌最终价格 = 基础价格CardValueMulti * 稀有度价值倍率 * 特质价值倍率 * 世代价值倍率（1-7世代对应1-7倍 目前没有设置渠道）
+local function RarityValue()
+    local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
+    if not R then
+        if MOD and MOD.Logger then MOD.Logger.LogScreen("找不到 UDrinkRegistryWorldSubsystem", 5,1,0,0,1) end
+        return
+    end
+    -- 现在游戏中默认的倍率
+    R:RegisterRarityValueData(UE.ECardRarity.Common, 0.1) -- 常见
+    R:RegisterRarityValueData(UE.ECardRarity.UnCommon, 0.5) -- 罕见
+    R:RegisterRarityValueData(UE.ECardRarity.Rare, 2) -- 稀有
+    R:RegisterRarityValueData(UE.ECardRarity.SuperRare, 10) -- 极稀有
+    R:RegisterRarityValueData(UE.ECardRarity.God, 500)  -- 神
+
+    if MOD and MOD.Logger then  MOD.Logger.LogScreen(("Mod [%s] 已经加载完成"):format(M.name), 5,1,1,0,1) end --日志
+end
+```
+## ✅ 示例：添加的接口 修改特质价格倍率
+联系作者添加简单的修改接口
+```lua
+--修改当前卡牌特质的价值倍率 当前卡牌最终价格 = 基础价格CardValueMulti * 稀有度价值倍率 * 特质价值倍率 * 世代价值倍率（1-7世代对应1-7倍 目前没有设置渠道）
+local function TraitValue()
+    local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
+    if not R then
+        if MOD and MOD.Logger then MOD.Logger.LogScreen("找不到 UDrinkRegistryWorldSubsystem", 5,1,0,0,1) end
+        return
+    end
+    -- 现在游戏中默认的倍率
+    R:RegisterTraitValueData(UE.ETrait.Basic, 1) -- 基础特质
+    R:RegisterTraitValueData(UE.ETrait.Silver, 2) -- 白银特质
+    R:RegisterTraitValueData(UE.ETrait.Gold, 5) -- 黄金特质
+    R:RegisterTraitValueData(UE.ETrait.Holographic, 20) -- 镭射特质
+    R:RegisterTraitValueData(UE.ETrait.Shiny, 50) -- 闪亮特质
+    R:RegisterTraitValueData(UE.ETrait.Legendary, 200) -- 稀世特质
+
+    if MOD and MOD.Logger then  MOD.Logger.LogScreen(("Mod [%s] 已经加载完成"):format(M.name), 5,1,1,0,1) end --日志
+end
+
+```
+
+---
 ## 目前已有的ID
 ```lua
 1102 迷尼特 Gen 第一世代
