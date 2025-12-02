@@ -208,7 +208,178 @@ end
 
 return M
 ```
+---
+## ✔ Example 1: Override Payment Method
+Modify the built-in payment selection logic by overriding the original function.
+Contact the author to add a simple modification interface
+```lua
+local function try_patch()
 
+    if not MOD or not MOD.Playercontroller or MOD.Playercontroller.PlayerIndex == -1 then
+        -- PlayerController not ready yet, retry later
+        MOD.GAA.TimerManager:AddTimer(1, M, function() M:try_patch() end)
+        return
+    end
+
+    local pc    = MOD.Playercontroller
+    local key   = "BP_PlayerState0"   -- Get the player's BP_PlayerState
+    local klass = pc.GetLuaObject and pc:GetLuaObject(key) or nil
+
+    if not klass then
+        return
+    end
+
+    -- Override the original GetPayMentOverall function
+    klass.GetPayMentOverall = function(self)
+        -- Original logic randomly returns 0/1/2:
+        -- 0 = Cash
+        -- 1 = Card reader
+        -- 2 = QR scan
+        -- return MOD.UE.UKismetMathLibrary.RandomIntegerInRange(0, 2)
+
+        MOD.Logger.LogScreen("Payment Intercepted", 5, 0, 1, 0, 1)
+        return 2   -- Always use QR scan
+    end
+end
+```
+
+## ✔ Example 2: Modify Booster Rarity Appearance Rates
+Override the rarity distribution when opening booster packs.
+Contact the author to add a simple modification interface
+```lua
+local function ConfigureBoosterRarityRates()
+    local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
+    if not R then
+        if MOD and MOD.Logger then
+            MOD.Logger.LogScreen("Cannot find UCardRegistryWorldSubsystem", 5,1,0,0,1)
+        end
+        return
+    end
+
+    -- Original rates are weights, NOT required to add up to 1
+
+    -- 0: Standard Booster
+    local StandardRates = {
+        [UE.ECardRarity.Common]    = 0.894,
+        [UE.ECardRarity.UnCommon]  = 0.010,
+        [UE.ECardRarity.Rare]      = 0.005,
+        [UE.ECardRarity.SuperRare] = 0.001,
+    }
+    R:RegisterRarityData(0, StandardRates)
+
+    -- 1: Deluxe Booster
+    local DeluxeRates = {
+        [UE.ECardRarity.Common]    = 0.205,
+        [UE.ECardRarity.UnCommon]  = 0.690,
+        [UE.ECardRarity.Rare]      = 0.100,
+        [UE.ECardRarity.SuperRare] = 0.005,
+    }
+    R:RegisterRarityData(1, DeluxeRates)
+
+    -- 2: Luxury Booster
+    local LuxuryRates = {
+        [UE.ECardRarity.Common]    = 0.000,
+        [UE.ECardRarity.UnCommon]  = 0.035,
+        [UE.ECardRarity.Rare]      = 0.055,
+        [UE.ECardRarity.SuperRare] = 0.010,
+    }
+    R:RegisterRarityData(2, LuxuryRates)
+
+    if MOD and MOD.Logger then
+        MOD.Logger.LogScreen(("Mod [%s] Loaded"):format(M.name), 5,1,1,0,1)
+    end
+end
+```
+
+
+## ✔ Example 3: Modify Trait Appearance Rates
+
+When a card is opened, traits are selected based on the rarity of that card.
+This interface allows mods to override the trait appearance weights.
+Contact the author to add a simple modification interface
+```lua
+-- Modify trait appearance rates based on card rarity
+local function ConfigureBoosterRarityRates1()
+    local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
+    if not R then
+        if MOD and MOD.Logger then
+            MOD.Logger.LogScreen("Cannot find UCardRegistryWorldSubsystem", 5,1,0,0,1)
+        end
+        return
+    end
+
+    -- These are original weight values. Higher weight => higher chance.
+
+    ----------------------------------------------------------------
+    -- Row 1: Common (ECardRarity.Common)
+    ----------------------------------------------------------------
+    local CommonTraitRates = {
+        [UE.ETrait.Legendary]   = 0.001, -- EX
+        [UE.ETrait.Shiny]       = 0.029, -- Shiny
+        [UE.ETrait.Holographic] = 0.070, -- Holographic
+        [UE.ETrait.Gold]        = 0.100, -- Gold
+        [UE.ETrait.Silver]      = 0.100, -- Silver
+        [UE.ETrait.Basic]       = 0.700, -- Basic
+    }
+    R:RegisterTraitData(UE.ECardRarity.Common, CommonTraitRates)
+
+    ----------------------------------------------------------------
+    -- Row 2: UnCommon
+    ----------------------------------------------------------------
+    local UnCommonTraitRates = {
+        [UE.ETrait.Legendary]   = 0.003,
+        [UE.ETrait.Shiny]       = 0.037,
+        [UE.ETrait.Holographic] = 0.100,
+        [UE.ETrait.Gold]        = 0.220,
+        [UE.ETrait.Silver]      = 0.250,
+        [UE.ETrait.Basic]       = 0.400,
+    }
+    R:RegisterTraitData(UE.ECardRarity.UnCommon, UnCommonTraitRates)
+
+    ----------------------------------------------------------------
+    -- Row 3: Rare
+    ----------------------------------------------------------------
+    local RareTraitRates = {
+        [UE.ETrait.Leginary]   = 0.070,
+        [UE.ETrait.Shiny]       = 0.140,
+        [UE.ETrait.Holographic] = 0.210,
+        [UE.ETrait.Gold]        = 0.300,
+        [UE.ETrait.Silver]      = 0.200,
+        [UE.ETrait.Basic]       = 0.080,
+    }
+    R:RegisterTraitData(UE.ECardRarity.Rare, RareTraitRates)
+
+    ----------------------------------------------------------------
+    -- Row 4: SuperRare
+    ----------------------------------------------------------------
+    local SuperRareTraitRates = {
+        [UE.ETrait.Legendary]   = 0.300,
+        [UE.ETrait.Shiny]       = 0.350,
+        [UE.ETrait.Holographic] = 0.350,
+        [UE.ETrait.Gold]        = 0.000,
+        [UE.ETrait.Silver]      = 0.000,
+        [UE.ETrait.Basic]       = 0.000,
+    }
+    R:RegisterTraitData(UE.ECardRarity.SuperRare, SuperRareTraitRates)
+
+    ----------------------------------------------------------------
+    -- Row 5: God
+    ----------------------------------------------------------------
+    local GodTraitRates = {
+        [UE.ETrait.Legendary]   = 1.000,
+        [UE.ETrait.Shiny]       = 0.000,
+        [UE.ETrait.Holographic] = 0.000,
+        [UE.ETrait.Gold]        = 0.000,
+        [UE.ETrait.Silver]      = 0.000,
+        [UE.ETrait.Basic]       = 0.000,
+    }
+    R:RegisterTraitData(UE.ECardRarity.God, GodTraitRates)
+
+    if MOD and MOD.Logger then
+        MOD.Logger.LogScreen(("Mod [%s] Loaded"):format(M.name), 5,1,1,0,1)
+    end
+end
+```
 ---
 
 ## 📮 More API interfaces and extensions:Contact
