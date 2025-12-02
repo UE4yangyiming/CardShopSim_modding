@@ -1,8 +1,7 @@
 # 🃏 CardShopSim Multiplayer Edition Modding Example
 
 _This is a **Lua-based** mod example for **CardShopSim Multiplayer Edition**._  
-[中文](README.md)   | [English](README_EN.md)  
-[📚 Notable APIs](NotableAPIs_EN.md)
+[中文](README.md)   | [English](README_EN.md)   The API in the Chinese version is more comprehensive.
 
 ---
 
