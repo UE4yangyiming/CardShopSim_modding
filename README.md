@@ -88,6 +88,7 @@ local function ChangeCard()
     D.Rarity = UE.ECardRarity.Common             -- 稀有度（枚举见下）
     D.BaseAttack = 10                            -- 基础攻击
     D.BaseHealth = 30                            -- 基础生命
+	--D.CardValueMulti = 1.0                     --新增基础价格倍率
     D.CardElementFaction:Add(UE.ECardElementFaction.Water) -- 元素（水）
 
     -- 💥 当前攻击力与生命值计算公式（算法见下方说明）
@@ -118,6 +119,7 @@ local function ChangeCard()
     D.TexturePath6 = dir .. "1401-6.png"    --最下层的背景
     D.FlowTexturePath = dir .. "fire.PNG"  --背景漂浮的图片
     D.FlowValue = 0.5      --背景漂浮图片的透明度 0-1
+	--D.CardValueMulti = 1.0                     --新增基础价格倍率
 
     R:RegisterCardData(D.CardID, D)              -- 注册（添加或覆盖）
 end
@@ -195,6 +197,7 @@ local function AddCard()
     D.Rarity = UE.ECardRarity.Common
     D.BaseAttack = 10
     D.BaseHealth = 30
+	--D.CardValueMulti = 1.0                     --新增基础价格倍率
     D.CardElementFaction:Add(UE.ECardElementFaction.Water)
     R:RegisterCardData(D.CardID, D)
 end
@@ -210,7 +213,7 @@ return M
 ```
 
 ---
-## ✅ 示例：添加的接口 修改支付方式  
+## ✅ 示例：添加的接口 修改支付方式  仅用扫码支付
 将设置支付方式的函数通过覆盖函数 修改原逻辑 
 联系作者添加简单的修改接口
 ```lua
