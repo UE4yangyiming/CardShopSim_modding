@@ -798,6 +798,41 @@ end
 1323 小骨 Gen 节日卡包
 ```
 
+---
+## 上传创意工坊
+请查看https://partner.steamgames.com/doc/features/workshop/implementation
+的Steam CMD 集成部分。下面是复制内容：
+- 当前游戏的appid = 3569500
+- 初次上传publishedfileid 请填0 。之后会生成一个新的publishedfileid。更新就使用这个新的publishedfileid。
+``` lua
+SteamCmd 集成
+除 ISteamUGC API 之外，steamcmd.exe 命令行工具也可用于为测试目的创建和更新创意工坊物品。 由于此工具要求用户输入 Steam 凭据（我们不希望顾客提供），因此仅限于测试使用。
+
+如要使用 steamcmd.exe 创建新的 Steam 创意工坊物品，首先须创建一个纯文本 VDF 文件， 并包含以下键值。
+"workshopitem"
+{
+ "appid" "480"
+ "publishedfileid" "5674"
+ "contentfolder" "D:\\Content\\workshopitem"
+ "previewfile" "D:\\Content\\preview.jpg"
+ "visibility" "0"
+ "title" "《军团要塞》的绿色帽子"
+ "description" "《军团要塞》的绿色帽子"
+ "changenote" "1.2 版本"
+}
+
+注意：
+键值与各种 ISteamUGC::SetItem[...] 方法对应。 请见上方文献了解更多信息。
+所示值为均为示例，应根据情况而适当调整。
+要创建新物品，必须设置 appid，并且 publishedfileid 必须为未设置或设为 0。
+要更新现有物品，appid 与 publishedfileid 均需设置。
+如果某个键需要更新，则其余的键/值对也应包含在 VDF 中。
+创建 VDF 后，可按 workshop_build_item <build config filename> 的文件参数运行 steamcmd.exe。 如：
+steamcmd.exe +login myLoginName myPassword +workshop_build_item workshop_green_hat.vdf +quit
+如果命令成功，VDF 中的 publishedfileid 值会自动更新，以包含创意工坊物品 ID。 由此，同一个 VDF 的 steamcmd.exe 后续调用将会更新而非创建新物品。
+
+```
+
 ## 📮 更多API接口以及扩展：联系方式
 - QQ：780231813  
 - 官方QQ群（联系群主）：958628027  
