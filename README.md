@@ -98,6 +98,7 @@ local function ChangeCard()
     R:RegisterCardData(D.CardID, D)              -- 注册（添加或覆盖）
 end
 ```
+---
 
 ---
 ### 🔧 极其稀有卡图片替换示例
@@ -122,6 +123,8 @@ local function ChangeCard()
     R:RegisterCardData(D.CardID, D)              -- 注册（添加或覆盖）
 end
 ```
+---
+
 
 ---
 
@@ -206,7 +209,169 @@ end
 
 return M
 ```
-###目前已有的ID
+
+---
+## ✅ 示例：添加的接口 修改支付方式  
+将设置支付方式的函数通过覆盖函数 修改原逻辑 
+联系作者添加简单的修改接口
+```lua
+local function try_patch()
+
+	if not MOD or not MOD.Playercontroller or MOD.Playercontroller.PlayerIndex == -1 then
+		-- PlayerController 还没就绪，稍后重试
+		MOD.GAA.TimerManager:AddTimer(1, M, function() M:try_patch() end)
+		return
+	end
+
+	local pc         = MOD.Playercontroller
+	local key        = "BP_PlayerState0" --获得玩家的BP_PlayerState
+	local klass      = pc.GetLuaObject and pc:GetLuaObject(key) or nil  --获得当前BP_PlayerState的lua文件
+
+    if not klass then
+        return
+    end
+
+    klass.GetPayMentOverall = function(self)
+        --原函数是随机三个数值
+        --0 --现金
+        --1 --刷卡器
+        --2 --扫码
+        -- return MOD.UE.UKismetMathLibrary.RandomIntegerInRange(0, 2) --调用UE函数随机数值
+
+        MOD.Logger.LogScreen("拦截收银", 5, 0, 1, 0, 1)
+        return 2
+    end
+end
+```
+
+---
+## ✅ 示例：添加的接口 修改开启卡包的概率
+联系作者添加简单的修改接口
+```lua
+local function ConfigureBoosterRarityRates()
+    local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
+    if not R then
+        if MOD and MOD.Logger then MOD.Logger.LogScreen("找不到 UDrinkRegistryWorldSubsystem", 5,1,0,0,1) end
+        return
+    end
+
+    --原版概率 概率不用加起来等于1， 所有的概率其实是一个权重，占比大的概率会高
+
+    -- 0：标准包
+    local StandardRates = {
+        [UE.ECardRarity.Common]    = 0.894,
+        [UE.ECardRarity.UnCommon]  = 0.01,
+        [UE.ECardRarity.Rare]      = 0.005,
+        [UE.ECardRarity.SuperRare] = 0.001,
+    }
+    R:RegisterRarityData(0, StandardRates)
+
+    -- 1：豪华包
+    local DeluxeRates = {
+        [UE.ECardRarity.Common]    = 0.205,
+        [UE.ECardRarity.UnCommon]  = 0.690,
+        [UE.ECardRarity.Rare]      = 0.100,
+        [UE.ECardRarity.SuperRare] = 0.005,
+    }
+    R:RegisterRarityData(1, DeluxeRates)
+
+    -- 2：稀奢包
+    local LuxuryRates = {
+        [UE.ECardRarity.Common]    = 0.000,
+        [UE.ECardRarity.UnCommon]  = 0.035,
+        [UE.ECardRarity.Rare]      = 0.055,
+        [UE.ECardRarity.SuperRare] = 0.010,
+    }
+    R:RegisterRarityData(2, LuxuryRates)
+
+    if MOD and MOD.Logger then  MOD.Logger.LogScreen(("Mod [%s] 已经加载完成"):format(M.name), 5,1,1,0,1) end --日志
+end
+```
+
+---
+## ✅ 示例：添加的接口 开启出来的卡牌后 当前稀有度卡牌的特质概率
+联系作者添加简单的修改接口
+```lua
+--修改当前卡牌稀有度抽卡时的特质出现概率 
+local function ConfigureBoosterRarityRates1()
+    local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
+    if not R then
+        if MOD and MOD.Logger then MOD.Logger.LogScreen("找不到 UDrinkRegistryWorldSubsystem", 5,1,0,0,1) end
+        return
+    end
+
+    --原版概率 概率不用加起来等于1， 所有的概率其实是一个权重，占比大的概率会高
+    -- 行 1：常见（ECardRarity.Common） 常见卡牌中 出现各种特质的概率
+    ----------------------------------------------------------------
+    local CommonTraitRates = {
+        [UE.ETrait.Legendary]   = 0.001, -- 稀世概率
+        [UE.ETrait.Shiny]       = 0.029, -- 闪亮概率
+        [UE.ETrait.Holographic] = 0.070, -- 镭射概率
+        [UE.ETrait.Gold]        = 0.100, -- 黄金概率
+        [UE.ETrait.Silver]      = 0.100, -- 白银概率
+        [UE.ETrait.Basic]       = 0.700, -- 基础概率
+    }
+    R:RegisterTraitData(UE.ECardRarity.Common, CommonTraitRates)
+
+    ----------------------------------------------------------------
+    -- 行 2：罕见（ECardRarity.UnCommon）
+    ----------------------------------------------------------------
+    local UnCommonTraitRates = {
+        [UE.ETrait.Legendary]   = 0.003,
+        [UE.ETrait.Shiny]       = 0.037,
+        [UE.ETrait.Holographic] = 0.100,
+        [UE.ETrait.Gold]        = 0.220,
+        [UE.ETrait.Silver]      = 0.250,
+        [UE.ETrait.Basic]       = 0.400,
+    }
+    R:RegisterTraitData(UE.ECardRarity.UnCommon, UnCommonTraitRates)
+
+    ----------------------------------------------------------------
+    -- 行 3：稀有（ECardRarity.Rare）
+    ----------------------------------------------------------------
+    local RareTraitRates = {
+        [UE.ETrait.Legendary]   = 0.070,
+        [UE.ETrait.Shiny]       = 0.140,
+        [UE.ETrait.Holographic] = 0.210,
+        [UE.ETrait.Gold]        = 0.300,
+        [UE.ETrait.Silver]      = 0.200,
+        [UE.ETrait.Basic]       = 0.080,
+    }
+    R:RegisterTraitData(UE.ECardRarity.Rare, RareTraitRates)
+
+    ----------------------------------------------------------------
+    -- 行 4：极稀有（ECardRarity.SuperRare）
+    ----------------------------------------------------------------
+    local SuperRareTraitRates = {
+        [UE.ETrait.Legendary]   = 0.300,
+        [UE.ETrait.Shiny]       = 0.350,
+        [UE.ETrait.Holographic] = 0.350,
+        [UE.ETrait.Gold]        = 0.000,
+        [UE.ETrait.Silver]      = 0.000,
+        [UE.ETrait.Basic]       = 0.000,
+    }
+    R:RegisterTraitData(UE.ECardRarity.SuperRare, SuperRareTraitRates)
+
+    ----------------------------------------------------------------
+    -- 行 5：神（ECardRarity.God）
+    ----------------------------------------------------------------
+    local GodTraitRates = {
+        [UE.ETrait.Legendary]   = 1.000,
+        [UE.ETrait.Shiny]       = 0.000,
+        [UE.ETrait.Holographic] = 0.000,
+        [UE.ETrait.Gold]        = 0.000,
+        [UE.ETrait.Silver]      = 0.000,
+        [UE.ETrait.Basic]       = 0.000,
+    }
+    R:RegisterTraitData(UE.ECardRarity.God, GodTraitRates)
+
+
+    if MOD and MOD.Logger then  MOD.Logger.LogScreen(("Mod [%s] 已经加载完成"):format(M.name), 5,1,1,0,1) end --日志
+end
+```
+
+---
+## 目前已有的ID
 ```lua
 1102 迷尼特 Gen 第一世代
 1103 顽熊仔 Gen 第一世代
@@ -586,7 +751,6 @@ return M
 1322 白椒灵 Gen 节日卡包
 1323 小骨 Gen 节日卡包
 ```
----
 
 ## 📮 更多API接口以及扩展：联系方式
 - QQ：780231813  
