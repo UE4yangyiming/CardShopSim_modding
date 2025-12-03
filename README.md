@@ -226,7 +226,7 @@ local function try_patch()
 	end
 
 	local pc         = MOD.Playercontroller
-	local key        = "BP_PlayerState0" --获得玩家的BP_PlayerState
+	local key        = "BasePlayerState0" --获得玩家的BP_PlayerState
 	local klass      = pc.GetLuaObject and pc:GetLuaObject(key) or nil  --获得当前BP_PlayerState的lua文件
 
     if not klass then
