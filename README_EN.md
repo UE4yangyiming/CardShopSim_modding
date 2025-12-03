@@ -221,7 +221,7 @@ local function try_patch()
     end
 
     local pc    = MOD.Playercontroller
-    local key   = "BP_PlayerState0"   -- Get the player's BP_PlayerState
+    local key   = "BasePlayerState0"   -- Get the player's BP_PlayerState
     local klass = pc.GetLuaObject and pc:GetLuaObject(key) or nil
 
     if not klass then
