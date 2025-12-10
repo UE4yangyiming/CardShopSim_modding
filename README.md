@@ -121,8 +121,8 @@ local function ChangeCard()
     D.TexturePath6 = dir .. "1401-6.png"    --最下层的背景
 
     --D.FlowTexturePath = dir .. "fire.PNG"  --背景漂浮例子的图片  (可以添加背景漂浮粒子图片 半透明）
-    --D.FlowValue = 0.5      --背景漂浮粒子图片的透明度 0-1
-	--D.FlowSpeedX = 0.1     --背景漂浮粒子向左持续移动0.1
+    --D.FlowValue = 1      --背景漂浮粒子图片的透明度 0-1  （默认0不显示）
+	--D.FlowSpeedX = 0.1     --背景漂浮粒子向左持续移动0.1 
     --D.FlowSpeedY = -0.1     --背景漂浮粒子向下持续移动0.1
 
 	--D.CardValueMulti = 1.0                     --基础价格倍率 （默认1.0倍）
