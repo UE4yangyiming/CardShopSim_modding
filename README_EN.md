@@ -1,219 +1,218 @@
-# 《卡牌店模拟器 多人联机版》 Modding 示例 (CardShopSim Modding Example)
+# CardShopSim Modding Example (Multiplayer Version)
 
-_这是一个使用 **Lua 语言** 编写的 Mod 示例，适用于《卡牌店模拟器 多人联机版》。_  
-
----
-
-## 🧩 工作原理概述
-
-游戏会自动扫描并读取以下位置的 Mod：
-
-- `游戏根目录/CardShopSim/Mods` 📁  
-- 从 **Steam 创意工坊** 订阅的物品文件夹 🛠️
-
-当找到满足条件的文件：`main.lua` 与 `preview.png`，即可在 **Mods** 菜单中识别、管理并加载该 Mod。
+This is a mod example written in Lua for the game "Card Shop Simulator Multiplayer".  
 
 ---
 
-### ⚙️ 规则一：加载与执行
-- 进入游戏约 **1 秒** 后，按 Mod 路径顺序加载并依次执行：  
-  ```lua
-  M.OnInit()   -- 初始化时执行一次
-  M.OnTick(dt) -- 每帧执行
-  ```
+## 🧩Working Principle Overview
 
-### 🧠 规则二：全局访问
-- `UE`：全局变量，可访问 Unreal Engine 暴露的函数集合。  
-- `M`：当前 Mod 的信息结构（会在主界面 Mods 列表中显示）。
-- `dir`：当前 Mod 的绝对路径。
+The game will automatically scan and read mods from the following locations:
+
+- `game root directory/CardShopSim/Mods` 📁  
+Item folders subscribed from the Steam Workshop 🛠️
+
+Once the files that meet the criteria `main.lua` and `preview.png` are found, the Mod can be identified, managed, and loaded in the **Mods** menu.
+
 ---
 
-## 📁 Mod 文件夹结构
+### ⚙️Rule 1: Loading and Execution
+- Approximately **1 second** after entering the game, mods will be loaded and executed sequentially according to their path:
+```lua
+M.OnInit() -- Executes once during initialization
+M.OnTick(dt) -- Executes every frame
+```
 
-将 Mod 放入 `游戏根目录/CardShopSim/Mods/` 目录即可在游戏内识别。
+### 🧠Rule Two: Global Access
+- `UE`: A global variable that provides access to the set of functions exposed by Unreal Engine.
+- `M`: The information structure of the current Mod (displayed in the Mods list on the main interface).
+- `dir`: The absolute path of the current Mod.
+---
+
+## 📁 Mod Folder Structure
+
+Simply place the mod in the `game root directory/CardShopSim/Mods/` directory to make it recognized in the game.
 
 ```
 CardShopSim/
 └── Mods/
-    └── MyMod/
-        ├── main.lua       # Mod 逻辑（Lua 编写）
-        └── preview.png    # 预览图（256×256，正方形）
+└── MyMod/
+├── main.lua # Mod logic (written in Lua)
+└── preview.png # Preview image (256×256, square)
 ```
 
-👉 [示例 Mod ](Example_ZH/)
+👉 [Example Mod]( Example_ZH/ )
 
 ---
 
-## 🧾 `main.lua` 的 `M` 结构
+## 🧾 The `M` structure of `main.lua`
 
-`local M = {}` 建议包含：
+`local M = {}` is recommended to include:
 
-| 字段 | 类型 | 说明 |
+| Field | Type | Description |
 |---|---|---|
-| `id` | string | Mod 唯一 ID（英文，作为 Key） |
-| `name` | string | 显示名称 |
-| `description` | string | 描述 |
-| `version` | string | 版本号 |
-| `author` | string | 作者 |
+| `id` | string | Mod Unique ID (English, used as a key) |
+| `name` | string | Display Name |
+| `description` | string | Description |
+| `version` | string | version number |
+| `author` | string | author|
 
-> ✅ 你可以在 `M` 旁自由声明本地状态/变量，供 Mod 内部使用。
+> ✅You can freely declare local state/variables next to `M` for use within the Mod.
 
 ---
 
-## 🖼️ 卡牌添加/替换（示例）
+## 🖼️Adding /Replacing Cards (Example)
 
-### 📐 图片分辨率建议
-| 类型 | 推荐分辨率 |
+### 📐Image Resolution Recommendations
+| Type | Recommended Resolution |
 |---|---|
-| 普通 / 罕见 | `512×446` |
-| 稀有 / 极稀有 / 神卡 | `747×1024` |
+| Common/Rare | `512×446` |
+| Rare/Extremely Rare/God-tier Card | `747×1024` |
 
-> 💡 **卡牌 ID 规则**：建议 `1000–9999`，**不可重复**。同一张卡的“卡框”通过 **（卡牌 ID × 10）+ 框位** 表示（例：`11012` = 卡牌 1101 + 银卡框）。
-> 卡牌读取与保存全部由ID存储。ID和游戏中卡牌右上角ID一致。
+> 💡 **Card ID Rules** : Recommended range is `1000–9999`, **no duplicates allowed** . The "card frame" of the same card is represented by **(card ID × 10) + frame size** (e.g., `11012` = card 1101 + silver card frame).
+Card loading and saving are all handled by ID storage. The ID matches the ID in the upper right corner of the card in the game.
 
-> 💡 **如果希望普通罕见卡使用大卡面**：下方设置属性中 加入D.UseBigImage = true
+> 💡 **To use a larger card image for common and rare cards :** Add `D.UseBigImage = true` to the settings below.
 
-> 💡 **一个函数中最多加入200个loacl变量，加入卡数量过多可以分成两个local function函数**
+> 💡 A single local function can contain a maximum of 200 local variables. If the number of variables is too large, it can be split into two local functions.
 ---
 
-### 🔧 最小可用示例（添加 / 覆盖卡数据）
+### 🔧Minimum Usable Example (Adding/Overwriting Card Data)
 
 ```lua
 local function ChangeCard()
-    local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
-    local D = UE.FCardDataAll()                  -- 创建卡牌数据
-    D.Name = "ID1122"                            -- 卡牌名称（用于本地化Key）
-    D.Description = "ID1122Description"          -- 描述（用于本地化Key）
-    D.CardID = 1122                              -- 内部唯一ID（务必不与其他卡冲突）
-    D.Gen = 0                                    -- 世代：0=第一世代  （0~6）1-7世代
-    D.TexturePath = dir .. "1122.png"            -- 贴图路径（与 main.lua 同目录）
-    D.Rarity = UE.ECardRarity.Common             -- 稀有度（枚举见下）
-    D.BaseAttack = 10                            -- 基础攻击
-    D.BaseHealth = 30                            -- 基础生命
-	--D.CardValueMulti = 1.0                     --新增基础价格倍率
-    D.CardElementFaction:Add(UE.ECardElementFaction.Water) -- 元素（水）
+local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
+local D = UE.FCardDataAll() -- Create card data
+D.Name = "ID1122" -- Card name (used for localization key)
+D.Description = "ID1122Description" -- Description (used for localizing the key)
+D.CardID = 1122 -- Internally unique ID (must not conflict with other cards)
+D.Gen = 0 -- Generation: 0=first generation (0~6) 1-7 generations
+D.TexturePath = dir .. "1122.png" -- Texture path (same directory as main.lua)
+D.Rarity = UE.ECardRarity.Common -- Rarity (see enumeration below)
+D.BaseAttack = 10 -- Basic attack
+D.BaseHealth = 30 -- Base Health
+--D.CardValueMulti = 1.0 --Added base price multiplier
+D.CardElementFaction:Add(UE.ECardElementFaction.Water) -- element (water)
 
-    -- 💥 当前攻击力与生命值计算公式（算法见下方说明）
-    -- 最终攻击力 = 基础攻击力 × 当前卡框倍率
-    -- 最终生命值 = 基础生命值 × 当前卡框倍率
+-- 💥Current attack power and health calculation formula (see explanation below for algorithm)
+-- Final Attack Power = Base Attack Power × Current Card Frame Multiplier
+-- Final Health = Base Health × Current Card Frame Multiplier
 
-    R:RegisterCardData(D.CardID, D)              -- 注册（添加或覆盖）
+R:RegisterCardData(D.CardID, D) -- Register (add or overwrite)
 end
 ```
 ---
 
 ---
-### 🔧 极其稀有卡图片替换示例
+### 🔧Example of replacing images for extremely rare cards
 
 ```lua
 local function ChangeCard()
-    local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
-    --极稀有卡有6个图层。序号越前，距离玩家摄像机越进。TexturePath6是最底层可以放背景。前面5层可以放透明的图片。做出来分层效果
-    local D = UE.FCardDataAll()
-    D.Name = "ID1401"
-    D.Description = "ID1401Description"
-    D.CardID = 1401
-    D.TexturePath = dir .. "1401.png"      --第一层的人物
-    D.TexturePath2 = dir .. "1401-2.png"    --第二层的特效
-    -- D.TexturePath3 = dir .. "1401-3.png" 演示中只有三层 这三层空置
-    -- D.TexturePath4 = dir .. "1401-4.png" 演示中只有三层 这三层空置
-    -- D.TexturePath5 = dir .. "1401-5.png" 演示中只有三层 这三层空置
-    D.TexturePath6 = dir .. "1401-6.png"    --最下层的背景
+local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
+--This extremely rare card has 6 layers. The earlier the layer number, the closer it is to the player's camera. TexturePath6 is the bottom layer and can hold the background. The first 5 layers can hold transparent images. This creates a layered effect.
+local D = UE.FCardDataAll()
+D.Name = "ID1401"
+D.Description = "ID1401Description"
+D.CardID = 1401
+D.TexturePath = dir .. "1401.png" -- The character on the first layer
+D.TexturePath2 = dir .. "1401-2.png" -- Second layer effect
+-- D.TexturePath3 = dir .. "1401-3.png" The demo only shows three layers, and these three layers are empty.
+-- D.TexturePath4 = dir .. "1401-4.png" The demo only shows three layers, and these three layers are empty.
+-- D.TexturePath5 = dir .. "1401-5.png" The demo only shows three layers, and these three layers are empty.
+D.TexturePath6 = dir .. "1401-6.png" -- Bottom layer background
 
-    --D.FlowTexturePath = dir .. "fire.PNG"  --背景漂浮例子的图片  (可以添加背景漂浮粒子图片 半透明）
-    --D.FlowValue = 1      --背景漂浮粒子图片的透明度 0-1  （默认0不显示）
-	--D.FlowSpeedX = 0.1     --背景漂浮粒子向左持续移动0.1 
-    --D.FlowSpeedY = -0.1     --背景漂浮粒子向下持续移动0.1
+--D.FlowTexturePath = dir .. "fire.PNG" --Image of the floating background example (you can add semi-transparent floating background particle images)
+--D.FlowValue = 1 --Opacity of the background floating particle image (0-1, default 0, no display)
+--D.FlowSpeedX = 0.1 -- Background floating particles continuously move to the left by 0.1
+--D.FlowSpeedY = -0.1 -- Background floating particles continue to move downwards by 0.1
 
-	--D.CardValueMulti = 1.0                     --基础价格倍率 （默认1.0倍）
+--D.CardValueMulti = 1.0 --Base price multiplier (default 1.0x)
 
-    R:RegisterCardData(D.CardID, D)              -- 注册（添加或覆盖）
+R:RegisterCardData(D.CardID, D) -- Register (add or overwrite)
 end
 ```
 ---
 
-
 ---
 
-## 📊 卡框倍率参考表
+## 📊Card Frame Multiplier Reference Table
 
-| 卡框类型 | 倍率 | 示例说明 |
+| Card Frame Type | Multiplier | Example Description |
 |-----------|------|-----------|
-| 基础 | 1.0 | 基础倍率 |
-| 白银 | 1.1 | 白银卡框攻击与生命 +10% |
-| 黄金 | 1.2 | 黄金卡框攻击与生命 +20% |
-| 镭射 | 1.3 | 镭射卡框攻击与生命 +30% |
-| 闪亮 | 1.4 | 闪亮卡框攻击与生命 +40% |
-| 稀世 | 1.5 | 稀世卡框攻击与生命 +50% |
+| Basic | 1.0 | Base Multiplier |
+| Silver | 1.1 | Silver card frame: Attack and HP +10% |
+| Gold | 1.2 | Gold card frame: Attack and HP +20% |
+| Laser | 1.3 | Laser card frame attack and health +30% |
+| Shining | 1.4 | Shining card frame: Attack and HP +40% |
+| Rare | 1.5 | Rare card frame: Attack and HP +50% |
 
-> 🧮 计算示例：若基础攻击力为 100，卡框为黄金(1.2)，则最终卡面显示攻击力 = 100 × 1.2 = **120**。
+> 🧮 Calculation example: If the base attack power is 100 and the card frame is gold (1.2), then the final card display attack power = 100 × 1.2 = **120** .
 
 ---
 
-### 🏷️ 枚举（稀有度 / 元素）
+### 🏷️ Enumeration (Rarity/Element)
 
 ```lua
--- 稀有度：
-UE.ECardRarity.Common --普通
-UE.ECardRarity.UnCommon --罕见
-UE.ECardRarity.Rare --稀有
-UE.ECardRarity.SuperRare --极稀有
-UE.ECardRarity.God --神卡
---神卡可以使用任何元素。
---开启神卡时可以开出卡牌表格中所有有的神卡类型。
---目前游戏中只做了四种特效、其他神卡特效开出时使用雨神特效。
---自定义添加的神卡边框会闪亮、属性为神卡，价格相同。 中心飘动效果因为无法自定义设置材质，无法设置为闪亮。
+-- Rarity:
+UE.ECardRarity.Common -- Common
+UE.ECardRarity.UnCommon -- Rare
+UE.ECardRarity.Rare -- Rare
+UE.ECardRarity.SuperRare -- Extremely Rare
+UE.ECardRarity.God -- God Card
+--God Card can use any element.
+--When you unlock a God Card, you can unlock all God Card types available in the card table.
+--Currently, only four special effects have been implemented in the game. Other God Card effects will use the Rain God effect when activated.
+--Custom-added "god card" borders will sparkle, have the "god card" attribute, and the same price. The center floating effect cannot be set to sparkle because the material cannot be customized.
 
--- 元素：
-UE.ECardElementFaction.Fire --火
-UE.ECardElementFaction.Water --水
-UE.ECardElementFaction.Grass --草
-UE.ECardElementFaction.Electric --电
-UE.ECardElementFaction.Insect --昆虫
-UE.ECardElementFaction.Rock --岩石
-UE.ECardElementFaction.Earth --土
-UE.ECardElementFaction.Animal --动物
-UE.ECardElementFaction.Steel --钢
-UE.ECardElementFaction.Dragon --龙
-UE.ECardElementFaction.Psychic --超能
-UE.ECardElementFaction.Mystic --神秘
-UE.ECardElementFaction.Ice --冰
+-- Element:
+UE.ECardElementFaction.Fire -- fire
+UE.ECardElementFaction.Water --water
+UE.ECardElementFaction.Grass --Grass
+UE.ECardElementFaction.Electric --Electric
+UE.ECardElementFaction.Insect -- Insects
+UE.ECardElementFaction.Rock -- Rock
+UE.ECardElementFaction.Earth --Earth
+UE.ECardElementFaction.Animal -- Animal
+UE.ECardElementFaction.Steel --Steel
+UE.ECardElementFaction.Dragon --Dragon
+UE.ECardElementFaction.Psychic -- Superpowers
+UE.ECardElementFaction.Mystic -- Mysterious
+UE.ECardElementFaction.Ice -- Ice
 ```
 
 ---
 
-## ✅ 完整可运行示例：替换\添加卡面（`main.lua`）
+## ✅Complete , working example: Replacing/Adding card art (`main.lua`)
 
 ```lua
--- 必填信息：会显示在 Mods 界面
+-- Required information: will be displayed in the Mods interface.
 local M = {
-    id          = "ChangeGen1Card",
-    name        = "示例名称",
-    version     = "1.0.0",
-    author      = "yiming",
-    description = "示例描述",
+id = "ChangeGen1Card",
+name = "Example Name",
+version = "1.0.0",
+author = "yiming",
+description = "Example Description",
 }
 
--- 你可以把资源放在与 main.lua 同级目录
+-- You can place the resources in the same directory as main.lua.
 
 local function AddCard()
-    local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
-    local D = UE.FCardDataAll()
-    D.Name = "ID1101"
-    D.Description = "ID1101Description"
-    D.CardID = 1101
-    D.Gen = 0
-    D.TexturePath = dir .. "1101.png"
-    D.Rarity = UE.ECardRarity.Common
-    D.BaseAttack = 10
-    D.BaseHealth = 30
-	--D.CardValueMulti = 1.0                     --新增基础价格倍率
-    D.CardElementFaction:Add(UE.ECardElementFaction.Water)
-    R:RegisterCardData(D.CardID, D)
+local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
+local D = UE.FCardDataAll()
+D.Name = "ID1101"
+D.Description = "ID1101Description"
+D.CardID = 1101
+D.Gen = 0
+D.TexturePath = dir .. "1101.png"
+D.Rarity = UE.ECardRarity.Common
+D.BaseAttack = 10
+D.BaseHealth = 30
+--D.CardValueMulti = 1.0 --Added base price multiplier
+D.CardElementFaction:Add(UE.ECardElementFaction.Water)
+R:RegisterCardData(D.CardID, D)
 end
 
 function M.OnInit()
-    AddCard()
+AddCard()
 end
 
 function M.OnTick(dt)
@@ -223,654 +222,655 @@ return M
 ```
 
 ---
-## ✅ 示例：添加的接口 修改支付方式  仅用扫码支付
-将设置支付方式的函数通过覆盖函数 修改原逻辑 
-> 💡 **只有主机添加有效**：会修改所有人的收银台支付设置。
+## ✅Example : Add an interface to change the payment method to only accept QR code payments
+The function for setting the payment method will be modified using an overriding function to change its original logic.
+> 💡 **Only effective when added by the host** : This will modify the payment settings for everyone's cashier.
 
-> **原理**：收银功能全部在服务器运行，客户端只是收到了消息。顾客在支付的时候获得主机的playerState.然后调用GetPayMent获得返回值-设置收银台的具体实现效果。
+** Principle :** The entire cashier function runs on the server; the client only receives the message. When a customer pays, they obtain the host's `playerState`, then call `GetPayMent` to get the return value—which sets the specific implementation effect of the cashier.
 
-> 联系作者添加简单的修改接口
+Contact the author to add a simple modification interface.
 ```lua
 local function try_patch()
 
-	if not MOD or not MOD.Playercontroller or MOD.Playercontroller.PlayerIndex == -1 then
-		-- PlayerController 还没就绪，稍后重试
-		MOD.GAA.TimerManager:AddTimer(1, M, function() M:try_patch() end)
-		return
-	end
+if not MOD or not MOD.Playercontroller or MOD.Playercontroller.PlayerIndex == -1 then
+-- PlayerController is not ready yet, please try again later.
+MOD.GAA.TimerManager:AddTimer(1, M, function() M:try_patch() end)
+return
+end
 
-	local pc         = MOD.Playercontroller
-	local key        = "BasePlayerState0" --获得玩家的BP_PlayerState
-	local klass      = pc.GetLuaObject and pc:GetLuaObject(key) or nil  --获得当前BP_PlayerState的lua文件
+local pc = MOD.Playercontroller
+local key = "BasePlayerState0" -- Get the player's BP_PlayerState
+local klass = pc.GetLuaObject and pc:GetLuaObject(key) or nil -- Get the Lua file of the current BP_PlayerState.
 
-    if not klass then
-        return
-    end
+if not klass then
+return
+end
 
-    klass.GetPayMentOverall = function(self)
-        --原函数是随机三个数值
-        --0 --现金
-        --1 --刷卡器
-        --2 --扫码
-        -- return MOD.UE.UKismetMathLibrary.RandomIntegerInRange(0, 2) --调用UE函数随机数值
+klass.GetPayMentOverall = function(self)
+--The original function is three random values.
+--0 --Cash
+--1 --Card reader
+--2 --Scan QR code
+-- return MOD.UE.UKismetMathLibrary.RandomIntegerInRange(0, 2) -- Call the UE function to generate a random value
 
-        MOD.Logger.LogScreen("拦截收银", 5, 0, 1, 0, 1)
-        return 2
-    end
+MOD.Logger.LogScreen("Intercepting cashier", 5, 0, 1, 0, 1)
+return 2
+end
 end
 ```
-> 💡 **额外PlayerState接口**：使用方法是加入到上方klassfunction之后。
+> 💡 **Additional PlayerState Interface** : To use it, add it after the klassfunction above.
 ```lua
-	--当结账完成时，结账的每一张卡触发一次事件
-    klass.OnCardSoldOverall = function(self,CardID)
-        MOD.Logger.LogScreen("收银结账卡牌完成, CardID = " .. tostring(CardID),5, 0, 1, 0, 1)
-        -- 执行代码
-    end
-	--当开启一包卡牌是，每一张卡牌触发一次事件
-    klass.OnCardOpenedOverall = function(self,CardID)
-        MOD.Logger.LogScreen("卡包中开了一张卡, CardID = " .. tostring(CardID),5, 0, 1, 0, 1)
-        -- 执行代码
-    end
+--When checkout is complete, each card processed triggers an event once.
+klass.OnCardSoldOverall = function(self,CardID)
+MOD.Logger.LogScreen("Checkout completed, CardID = " .. tostring(CardID),5, 0, 1, 0, 1)
+-- Execution code
+end
+--When a pack of cards is opened, each card triggers an event once.
+klass.OnCardOpenedOverall = function(self,CardID)
+MOD.Logger.LogScreen("A card was opened in the card pack, CardID = " .. tostring(CardID),5, 0, 1, 0, 1)
+-- Execution code
+end
 ```
 ---
-## ✅ 示例：添加的接口 修改开启卡包的概率
-联系作者添加简单的修改接口
+## ✅Example : Adding an interface to modify the probability of opening card packs
+Contact the author to add a simple modification interface.
 ```lua
 local function ConfigureBoosterRarityRates()
-    local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
-    if not R then
-        if MOD and MOD.Logger then MOD.Logger.LogScreen("找不到 UDrinkRegistryWorldSubsystem", 5,1,0,0,1) end
-        return
-    end
+local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
+If not R then
+If MOD and MOD.Logger are both present, then MOD.Logger.LogScreen("UDrinkRegistryWorldSubsystem not found", 5,1,0,0,1) end
+return
+end
 
-    --原版概率 概率不用加起来等于1， 所有的概率其实是一个权重，占比大的概率会高
+--In the original version, the probabilities don't need to be added together to equal 1. All probabilities are actually weighted; the probability with a larger weighting will be higher.
 
-    -- 0：标准包
-    local StandardRates = {
-        [UE.ECardRarity.Common]    = 0.894,
-        [UE.ECardRarity.UnCommon]  = 0.01,
-        [UE.ECardRarity.Rare]      = 0.005,
-        [UE.ECardRarity.SuperRare] = 0.001,
-    }
-    R:RegisterRarityData(0, StandardRates)
+-- 0: Standard Package
+local StandardRates = {
+[UE.ECardRarity.Common] = 0.894,
+[UE.ECardRarity.UnCommon] = 0.01,
+[UE.ECardRarity.Rare] = 0.005,
+[UE.ECardRarity.SuperRare] = 0.001,
+}
+R:RegisterRarityData(0, StandardRates)
 
-    -- 1：豪华包
-    local DeluxeRates = {
-        [UE.ECardRarity.Common]    = 0.205,
-        [UE.ECardRarity.UnCommon]  = 0.690,
-        [UE.ECardRarity.Rare]      = 0.100,
-        [UE.ECardRarity.SuperRare] = 0.005,
-    }
-    R:RegisterRarityData(1, DeluxeRates)
+-- 1: Deluxe Package
+local DeluxeRates = {
+[UE.ECardRarity.Common] = 0.205,
+[UE.ECardRarity.UnCommon] = 0.690,
+[UE.ECardRarity.Rare] = 0.100,
+[UE.ECardRarity.SuperRare] = 0.005,
+}
+R:RegisterRarityData(1, DeluxeRates)
 
-    -- 2：稀奢包
-    local LuxuryRates = {
-        [UE.ECardRarity.Common]    = 0.000,
-        [UE.ECardRarity.UnCommon]  = 0.035,
-        [UE.ECardRarity.Rare]      = 0.055,
-        [UE.ECardRarity.SuperRare] = 0.010,
-    }
-    R:RegisterRarityData(2, LuxuryRates)
+-- 2: Rare Luxury Bags
+local LuxuryRates = {
+[UE.ECardRarity.Common] = 0.000,
+[UE.ECardRarity.UnCommon] = 0.035,
+[UE.ECardRarity.Rare] = 0.055,
+[UE.ECardRarity.SuperRare] = 0.010,
+}
+R:RegisterRarityData(2, LuxuryRates)
 
-    if MOD and MOD.Logger then  MOD.Logger.LogScreen(("Mod [%s] 已经加载完成"):format(M.name), 5,1,1,0,1) end --日志
+If MOD and MOD.Logger are both loaded, then MOD.Logger.LogScreen(("Mod [%s] has finished loading"):format(M.name), 5,1,1,0,1) end --log
 end
 ```
 
 ---
-## ✅ 示例：添加的接口 开启出来的卡牌后 当前稀有度卡牌的特质概率
-联系作者添加简单的修改接口
+## ✅Example : The trait probability of cards of the current rarity after the added interface is enabled.
+Contact the author to add a simple modification interface.
 ```lua
---修改当前卡牌稀有度抽卡时的特质出现概率 
+--Modify the probability of traits appearing when drawing cards of the current card rarity.
 local function ConfigureBoosterRarityRates1()
-    local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
-    if not R then
-        if MOD and MOD.Logger then MOD.Logger.LogScreen("找不到 UDrinkRegistryWorldSubsystem", 5,1,0,0,1) end
-        return
-    end
+local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
+If not R then
+If MOD and MOD.Logger are both present, then MOD.Logger.LogScreen("UDrinkRegistryWorldSubsystem not found", 5,1,0,0,1) end
+return
+end
 
-    --原版概率 概率不用加起来等于1， 所有的概率其实是一个权重，占比大的概率会高
-    -- 行 1：常见（ECardRarity.Common） 常见卡牌中 出现各种特质的概率
-    ----------------------------------------------------------------
-    local CommonTraitRates = {
-        [UE.ETrait.Legendary]   = 0.001, -- 稀世概率
-        [UE.ETrait.Shiny]       = 0.029, -- 闪亮概率
-        [UE.ETrait.Holographic] = 0.070, -- 镭射概率
-        [UE.ETrait.Gold]        = 0.100, -- 黄金概率
-        [UE.ETrait.Silver]      = 0.100, -- 白银概率
-        [UE.ETrait.Basic]       = 0.700, -- 基础概率
-    }
-    R:RegisterTraitData(UE.ECardRarity.Common, CommonTraitRates)
+--In the original version, the probabilities don't need to be added together to equal 1. All probabilities are actually weighted; the probability with a larger weighting will be higher.
+-- Line 1: Common (ECardRarity.Common) The probability of various traits appearing in common cards.
+----------------------------------------------------------------
+local CommonTraitRates = {
+[UE.ETrait.Legendary] = 0.001, -- Probability of being a rare item
+[UE.ETrait.Shiny] = 0.029, -- Shiny probability
+[UE.ETrait.Holographic] = 0.070, -- Laser probability
+[UE.ETrait.Gold] = 0.100, -- Probability of achieving the gold standard
+[UE.ETrait.Silver] = 0.100, -- Probability of Silver
+[UE.ETrait.Basic] = 0.700, -- Base probability
+}
+R:RegisterTraitData(UE.ECardRarity.Common, CommonTraitRates)
 
-    ----------------------------------------------------------------
-    -- 行 2：罕见（ECardRarity.UnCommon）
-    ----------------------------------------------------------------
-    local UnCommonTraitRates = {
-        [UE.ETrait.Legendary]   = 0.003,
-        [UE.ETrait.Shiny]       = 0.037,
-        [UE.ETrait.Holographic] = 0.100,
-        [UE.ETrait.Gold]        = 0.220,
-        [UE.ETrait.Silver]      = 0.250,
-        [UE.ETrait.Basic]       = 0.400,
-    }
-    R:RegisterTraitData(UE.ECardRarity.UnCommon, UnCommonTraitRates)
+----------------------------------------------------------------
+-- Line 2: Rare (ECardRarity.UnCommon)
+----------------------------------------------------------------
+local UnCommonTraitRates = {
+[UE.ETrait.Legendary] = 0.003,
+[UE.ETrait.Shiny] = 0.037,
+[UE.ETrait.Holographic] = 0.100,
+[UE.ETrait.Gold] = 0.220,
+[UE.ETrait.Silver] = 0.250,
+[UE.ETrait.Basic] = 0.400,
+}
+R:RegisterTraitData(UE.ECardRarity.UnCommon, UnCommonTraitRates)
 
-    ----------------------------------------------------------------
-    -- 行 3：稀有（ECardRarity.Rare）
-    ----------------------------------------------------------------
-    local RareTraitRates = {
-        [UE.ETrait.Legendary]   = 0.070,
-        [UE.ETrait.Shiny]       = 0.140,
-        [UE.ETrait.Holographic] = 0.210,
-        [UE.ETrait.Gold]        = 0.300,
-        [UE.ETrait.Silver]      = 0.200,
-        [UE.ETrait.Basic]       = 0.080,
-    }
-    R:RegisterTraitData(UE.ECardRarity.Rare, RareTraitRates)
+----------------------------------------------------------------
+-- Line 3: Rare (ECardRarity.Rare)
+----------------------------------------------------------------
+local RareTraitRates = {
+[UE.ETrait.Legendary] = 0.070,
+[UE.ETrait.Shiny] = 0.140,
+[UE.ETrait.Holographic] = 0.210,
+[UE.ETrait.Gold] = 0.300,
+[UE.ETrait.Silver] = 0.200,
+[UE.ETrait.Basic] = 0.080,
+}
+R:RegisterTraitData(UE.ECardRarity.Rare, RareTraitRates)
 
-    ----------------------------------------------------------------
-    -- 行 4：极稀有（ECardRarity.SuperRare）
-    ----------------------------------------------------------------
-    local SuperRareTraitRates = {
-        [UE.ETrait.Legendary]   = 0.300,
-        [UE.ETrait.Shiny]       = 0.350,
-        [UE.ETrait.Holographic] = 0.350,
-        [UE.ETrait.Gold]        = 0.000,
-        [UE.ETrait.Silver]      = 0.000,
-        [UE.ETrait.Basic]       = 0.000,
-    }
-    R:RegisterTraitData(UE.ECardRarity.SuperRare, SuperRareTraitRates)
+----------------------------------------------------------------
+-- Line 4: Extremely Rare (ECardRarity.SuperRare)
+----------------------------------------------------------------
+local SuperRareTraitRates = {
+[UE.ETrait.Legendary] = 0.300,
+[UE.ETrait.Shiny] = 0.350,
+[UE.ETrait.Holographic] = 0.350,
+[UE.ETrait.Gold] = 0.000,
+[UE.ETrait.Silver] = 0.000,
+[UE.ETrait.Basic] = 0.000,
+}
+R:RegisterTraitData(UE.ECardRarity.SuperRare, SuperRareTraitRates)
 
-    ----------------------------------------------------------------
-    -- 行 5：神（ECardRarity.God）
-    ----------------------------------------------------------------
-    local GodTraitRates = {
-        [UE.ETrait.Legendary]   = 1.000,
-        [UE.ETrait.Shiny]       = 0.000,
-        [UE.ETrait.Holographic] = 0.000,
-        [UE.ETrait.Gold]        = 0.000,
-        [UE.ETrait.Silver]      = 0.000,
-        [UE.ETrait.Basic]       = 0.000,
-    }
-    R:RegisterTraitData(UE.ECardRarity.God, GodTraitRates)
+----------------------------------------------------------------
+-- Line 5: God (ECardRarity.God)
+----------------------------------------------------------------
+local GodTraitRates = {
+[UE.ETrait.Legendary] = 1.000,
+[UE.ETrait.Shiny] = 0.000,
+[UE.ETrait.Holographic] = 0.000,
+[UE.ETrait.Gold] = 0.000,
+[UE.ETrait.Silver] = 0.000,
+[UE.ETrait.Basic] = 0.000,
+}
+R:RegisterTraitData(UE.ECardRarity.God, GodTraitRates)
 
-
-    if MOD and MOD.Logger then  MOD.Logger.LogScreen(("Mod [%s] 已经加载完成"):format(M.name), 5,1,1,0,1) end --日志
+If MOD and MOD.Logger are both loaded, then MOD.Logger.LogScreen(("Mod [%s] has finished loading"):format(M.name), 5,1,1,0,1) end --log
 end
 ```
 
 ---
-## ✅ 示例：添加的接口 修改稀有度价格倍率
-联系作者添加简单的修改接口
+## ✅Example : Adding an interface to modify rarity price multiplier
+Contact the author to add a simple modification interface.
 ```lua
---修改当前卡牌稀有度的价值倍率 当前卡牌最终价格 = 基础价格CardValueMulti * 稀有度价值倍率 * 特质价值倍率 * 世代价值倍率（1-7世代对应1-7倍 目前没有设置渠道）
+--Modify the value multiplier for the current card's rarity. The final price of the current card = base price CardValueMulti * rarity value multiplier * trait value multiplier * generation value multiplier (generations 1-7 correspond to 1-7x; no channel is currently set).
 local function RarityValue()
-    local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
-    if not R then
-        if MOD and MOD.Logger then MOD.Logger.LogScreen("找不到 UDrinkRegistryWorldSubsystem", 5,1,0,0,1) end
-        return
-    end
-    -- 现在游戏中默认的倍率
-    R:RegisterRarityValueData(UE.ECardRarity.Common, 0.1) -- 常见
-    R:RegisterRarityValueData(UE.ECardRarity.UnCommon, 0.5) -- 罕见
-    R:RegisterRarityValueData(UE.ECardRarity.Rare, 2) -- 稀有
-    R:RegisterRarityValueData(UE.ECardRarity.SuperRare, 10) -- 极稀有
-    R:RegisterRarityValueData(UE.ECardRarity.God, 500)  -- 神
+local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
+If not R then
+If MOD and MOD.Logger are both present, then MOD.Logger.LogScreen("UDrinkRegistryWorldSubsystem not found", 5,1,0,0,1) end
+return
+end
+-- The default multiplier in the game now
+R:RegisterRarityValueData(UE.ECardRarity.Common, 0.1) -- Common
+R:RegisterRarityValueData(UE.ECardRarity.UnCommon, 0.5) -- rare
+R:RegisterRarityValueData(UE.ECardRarity.Rare, 2) -- Rare
+R:RegisterRarityValueData(UE.ECardRarity.SuperRare, 10) -- Extremely rare
+R:RegisterRarityValueData(UE.ECardRarity.God, 500) -- God
 
-    if MOD and MOD.Logger then  MOD.Logger.LogScreen(("Mod [%s] 已经加载完成"):format(M.name), 5,1,1,0,1) end --日志
+If MOD and MOD.Logger are both loaded, then MOD.Logger.LogScreen(("Mod [%s] has finished loading"):format(M.name), 5,1,1,0,1) end --log
 end
 ```
-## ✅ 示例：添加的接口 修改特质价格倍率
-联系作者添加简单的修改接口
+## ✅Example : Adding an interface to modify the trait price multiplier
+Contact the author to add a simple modification interface.
 ```lua
---修改当前卡牌特质的价值倍率 当前卡牌最终价格 = 基础价格CardValueMulti * 稀有度价值倍率 * 特质价值倍率 * 世代价值倍率（1-7世代对应1-7倍 目前没有设置渠道）
+--Modify the current card's trait value multiplier. The current card's final price = base price CardValueMulti * rarity value multiplier * trait value multiplier * generation value multiplier (generations 1-7 correspond to 1-7x; no channel is currently set).
 local function TraitValue()
-    local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
-    if not R then
-        if MOD and MOD.Logger then MOD.Logger.LogScreen("找不到 UDrinkRegistryWorldSubsystem", 5,1,0,0,1) end
-        return
-    end
-    -- 现在游戏中默认的倍率
-    R:RegisterTraitValueData(UE.ETrait.Basic, 1) -- 基础特质
-    R:RegisterTraitValueData(UE.ETrait.Silver, 2) -- 白银特质
-    R:RegisterTraitValueData(UE.ETrait.Gold, 5) -- 黄金特质
-    R:RegisterTraitValueData(UE.ETrait.Holographic, 20) -- 镭射特质
-    R:RegisterTraitValueData(UE.ETrait.Shiny, 50) -- 闪亮特质
-    R:RegisterTraitValueData(UE.ETrait.Legendary, 200) -- 稀世特质
+local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
+If not R then
+If MOD and MOD.Logger are both present, then MOD.Logger.LogScreen("UDrinkRegistryWorldSubsystem not found", 5,1,0,0,1) end
+return
+end
+-- The default multiplier in the game now
+R:RegisterTraitValueData(UE.ETrait.Basic, 1) -- Basic Trait
+R:RegisterTraitValueData(UE.ETrait.Silver, 2) -- Silver Trait
+R:RegisterTraitValueData(UE.ETrait.Gold, 5) -- Gold Trait
+R:RegisterTraitValueData(UE.ETrait.Holographic, 20) -- Laser Trait
+R:RegisterTraitValueData(UE.ETrait.Shiny, 50) -- Shiny trait
+R:RegisterTraitValueData(UE.ETrait.Legendary, 200) -- Rare Trait
 
-    if MOD and MOD.Logger then  MOD.Logger.LogScreen(("Mod [%s] 已经加载完成"):format(M.name), 5,1,1,0,1) end --日志
+If MOD and MOD.Logger are both loaded, then MOD.Logger.LogScreen(("Mod [%s] has finished loading"):format(M.name), 5,1,1,0,1) end --log
 end
 
 ```
 
 ---
-## 目前已有的ID
+## Existing IDs （The following is an AI translation only.）
 ```lua
-1102 迷尼特 Gen 第一世代
-1103 顽熊仔 Gen 第一世代
-1104 土拉比 Gen 第一世代
-1105 电击熊 Gen 第一世代
-1106 牧缇 Gen 第一世代
-1107 电气狗 Gen 第一世代
-1108 冰穴鼠 Gen 第一世代
-1109 彩蝶 Gen 第一世代
-1110 爱米喵 Gen 第一世代
-1111 冰穴獭 Gen 第一世代
-1112 怪怪鼬 Gen 第一世代
-1113 乐松狐 Gen 第一世代
-1114 柯厄斯 Gen 第一世代
-1115 莓尾猴 Gen 第一世代
-1116 蹦蹦鼠 Gen 第一世代
-1117 伏草龙 Gen 第一世代
-1118 叶皮皮 Gen 第一世代
-1119 嘎乌鸟 Gen 第一世代
-1120 大耳猴 Gen 第一世代
-1121 奇咒鸮 Gen 第一世代
-1201 岩盔蜥 Gen 第一世代
-1202 白豚兽 Gen 第一世代
-1203 雪妖精 Gen 第一世代
-1204 章波波 Gen 第一世代
-1205 卡奇狐 Gen 第一世代
-1206 潘小达 Gen 第一世代
-1207 火山蛛 Gen 第一世代
-1208 迅雷雕 Gen 第一世代
-1209 吸血蝠龙 Gen 第一世代
-1210 白蝠兽 Gen 第一世代
-1211 灾热蜥龙 Gen 第一世代
-1212 冰脊龙 Gen 第一世代
-1213 幼冰脊龙 Gen 第一世代
-1301 矿眼皇 Gen 第一世代
-1302 戴斯魔 Gen 第一世代
-1303 火纹狼 Gen 第一世代
-1304 激浪龙 Gen 第一世代
-1305 幽幽蝶 Gen 第一世代
-1306 急烈鸟 Gen 第一世代
-1307 捣蛋魔 Gen 第一世代
-1308 急冻龙 Gen 第一世代
-1309 磁甲虫 Gen 第一世代
-1310 袭烈魔 Gen 第一世代
-1311 虹猫鱼 Gen 第一世代
-1312 布卜 Gen 第一世代
-1313 激雷熊 Gen 第一世代
-1401 异瞳贝 Gen 第一世代
-1402 焰羽枭 Gen 第一世代
-1403 读心猫 Gen 第一世代
-1404 拳帝猩彼 Gen 第一世代
-2101 窃籽兽 Gen 第二世代
-2102 章皮皮 Gen 第二世代
-2103 草尾雀 Gen 第二世代
-2104 岩栗子 Gen 第二世代
-2105 炫尾猴 Gen 第二世代
-2106 宝石熊 Gen 第二世代
-2107 暗影龙 Gen 第二世代
-2108 幽灵水母 Gen 第二世代
-2109 焚鬃狐 Gen 第二世代
-2110 双鳍龙 Gen 第二世代
-2111 菇壳兔 Gen 第二世代
-2112 激雷兽 Gen 第二世代
-2113 迷迷狐 Gen 第二世代
-2114 末影鼠 Gen 第二世代
-2115 树小鬼 Gen 第二世代
-2201 炽熔兽 Gen 第二世代
-2202 化石鱼 Gen 第二世代
-2203 爆尾蛙 Gen 第二世代
-2204 蝶兔妖 Gen 第二世代
-2205 古力甲虫 Gen 第二世代
-2206 丝歌虫 Gen 第二世代
-2301 谷猬猬 Gen 第二世代
-2302 海啸獭 Gen 第二世代
-2303 利路亚 Gen 第二世代
-2304 神末灯 Gen 第二世代
-2305 宝贝兽 Gen 第二世代
-2306 苍观 Gen 第二世代
-2307 烈冲兽 Gen 第二世代
-2308 破石猪 Gen 第二世代
-2309 锻锤仔 Gen 第二世代
-2310 符鬼 Gen 第二世代
-2311 困困獭 Gen 第二世代
-2312 矮朵拉 Gen 第二世代
-2401 鞘绒仙 Gen 第二世代
-2402 仙人掌兽 Gen 第二世代
-2403 幻光兽 Gen 第二世代
-2404 古岩鲸 Gen 第二世代
-2405 藤幽鼬 Gen 第二世代
-3101 乌洛迪 Gen 第三世代
-3102 面具熊 Gen 第三世代
-3103 机械蛇 Gen 第三世代
-3104 锁牙 Gen 第三世代
-3105 派派特 Gen 第三世代
-3106 风牙 Gen 第三世代
-3107 电激猿 Gen 第三世代
-3108 冰暴龙 Gen 第三世代
-3109 比特猫 Gen 第三世代
-3110 星星兽 Gen 第三世代
-3111 墓巡羊 Gen 第三世代
-3112 迅驰 Gen 第三世代
-3113 捷翅 Gen 第三世代
-3114 钢御 Gen 第三世代
-3115 斑特力 Gen 第三世代
-3201 雪足獴 Gen 第三世代
-3202 电爪龙 Gen 第三世代
-3203 尤塔 Gen 第三世代
-3204 可丽羊 Gen 第三世代
-3205 麋枫鹿 Gen 第三世代
-3206 蚁宿王 Gen 第三世代
-3207 蜜翅蜂 Gen 第三世代
-3208 蜜翅蚁 Gen 第三世代
-3209 浅水霞 Gen 第三世代
-3210 樱眼鲨 Gen 第三世代
-3301 火努狄 Gen 第三世代
-3302 血月兽 Gen 第三世代
-3303 袋袋 Gen 第三世代
-3304 格斗牧 Gen 第三世代
-3305 武空 Gen 第三世代
-3306 狂金豹 Gen 第三世代
-3307 齐拉鲁斯 Gen 第三世代
-3308 泥古莫 Gen 第三世代
-3309 晨光旅者·露娜 Gen 第三世代
-3310 阳光队长·琳达 Gen 第三世代
-3401 波比浪比 Gen 第三世代
-3402 达木 Gen 第三世代
-3403 奇涡螺 Gen 第三世代
-3404 海溟牝 Gen 第三世代
-3405 海鲁尔 Gen 第三世代
-3406 阳光假日·芙蕾娅 Gen 第三世代
-4101 斯必达 Gen 第四世代
-4102 箭羽鸟 Gen 第四世代
-4103 焚鬃狮 Gen 第四世代
-4104 梦幻龙 Gen 第四世代
-4105 三叶掌 Gen 第四世代
-4106 葵花兽 Gen 第四世代
-4107 多刺兔 Gen 第四世代
-4108 迷小熊 Gen 第四世代
-4109 厨师蜥 Gen 第四世代
-4110 枫尾狐 Gen 第四世代
-4111 边境狐 Gen 第四世代
-4112 多灵朵 Gen 第四世代
-4113 电龙蜥 Gen 第四世代
-4114 长尾龙 Gen 第四世代
-4115 皮皮 Gen 第四世代
-4116 朵拉肥 Gen 第四世代
-4117 黑蜗兽 Gen 第四世代
-4201 钢山甲 Gen 第四世代
-4202 石山甲 Gen 第四世代
-4203 胆小蟹 Gen 第四世代
-4204 菇帽蟹 Gen 第四世代
-4301 金山甲 Gen 第四世代
-4302 谜龙 Gen 第四世代
-4303 雷雨兽 Gen 第四世代
-4304 苦恶魔 Gen 第四世代
-4305 幽鳞螈 Gen 第四世代
-4306 拉比 Gen 第四世代
-4307 岩钳兽 Gen 第四世代
-4308 梦龙 Gen 第四世代
-4309 雷喵 Gen 第四世代
-4310 湿地龙蜥 Gen 第四世代
-4311 炽热视线·艾琳娜 Gen 第四世代
-4312 晨光·卡洛琳 Gen 第四世代
-4401 幻珀鲟 Gen 第四世代
-4402 舌蜥兽 Gen 第四世代
-4403 古犬蝎 Gen 第四世代
-4404 幽澜蝶 Gen 第四世代
-4405 晶贝龟 Gen 第四世代
-4406 森蔓霸者 Gen 第四世代
-4407 活力爆弹·纪晨音 Gen 第四世代
-5101 白夜魔 Gen 第五世代
-5102 涟萌虎 Gen 第五世代
-5103 岩角龙 Gen 第五世代
-5104 法老猫 Gen 第五世代
-5105 白岩巨人 Gen 第五世代
-5106 白岩石像 Gen 第五世代
-5107 澳邦鹿 Gen 第五世代
-5108 蛮邦鹿 Gen 第五世代
-5110 迷你羊 Gen 第五世代
-5111 多比 Gen 第五世代
-5112 极冻熊 Gen 第五世代
-5113 极地海豹 Gen 第五世代
-5114 急冻鸟 Gen 第五世代
-5115 比萌蜂 Gen 第五世代
-5116 科莫多 Gen 第五世代
-5117 尼莫 Gen 第五世代
-5118 电海马 Gen 第五世代
-5119 炸弹鳄 Gen 第五世代
-5120 胖河豚 Gen 第五世代
-5121 幽渊章鱼 Gen 第五世代
-5122 极鸦 Gen 第五世代
-5123 火狐 Gen 第五世代
-5124 小火狐 Gen 第五世代
-5201 钢晶龟 Gen 第五世代
-5202 暗夜鼠 Gen 第五世代
-5203 叶翅蛙 Gen 第五世代
-5204 法老犬 Gen 第五世代
-5205 冰原猩 Gen 第五世代
-5206 赤瞳斑 Gen 第五世代
-5207 泡泡猫 Gen 第五世代
-5208 寒风熊 Gen 第五世代
-5209 夜星虫 Gen 第五世代
-5210 角突兽 Gen 第五世代
-5301 章鱼可可 Gen 第五世代
-5302 美梦虫 Gen 第五世代
-5303 龙多多 Gen 第五世代
-5304 福叶蛙 Gen 第五世代
-5305 塔花兽 Gen 第五世代
-5306 雷焰牙 Gen 第五世代
-5307 熔墓龙 Gen 第五世代
-5308 袭雷兽 Gen 第五世代
-5309 冬泉 Gen 第五世代
-5310 辉耀 Gen 第五世代
-5311 泳日女王·苏梨音 Gen 第五世代
-5312 炽阳小将·春日奈 Gen 第五世代
-5401 石豆小霸 Gen 第五世代
-5402 蘑菇鱼 Gen 第五世代
-5403 裂甲龙蜥 Gen 第五世代
-5404 冰牙猛犸 Gen 第五世代
-5405 草墩墩 Gen 第五世代
-5406 殁钢石 Gen 第五世代
-5407 疾风拳童·新田光 Gen 第五世代
-6101 涟漪蛇 Gen 第六世代
-6102 玻璃蝶 Gen 第六世代
-6103 腐化雷兽 Gen 第六世代
-6104 冰峰猿 Gen 第六世代
-6105 幽魂鲨 Gen 第六世代
-6106 幽魂刺猬 Gen 第六世代
-6107 独眼章鱼 Gen 第六世代
-6108 蓝羽雀 Gen 第六世代
-6109 离魂虫 Gen 第六世代
-6110 克星象 Gen 第六世代
-6111 星光水母 Gen 第六世代
-6112 土山龟 Gen 第六世代
-6113 獠牙猪 Gen 第六世代
-6114 晶石甲虫 Gen 第六世代
-6115 岩漠蜥蜴 Gen 第六世代
-6116 拳击袋鼠 Gen 第六世代
-6117 钢甲犀 Gen 第六世代
-6118 梦幻蝠 Gen 第六世代
-6119 催眠孔雀 Gen 第六世代
-6120 钢刺兽 Gen 第六世代
-6121 机械鸟 Gen 第六世代
-6123 工程象 Gen 第六世代
-6124 火山龙 Gen 第六世代
-6125 电磁犬 Gen 第六世代
-6126 变色鹿 Gen 第六世代
-6127 贪吃龙 Gen 第六世代
-6201 彩虹考拉 Gen 第六世代
-6202 冰雪灵波 Gen 第六世代
-6203 法奇 Gen 第六世代
-6204 可米羊 Gen 第六世代
-6205 彩虹龙 Gen 第六世代
-6206 达达鸭 Gen 第六世代
-6207 钢牙犬 Gen 第六世代
-6208 矿石兽 Gen 第六世代
-6209 天使鹰 Gen 第六世代
-6301 鬼怪蛋 Gen 第六世代
-6302 闪电羊 Gen 第六世代
-6303 辐蛇花 Gen 第六世代
-6304 泡泡 Gen 第六世代
-6305 泡泡水母 Gen 第六世代
-6306 咕咕 Gen 第六世代
-6307 拉拉 Gen 第六世代
-6308 泥河马 Gen 第六世代
-6309 阳光训练生·夏目凛 Gen 第六世代
-6310 奋战少女·艾米丽 Gen 第六世代
-6311 烛狸 Gen 第六世代
-6312 掌尾蛙 Gen 第六世代
-6313 浪花妖 Gen 第六世代
-6314 星核电蛛 Gen 第六世代
-6315 荚荚 Gen 第六世代
-6316 绒绒藤 Gen 第六世代
-6317 夜花 Gen 第六世代
-6401 孢子龙 Gen 第六世代
-6402 三头食人花 Gen 第六世代
-6403 盆盆 Gen 第六世代
-6404 花梦 Gen 第六世代
-6405 巨嘴岩 Gen 第六世代
-6406 猎菌鱿 Gen 第六世代
-6407 街头老哥 · 布鲁诺 Gen 第六世代
-6408 棉花苗 Gen 第六世代
-7101 乐羽鸟 Gen 第七世代
-7102 叶刃 Gen 第七世代
-7103 叶爪兽 Gen 第七世代
-7104 地龙兽 Gen 第七世代
-7105 岩拳兽 Gen 第七世代
-7106 巴布 Gen 第七世代
-7107 拉卡兽 Gen 第七世代
-7108 拳浣熊 Gen 第七世代
-7109 星流鹿 Gen 第七世代
-7110 暗恋鸟 Gen 第七世代
-7111 树象兽 Gen 第七世代
-7112 水泡灵 Gen 第七世代
-7113 潮浪翼 Gen 第七世代
-7114 激雷鱼 Gen 第七世代
-7115 火尾兽 Gen 第七世代
-7116 火火虎 Gen 第七世代
-7117 火翼龙 Gen 第七世代
-7118 灵松鼠 Gen 第七世代
-7119 焰角兽 Gen 第七世代
-7120 熔岩牙 Gen 第七世代
-7201 绿叶精 Gen 第七世代
-7202 翅雷虫 Gen 第七世代
-7203 花妖精 Gen 第七世代
-7204 花翼灵 Gen 第七世代
-7205 花韵灵 Gen 第七世代
-7206 蓝焰灵 Gen 第七世代
-7207 蓝蝠兽 Gen 第七世代
-7208 藤跃灵 Gen 第七世代
-7209 蘑灵 Gen 第七世代
-7210 趴趴蟹 Gen 第七世代
-7211 闪泡狐 Gen 第七世代
-7212 闪石灵 Gen 第七世代
-7213 闪跃狐 Gen 第七世代
-7214 鹿叶兽 Gen 第七世代
-7301 原核序体·绮弥 Gen 第七世代
-7302 霓锋少女·璃音 Gen 第七世代
-7303 影烬 Gen 第七世代
-7304 糖驹 Gen 第七世代
-7305 泡泡啾 Gen 第七世代
-7306 炽狼裂 Gen 第七世代
-7307 霜苍天翼 Gen 第七世代
-7308 燃影 Gen 第七世代
-7309 魅月灵 Gen 第七世代
-7310 跃星猴 Gen 第七世代
-7311 岩炼兽 Gen 第七世代
-7312 跃动少女·柯拉 Gen 第七世代
-7313 雷爆冲锋·卫鸣 Gen 第七世代
-7401 泡鳍兽 Gen 第七世代
-7402 润波鲸 Gen 第七世代
-7403 根苗灵 Gen 第七世代
-7404 星袭兽 Gen 第七世代
-7405 焰影魔 Gen 第七世代
-7406 幻律神使·芷渺 Gen 第七世代
-7407 热血风纪·烈阳 Gen 第七世代
-7408 阿兹隆 Gen 第七世代
-7409 缠幽姆姆 Gen 第七世代
-7410 刃鳞鲛 Gen 第七世代
-7411 亡鳍鲸 Gen 第七世代
-7412 尖嵴虫 Gen 第七世代
-7413 烁纹狮 Gen 第七世代
-100001 雨神·漪涟迦祇 Gen 第一世代
-100002 月神·阿拉古斯 Gen 第一世代
-100003 火神·烈洛煌涅 Gen 第一世代
-100004 草神·芽花礼木 Gen 第一世代
-9001 阿银紫 Gen 纪念品
-9002 艾瑞克 Gen 纪念品
-9003 灵雪 Gen 纪念品
-9004 KF Gen 纪念品
-9005 wawa Gen 纪念品
-9006 Tobe Gen 纪念品
-9007 EXIA Gen 纪念品
-9008 YIMING Gen 纪念品
-9060 Killa Gen 纪念品
-9061 安酱 Gen 纪念品
-9062 白雪女仆 Gen 纪念品
-9063 兔女郎 Gen 纪念品
-9064 Alice Gen 纪念品
-9065 ANO Gen 纪念品
-9066 龙栖之姬 Gen 纪念品
-9067 愚人 Gen 纪念品
-9068 ANT Gen 纪念品
-9069 樱花少女 Gen 纪念品
-9071 凯凯在此 Gen 纪念品
-9072 铁锅炖大鹅 Gen 纪念品
-9073 Saka采采 Gen 纪念品
-9074 冷阳学弟 Gen 纪念品
-1314 云雾妖 Gen 节日卡包
-1315 鬼灯 Gen 节日卡包
-1316 毒瘴覃 Gen 节日卡包
-1317 可萌多 Gen 节日卡包
-1318 影鬼 Gen 节日卡包
-1319 南瓜头 Gen 节日卡包
-1320 魔火蝠 Gen 节日卡包
-1321 巨口魔 Gen 节日卡包
-1322 白椒灵 Gen 节日卡包
-1323 小骨 Gen 节日卡包
+1102 Miniature Gen 1st Generation
+1103 Tough Bear Cub Gen - Generation 1
+1104 Turabi Gen Generation 1
+1105 Electivire Gen (First Generation)
+1106 MuTi Gen First Generation
+1107 Electric Dog Gen First Generation
+1108 Ice Hole Rat Gen Generation 1
+1109 Butterfly Gen - Generation 1
+1110 AmyNyan Gen First Generation
+1111 Ice Cave Otter Gen. First Generation
+1112 Strange Itachi Gen 1st Generation
+1113 Lesson Fox Gen 1st Generation
+1114 Koos Gen 1st Generation
+1115 Berry-tailed Monkey Gen 1
+1116 Bouncing Mouse Gen 1st Generation
+1117 Crocus Gen 1st Generation
+1118 Leafy Gen Generation 1
+1119 Gautama Gen Generation 1
+1120 Gen 1
+1121 Cursed Owl Gen Generation 1
+1201 Rockhelmi Gen Generation 1
+1202 White Pigmon Gen Generation 1
+1203 Snow Fairy Gen 1
+1204 Zhang Bobo Gen First Generation
+1205 Kaki Fox Gen 1st Generation
+1206 Pan Xiaoda Gen First Generation
+1207 Volcano Spider Gen Generation 1
+1208 Thunder Sculptor Gen 1st Generation
+1209 Vampire Bat Gen Generation 1
+1210 Whitebat Gen Generation 1
+1211 Disaster Lizard Gen. Generation 1
+1212 Ice Spine Dragon Gen Generation 1
+1213 Young Ice Spine Dragon Gen. Generation 1
+1301 Mineral Eye King Gen First Generation
+1302 Desmo Gen 1st Generation
+1303 Fire Emblem Wolf Gen. First Generation
+1304 Tidal Wave Gen Generation 1
+1305 Ghost Butterfly Gen (First Generation)
+1306 Articuno Gen Generation 1
+1307 Mischief Gen.1
+1308 Articuno Gen Generation 1
+1309 Magnet Beetle Gen First Generation
+1310 Strike Demon Gen. First Generation
+1311 Rainbow Catfish Gen Generation 1
+1312 Bubu Gen - Generation 1
+1313 Gekirai-Gen (First Generation)
+1401 Heterochromatic Eyes Gen 1st Generation
+1402 Flame Feather Owl Gen First Generation
+1403 Mind Reading Cat Gen (First Generation)
+1404 King of Fighters Gen.1
+2101 Gen. 2
+2102 Zhang Pipi Gen Second Generation
+2103 Grasstail Gen 2
+2104 Rock Kusunoki Gen 2nd Generation
+2105 Dazzling Monkey Gen 2
+2106 Gem Bear Gen 2
+2107 Shadow Dragon Gen 2nd Generation
+2108 Ghost Jellyfish Gen 2nd Generation
+2109 Burning Mane Fox Gen 2nd Generation
+2110 Bifin Dragon Gen 2
+2111 Mushroom Bunny Gen 2nd Generation
+2112 Gekiramon Gen 2nd Generation
+2113 Mimi Fox Gen 2nd Generation
+2114 Ender Rat Gen 2
+2115 Tree Imp Gen 2nd Generation
+2201 Magma Gen 2nd Generation
+2202 Fossil Fish Gen Second Generation
+2203 Boomtail Frog Gen 2
+2204 Butterfly Rabbit Gen 2nd Generation
+2205 Gullion Gen 2nd Generation
+2206 Silk Songworm Gen 2nd Generation
+2301 Valley Hedgehog Gen 2
+2302 Tsunami Otter Gen 2nd Generation
+2303 Liluya Gen (Second Generation)
+2304 Shenmo Lamp Gen 2
+2305 Pokémon Gen 2nd Generation
+2306 Cang Guan Gen second generation
+2307 Raichugen Gen 2nd Generation
+2308 Stone-breaking Pig Gen 2
+2309 Hammersmith Gen 2
+2310 Fugui Gen 2nd generation
+2311 Sleepy Otter Gen 2nd Generation
+2312 Dora Gen 2nd Generation
+2401 Elysium Gen 2nd Generation
+2402 Cactus Gen 2nd Generation
+2403 Phantasmon Gen 2nd Generation
+2404 Ancient Rock Whale Gen 2nd Generation
+2405 Fujiyu Itachi Gen 2
+3101 Urodi Gen (Third Generation)
+3102 Masked Bear Gen (Third Generation)
+3103 Mechanical Snake Gen 3rd Generation
+3104 Locktooth Gen 3rd Generation
+3105 Paipai Gen (Third Generation)
+3106 Wind Fang Gen (Third Generation)
+3107 Electric Monkey Gen 3rd Generation
+3108 Ice Storm Gen 3rd Generation
+3109 BitCat Gen 3rd Generation
+3110 Starmon Gen 3rd Generation
+3111 Graveyard Sheep Gen 3rd Generation
+3112 Centrino Gen 3rd Generation
+3113 Jaeger Gen 3rd Generation
+3114 Steel Guardian Gen 3rd Generation
+3115 Banteli Gen 3rd Generation
+3201 Snowfoot Meerkat Gen, Third Generation
+3202 Electric Claw Dragon Gen 3rd Generation
+3203 Yuta Gen (Third Generation)
+3204 Clean Sheep Gen 3rd Generation
+3205 Maple Deer Gen 3rd Generation
+3206 Ant King Gen 3rd Generation
+3207 Honeywing Bee Gen, Third Generation
+3208 Honeywing Ant Gen 3rd Generation
+3209 Asamizu Kasumi Gen 3rd Generation
+3210 Cherry Eye Shark Gen 3rd Generation
+3301 Fire Nugget Gen 3rd Generation
+3302 Bloodmoon Gen (Third Generation)
+3303 Bag Gen 3rd Generation
+3304 Fighting Priest Gen 3rd Generation
+3305 Wu Kong Gen third generation
+3306 Mad Golden Leopard Gen 3rd Generation
+3307 Ziralus Gen (Third Generation)
+3308 Mudmo Gen (Third Generation)
+3309 Dawn Traveler Luna Gen Third Generation
+3310 Sunshine Captain Linda Gen (Third Generation)
+3401 Poppy & Ramby Gen 3rd Generation
+3402 Damu Gen (Third Generation)
+3403 Slug Gen (Third Generation)
+3404 Sea of the Female Gen, Third Generation
+3405 Herul Gen 3rd Generation
+3406 Sunny Holiday · Freya Gen 3rd Generation
+4101 Spyder Gen 4th Generation
+4102 Arrowbird Gen 4th Generation
+4103 Burning Mane Lion Gen 4th Generation
+4104 Phantasy Dragon Gen 4th Generation
+4105 Trifolium Gen 4th Generation
+4106 Sunflower Gen 4th Generation
+4107 Spiky Bunny Gen 4th Generation
+4108 Little Bear Gen 4th Generation
+4109 Chef Lizard Gen 4th Generation
+4110 Maple-tailed Fox Gen 4th Generation
+4111 Border Fox Gen 4
+4112 Dorindor Gen 4th Generation
+4113 Electric Dragon Gen 4th Generation
+4114 Aoandon Gen 4th Generation
+4115 Pipi Gen 4th Generation
+4116 Dora Fat Gen 4th Generation
+4117 Black Snail Beast Gen 4th Generation
+4201 Steel Armor Gen 4th Generation
+4202 Ishiyama Armor Gen 4th Generation
+4203 Timid Crab Gen 4th Generation
+4204 Mushroom Cap Crab Gen 4th Generation
+4301 Jinshanjia Gen 4th Generation
+4302 Mysterious Dragon Gen 4th Generation
+4303 Thundermon Gen 4th Generation
+4304 Bitter Demon Gen 4th Generation
+4305 Toxtricity Gen 4th Generation
+4306 Rabi Gen 4th Generation
+4307 Rockbiter Gen 4
+4308 Imagine Dragons Gen 4
+4309 Raichan Gen 4th Generation
+4310 Wetland Dragon Lizard Gen 4th Generation
+4311 Blazing Vision: Elena Gen 4th Generation
+4312 Dawn Caroline Gen 4th Generation
+4401 Phantom Sturgeon Gen 4th Generation
+4402 Glossopteryx Gen 4th Generation
+4403 Ancient Dog Scorpion Gen 4th Generation
+4404 Ghost Butterfly Gen 4th Generation
+4405 Crystal Turtle Gen 4th Generation
+4406 Forest Lord Gen 4th Generation
+4407 Vitality Bomb - Ji Chenyin Gen 4th Generation
+5101 Night Demon Gen 5th Generation
+5102 Rengoku Gen 5th Generation
+5103 Rockhorn Gen 5
+5104 Pharaoh Cats Gen 5th Generation
+5105 White Rock Giant Gen fifth generation
+5106 White Rock Statue Gen 5
+5107 Aubon Deer Gen 5th Generation
+5108 Manbang Deer Gen 5th Generation
+5110 Mini Sheep Gen 5th Generation
+5111 Dobby Gen 5th Generation
+5112 Polar Bear Gen 5th Generation
+5113 Polar Seal Gen 5th Generation
+5114 Articuno Gen 5th Generation
+5115 BeeBee Gen 5th Generation
+5116 Komodo Gen (Fifth Generation)
+5117 Nemo Gen 5th Generation
+5118 Electric Haima Gen 5th Generation
+5119 Bomb Crocodile Gen 5th Generation
+5120 Fat Fugu Gen fifth generation
+5121 Abyss Octopus Gen 5th Generation
+5122 Ravenclaw Gen 5th Generation
+5123 Firefox Gen 5th Generation
+5124 Firefox Gen 5th Generation
+5201 Steel Crystal Turtle Gen 5th Generation
+5202 Darkrat Gen 5th Generation
+5203 Leafwing Frog Gen 5th Generation
+5204 Pharaoh Gen 5th Generation
+5205 Gen. V: Ice Giant
+5206 Akame Madara Gen 5th Generation
+5207 Bubble Cat Gen 5th Generation
+5208 Coldwind Bear Gen 5th Generation
+5209 Noctiluca Gen 5th Generation
+5210 Horned Beast Gen 5th Generation
+5301 Octopus Cocoa Gen 5th Generation
+5302 Dream Bug Gen 5th Generation
+5303 DragonDodo Gen 5th Generation
+5304 Folios Gen 5
+5305 Tower Flower Beast Gen 5th Generation
+5306 Raikou Gen 5th Generation
+5307 Lava Tomb Dragon Gen 5th Generation
+5308 Thunder Beast Gen 5th Generation
+5309 Winterspring Gen 5th Generation
+5310 Shining Gen 5th Generation
+5311 Swimming Queen Su Liyin Gen 5th Generation
+5312 Blazing Youth: Kasugana Gen 5
+5401 Stone Bean Little Tyrant Gen 5th Generation
+5402 Mushroom Fish Gen 5th Generation
+5403 Armored Lizard Gen 5th Generation
+5404 Icefang Mammoth Gen 5th Generation
+5405 Grasshopper Gen 5th Generation
+5406 Steel Stone Gen 5th Generation
+5407 Gale Punch Boy - Nitta Hikaru Gen. 5th Generation
+6101 Ripple Gen VI
+6102 Glass Butterfly Gen 6th Generation
+6103 Corrupted Thunder Beast Gen VI
+6104 Ice Ape Gen VI
+6105 Ghost Shark Gen VI
+6106 Ghost Hedgehog Gen VI
+6107 One-Eyed Octopus Gen VI
+6108 Blue Finch Gen VI
+6109 Soul-Stealing Insect Gen VI
+6110 Nemesis Gen 6th Generation
+6111 Starlight Jellyfish Gen 6th Generation
+6112 Turtle Gen VI
+6113 Tusked Boar Gen VI
+6114 Crystal Beetle Gen VI
+6115 Rock Lizard Gen VI
+6116 Boxing Kangaroo Gen 6th Generation
+6117 Steel Rhino Gen VI
+6118 Mewbat Gen VI
+6119 Hypnotic Peacock Gen 6th Generation
+6120 Steelix Gen VI
+6121 Mechanical Bird Gen VI
+6123 Engineering Gen 6th Generation
+6124 Volcano Dragon Gen VI
+6125 Electromagnetic Dog Gen 6th Generation
+6126 Chameleon Gen 6
+6127 Gluttonous Dragon Gen VI
+6201 Rainbow Koala Gen 6th Generation
+6202 Hyōyuki Ryōbō Gen (Sixth Generation)
+6203 Faki Gen 6th Generation
+6204 Comic Sheep Gen 6th Generation
+6205 Rainbow Dragon Gen VI
+6206 Duck Gen 6
+6207 Steel-Toothed Dog Gen 6th Generation
+6208 Gore-Gen (Generation VI)
+6209 Angel Hawk Gen VI
+6301 Goblin Egg Gen VI
+6302 Lightning Sheep Gen VI
+6303 Radial Serpent Flower Gen 6th Generation
+6304 Bubble Gen 6th Generation
+6305 Bubble Jellyfish Gen 6th Generation
+6306 Gugu Gen 6th Generation
+6307 Lala Gen 6th Generation
+6308 Mud Hippo Gen 6th Generation
+6309 Sunshine Trainee - Natsume Rin Gen 6th Generation
+6310 Fighting Girl Emily Gen 6th Generation
+6311 Candle Fox Gen VI
+6312 Palmtail Gen VI
+6313 Naniwa Gen 6th Generation
+6314 Star Core Electric Spider Gen VI
+6315 Pod Gen 6th Generation
+6316 Velvet Vine Gen 6th Generation
+6317 Nightflower Gen 6th Generation
+6401 Sporodon Gen VI
+6402 Three-headed Man-eating Flower Gen VI
+6403 Pot Pot Gen 6th Generation
+6404 Flower Dream Gen 6th Generation
+6405 Giant Rock Gen VI
+6406 Squid Gen 6
+6407 Street Guy Bruno Gen 6th Generation
+6408 Cotton Seedling Gen 6th Generation
+7101 Raibou Gen (7th Generation)
+7102 Leaf Blade Gen VII
+7103 Leafclaw Gen VII
+7104 Garchomp Gen VII
+7105 Rockfist Gen VII
+7106 BabuGen (Seventh Generation)
+7107 Lakamon Gen VII
+7108 PK Cobra Gen VII
+7109 Starflow Deer Gen 7th Generation
+7110 Dark Bird Gen (Seventh Generation)
+7111 Gen VII (Gen)
+7112 Bubble Spirit Gen 7th Generation
+7113 Tidewing Gen 7th Generation
+7114 Thunderfish Gen 7th Generation
+7115 Firetail Gen VII
+7116 Fire Tiger Gen 7th Generation
+7117 Firewing Gen VII
+7118 Gen 7 (Squirrel Generation 7)
+7119 Embergron Gen VII
+7120 Lava Fang Gen (7th Generation)
+7201 Leafeon Gen 7th Generation
+7202 Winged Raider Gen VII
+7203 Flower Fairy Gen VII
+7204 Flower Winged Spirit Gen 7th Generation
+7205 Flower Spirit Gen 7th Generation
+7206 Blue Flame Spirit Gen VII
+7207 Bluebat Gen VII
+7208 Fujiyuu Rei Gen 7th Generation
+7209 Mushroom Spirit Gen 7th Generation
+7210 Crab Gen 7th Generation
+7211 Bubble Fox Gen 7th Generation
+7212 Greedy Spirits Gen VII
+7213 Fox Leap Gen 7th Generation
+7214 Leafeon Gen VII
+7301 Protocore Sequence - Kira Gen 7th Generation
+7302 Neon Girls: Rion Gen 7th Generation
+7303 Ember Gen 7th Generation
+7304 Sugar Horse Gen (Seventh Generation)
+7305 Bubble Chug Gen (Seventh Generation)
+7306 Blazing Wolf Gen 7th Generation
+7307 Frost Azure Wings Gen VII
+7308 Burning Shadow Gen 7th Generation
+7309 Moonlit Spirit Gen 7th Generation
+7310 Leaping Star Monkey Gen 7th Generation
+7311 Rock-type Beast Gen VII
+7312 Kola Gen 7th Generation
+7313 Thunder Explosion Charge - Guardian Rumble Gen 7th Generation
+7401 Bubblefin Gen VII
+7402 Runbo Whale Gen 7th Generation
+7403 Genmiaoling Gen 7th Generation
+7404 Starstrike Beast Gen VII
+7405 Flame Demon Gen VII
+7406 Illusionary Divine Messenger - Zhimiao Gen (Seventh Generation)
+7407 Hot-Blooded Chronicle: Blazing Sun Gen 7th Generation
+7408 Azron Gen 7th Generation
+7409 Enchanted Mumu Gen 7th Generation
+7410 Bladescale Shark Gen VII
+7411 Deathfin Whale Gen VII
+7412 Spinybug Gen VII
+7413 Lion of the Seventh Generation
+100001 Rain God - Ripple Gage Gen First Generation
+100002 Luna Aragon Gen First Generation
+100003 Vulcan·Lieluo Huangni Gen First Generation
+100004 Grass God Sprout Tree Gen First Generation
+9001 A-Yin Purple Gen Souvenir
+9002 Eric Gen Souvenir
+9003 Lingxue Gen Souvenir
+9004 KF Gen Souvenirs
+9005 Wawa Gen Souvenirs
+9006 Tobe Gen Souvenirs
+9007 EXIA Gen Souvenir
+9008 YIMING Gen Souvenirs
+9060 Killa Gen Souvenirs
+9061 An-chan Gen Souvenir
+9062 Snow White Maid Gen Souvenir
+9063 Bunny Girl Gen Souvenir
+9064 Alice Gen Souvenirs
+9065 ANO Gen Souvenirs
+9066 Dragon's Nest Princess Gen Souvenir
+9067 Fool's Gen Souvenir
+9068 ANT Gen Souvenirs
+9069 Sakura Girl Gen Souvenir
+9071 KaiKai is here - Gen Souvenir
+9072 Iron Pot Stewed Goose (Gen) Souvenir
+9073 Saka Cai Cai Gen Souvenirs
+9074 Cold Sun Junior Gen Souvenir
+1314 Cloud Fairy Gen Holiday Card Pack
+1315 Hozuki Gen Holiday Card Pack
+1316 Poisonous Mist Gen Holiday Card Pack
+1317 Komondo Gen Holiday Card Pack
+1318 Shadow Spectre Gen Holiday Card Pack
+1319 Pumpkin Head Gen Holiday Card Pack
+1320 Firebat Gen Holiday Card Pack
+1321 Giant Mouth Demon Gen Holiday Card Pack
+1322 White Pepper Gen Holiday Card Pack
+1323 Little Bone Gen Holiday Card Pack
 ```
 
 ---
-## 上传创意工坊
-请查看https://partner.steamgames.com/doc/features/workshop/implementation
-的Steam CMD 集成部分。下面是复制内容：
-- 当前游戏的appid = 3569500
-- 初次上传publishedfileid 请填0 。之后会生成一个新的publishedfileid。更新就使用这个新的publishedfileid。
+## Upload to Steam Workshop
+Please see https://partner.steamgames.com/doc/features/workshop/implementation
+The Steam CMD integration section. Below is the copied content:
+- The current game's appid = 3569500
+- For the first upload, please enter 0 for the publishedfileid. A new publishedfileid will be generated afterwards. Updates will use this new publishedfileid.
 ``` lua
-SteamCmd 集成
-除 ISteamUGC API 之外，steamcmd.exe 命令行工具也可用于为测试目的创建和更新创意工坊物品。 由于此工具要求用户输入 Steam 凭据（我们不希望顾客提供），因此仅限于测试使用。
+SteamCmd integration
+In addition to the ISteamUGC API, the steamcmd.exe command-line tool can also be used to create and update Workshop items for testing purposes. Because this tool requires users to enter Steam credentials (which we do not want customers to provide), it is limited to testing use only.
 
-如要使用 steamcmd.exe 创建新的 Steam 创意工坊物品，首先须创建一个纯文本 VDF 文件， 并包含以下键值。
+To create a new Steam Workshop item using steamcmd.exe, you must first create a plain text VDF file containing the following key-value pairs.
 "workshopitem"
 {
- "appid" "480"
- "publishedfileid" "5674"
- "contentfolder" "D:\\Content\\workshopitem"
- "previewfile" "D:\\Content\\preview.jpg"
- "visibility" "0"
- "title" "《军团要塞》的绿色帽子"
- "description" "《军团要塞》的绿色帽子"
- "changenote" "1.2 版本"
+"appid" "480"
+"publishedfileid" "5674"
+"contentfolder" "D:\\Content\\workshopitem"
+"previewfile" "D:\\Content\\preview.jpg"
+"visibility" "0"
+"title" "The Green Hat of Team Fortress"
+"description" "The Green Hat in Team Fortress"
+"changenote" "version 1.2"
 }
 
-注意：
-键值与各种 ISteamUGC::SetItem[...] 方法对应。 请见上方文献了解更多信息。
-所示值为均为示例，应根据情况而适当调整。
-要创建新物品，必须设置 appid，并且 publishedfileid 必须为未设置或设为 0。
-要更新现有物品，appid 与 publishedfileid 均需设置。
-如果某个键需要更新，则其余的键/值对也应包含在 VDF 中。
-创建 VDF 后，可按 workshop_build_item <build config filename> 的文件参数运行 steamcmd.exe。 如：
+Notice:
+The key-value pairs correspond to various ISteamUGC::SetItem[...] methods. Please see the documentation above for more information.
+The values shown are for illustrative purposes only and should be adjusted as needed.
+To create a new item, you must set the appid, and the publishedfileid must be either not set or set to 0.
+To update existing items, both the appid and publishedfileid must be set.
+If a key needs to be updated, the remaining key/value pairs should also be included in the VDF.
+After creating the VDF, you can run steamcmd.exe with the file parameters `workshop_build_item <build config filename>`. For example:
 steamcmd.exe +login myLoginName myPassword +workshop_build_item workshop_green_hat.vdf +quit
-如果命令成功，VDF 中的 publishedfileid 值会自动更新，以包含创意工坊物品 ID。 由此，同一个 VDF 的 steamcmd.exe 后续调用将会更新而非创建新物品。
+If the command succeeds, the publishedfileid value in the VDF will be automatically updated to include the Workshop item ID. Therefore, subsequent calls to steamcmd.exe within the same VDF will update, rather than create, new items.
 
 ```
 
-## 📮 更多API接口以及扩展：联系方式
-- QQ：780231813  
-- 官方QQ群（联系群主）：958628027  
-- Email：yangyiming780@foxmail.com  
-- Steam 社区留言 / Git issues
+## 📮More API interfaces and extensions: Contact information
+- QQ: 780231813
+- Official QQ group (contact group owner): 958628027
+- Email: yangyiming780@foxmail.com
+- Steam Community Comments / Git Issues
 
 ---
 
-## 🛡️ 社区准则（简要）
-1. 🚫 禁止违法、政治敏感、色情、暴恐等内容。  
-2. 🚫 禁止恶意侮辱、引战对立、影射现实人物的内容。  
-3. 🚫 禁止未获授权使用受版权保护的资源。  
-4. 🚫 禁止以 Mod 形式引导广告、募捐或付费。
+## 🛡️Community Guidelines (Brief)
+1. 🚫Content that is illegal, politically sensitive, pornographic, or violent/terrorist is prohibited.
+2. Content that maliciously insults, incites conflict, or alludes to real-life figures is prohibited .
+3. Unauthorized use of copyrighted resources is prohibited .
+4. 🚫 It is prohibited to use mods to direct advertising, fundraising, or payment.
    
-若在 Steam 创意工坊发布且违反以上条目，可能被直接删除并封禁相关创作者权限。
+If a post on the Steam Workshop violates the above rules, it may be deleted immediately and the creator's privileges may be suspended.
+
+
