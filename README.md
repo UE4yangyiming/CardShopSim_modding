@@ -119,9 +119,13 @@ local function ChangeCard()
     -- D.TexturePath4 = dir .. "1401-4.png" 演示中只有三层 这三层空置
     -- D.TexturePath5 = dir .. "1401-5.png" 演示中只有三层 这三层空置
     D.TexturePath6 = dir .. "1401-6.png"    --最下层的背景
-    D.FlowTexturePath = dir .. "fire.PNG"  --背景漂浮的图片
-    D.FlowValue = 0.5      --背景漂浮图片的透明度 0-1
-	--D.CardValueMulti = 1.0                     --新增基础价格倍率
+
+    --D.FlowTexturePath = dir .. "fire.PNG"  --背景漂浮例子的图片  (可以添加背景漂浮粒子图片 半透明）
+    --D.FlowValue = 0.5      --背景漂浮粒子图片的透明度 0-1
+	--D.FlowSpeedX = 0.1     --背景漂浮粒子向左持续移动0.1
+    --D.FlowSpeedY = -0.1     --背景漂浮粒子向下持续移动0.1
+
+	--D.CardValueMulti = 1.0                     --基础价格倍率 （默认1.0倍）
 
     R:RegisterCardData(D.CardID, D)              -- 注册（添加或覆盖）
 end
