@@ -2,6 +2,8 @@
 
 This is a mod example written in Lua for the game "Card Shop Simulator Multiplayer".  
 
+💡This is just a machine-translated English version - please see the original Chinese README for detailed instructions.
+
 ---
 
 ## 🧩Working Principle Overview
