@@ -74,9 +74,6 @@ function M.OnInit()
     AddGen1Card4()
 end
 
-function M.OnTick(dt)
-
-end
 
 return M
 --额外说明：

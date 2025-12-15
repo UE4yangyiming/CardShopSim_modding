@@ -81,10 +81,6 @@ function M.OnInit()
     AddGen1Card4()
 end
 
-function M.OnTick(dt)
-    -- Called every frame (optional)
-end
-
 return M
 
 -- Additional Notes:

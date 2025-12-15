@@ -74,8 +74,5 @@ function M.OnInit()
     ChangeGen1Texture()
 end
 
-function M.OnTick(dt)
-    -- Called every frame (optional)
-end
 
 return M

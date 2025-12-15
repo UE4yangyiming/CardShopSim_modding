@@ -121,8 +121,4 @@ function M.OnInit()
     ChangeGen1Texture()
 end
 
-function M.OnTick(dt)
-
-end
-
 return M
