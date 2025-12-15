@@ -21,7 +21,6 @@ Once the files that meet the criteria `main.lua` and `preview.png` are found, th
 - Approximately **1 second** after entering the game, mods will be loaded and executed sequentially according to their path:
 ```lua
 M.OnInit() -- Executes once during initialization
-M.OnTick(dt) -- Executes every frame
 ```
 
 ### 🧠Rule Two: Global Access
@@ -217,8 +216,6 @@ function M.OnInit()
 AddCard()
 end
 
-function M.OnTick(dt)
-end
 
 return M
 ```
