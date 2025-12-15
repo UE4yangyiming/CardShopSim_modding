@@ -19,7 +19,6 @@ _这是一个使用 **Lua 语言** 编写的 Mod 示例，适用于《卡牌店�
 - 进入游戏约 **1 秒** 后，按 Mod 路径顺序加载并依次执行：  
   ```lua
   M.OnInit()   -- 初始化时执行一次
-  M.OnTick(dt) -- 每帧执行
   ```
 
 ### 🧠 规则二：全局访问
@@ -214,9 +213,6 @@ end
 
 function M.OnInit()
     AddCard()
-end
-
-function M.OnTick(dt)
 end
 
 return M
