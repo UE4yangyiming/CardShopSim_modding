@@ -242,6 +242,7 @@ local key = "BasePlayerState0" -- Get the player's BP_PlayerState
 local klass = pc.GetLuaObject and pc:GetLuaObject(key) or nil -- Get the Lua file of the current BP_PlayerState.
 
 if not klass then
+MOD.GAA.TimerManager:AddTimer(1, M, function() M:try_patch() end)
 return
 end
 
