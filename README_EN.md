@@ -160,6 +160,7 @@ UE.ECardRarity.UnCommon -- Rare
 UE.ECardRarity.Rare -- Rare
 UE.ECardRarity.SuperRare -- Extremely Rare
 UE.ECardRarity.God -- God Card
+--For all the cards, you need to specify their rarity levels. Otherwise, they will default to the common rarity.
 --God Card can use any element.
 --When you unlock a God Card, you can unlock all God Card types available in the card table.
 --Currently, only four special effects have been implemented in the game. Other God Card effects will use the Rain God effect when activated.
