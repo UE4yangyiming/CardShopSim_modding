@@ -159,6 +159,7 @@ UE.ECardRarity.UnCommon --罕见
 UE.ECardRarity.Rare --稀有
 UE.ECardRarity.SuperRare --极稀有
 UE.ECardRarity.God --神卡
+--所有卡牌的稀有度都需要你填入，不然就会是默认的稀有度“普通”。
 --神卡可以使用任何元素。
 --开启神卡时可以开出卡牌表格中所有有的神卡类型。
 --目前游戏中只做了四种特效、其他神卡特效开出时使用雨神特效。
