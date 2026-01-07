@@ -78,7 +78,7 @@ Card loading and saving are all handled by ID storage. The ID matches the ID in 
 ---
 
 ### 🔧Minimum Usable Example (Adding/Overwriting Card Data)
-
+> 💡**If you want to use the extremely rare card image on the common or rare cards**: You need to add D.UseBigImage = true in the attribute settings.
 ```lua
 local function ChangeCard()
 local R = UE.UCardFunction.GetCardRegistryWS(MOD.GAA.WorldUtils:GetCurrentWorld())
@@ -92,6 +92,7 @@ D.Rarity = UE.ECardRarity.Common -- Rarity (see enumeration below)
 D.BaseAttack = 10 -- Basic attack
 D.BaseHealth = 30 -- Base Health
 --D.CardValueMulti = 1.0 --Added base price multiplier
+-- D.UseBigImage = true                 		 -- Use extremely rare materials  The rare cards do not have 6-layer materials by default. Only D.TexturePath
 D.CardElementFaction:Add(UE.ECardElementFaction.Water) -- element (water)
 
 -- 💥Current attack power and health calculation formula (see explanation below for algorithm)
