@@ -445,7 +445,7 @@ end
 
 
 
-## ✅ Complete Runnable Example: Localization (Multi-language Support)
+## ✅ Complete Runnable Example: Localization (Multi-language Support) Update 2026.1.8
 This example demonstrates how to dynamically load card names and descriptions based on the game's current language settings (e.g., Chinese, English, Japanese).
 ```lua
 -- ==========================================================================
@@ -615,389 +615,6 @@ return M
 
 ```
 
-
----
-## Existing IDs （The following is an AI translation only.）
-```lua
-1102 Miniature Gen 1st Generation
-1103 Tough Bear Cub Gen - Generation 1
-1104 Turabi Gen Generation 1
-1105 Electivire Gen (First Generation)
-1106 MuTi Gen First Generation
-1107 Electric Dog Gen First Generation
-1108 Ice Hole Rat Gen Generation 1
-1109 Butterfly Gen - Generation 1
-1110 AmyNyan Gen First Generation
-1111 Ice Cave Otter Gen. First Generation
-1112 Strange Itachi Gen 1st Generation
-1113 Lesson Fox Gen 1st Generation
-1114 Koos Gen 1st Generation
-1115 Berry-tailed Monkey Gen 1
-1116 Bouncing Mouse Gen 1st Generation
-1117 Crocus Gen 1st Generation
-1118 Leafy Gen Generation 1
-1119 Gautama Gen Generation 1
-1120 Gen 1
-1121 Cursed Owl Gen Generation 1
-1201 Rockhelmi Gen Generation 1
-1202 White Pigmon Gen Generation 1
-1203 Snow Fairy Gen 1
-1204 Zhang Bobo Gen First Generation
-1205 Kaki Fox Gen 1st Generation
-1206 Pan Xiaoda Gen First Generation
-1207 Volcano Spider Gen Generation 1
-1208 Thunder Sculptor Gen 1st Generation
-1209 Vampire Bat Gen Generation 1
-1210 Whitebat Gen Generation 1
-1211 Disaster Lizard Gen. Generation 1
-1212 Ice Spine Dragon Gen Generation 1
-1213 Young Ice Spine Dragon Gen. Generation 1
-1301 Mineral Eye King Gen First Generation
-1302 Desmo Gen 1st Generation
-1303 Fire Emblem Wolf Gen. First Generation
-1304 Tidal Wave Gen Generation 1
-1305 Ghost Butterfly Gen (First Generation)
-1306 Articuno Gen Generation 1
-1307 Mischief Gen.1
-1308 Articuno Gen Generation 1
-1309 Magnet Beetle Gen First Generation
-1310 Strike Demon Gen. First Generation
-1311 Rainbow Catfish Gen Generation 1
-1312 Bubu Gen - Generation 1
-1313 Gekirai-Gen (First Generation)
-1401 Heterochromatic Eyes Gen 1st Generation
-1402 Flame Feather Owl Gen First Generation
-1403 Mind Reading Cat Gen (First Generation)
-1404 King of Fighters Gen.1
-2101 Gen. 2
-2102 Zhang Pipi Gen Second Generation
-2103 Grasstail Gen 2
-2104 Rock Kusunoki Gen 2nd Generation
-2105 Dazzling Monkey Gen 2
-2106 Gem Bear Gen 2
-2107 Shadow Dragon Gen 2nd Generation
-2108 Ghost Jellyfish Gen 2nd Generation
-2109 Burning Mane Fox Gen 2nd Generation
-2110 Bifin Dragon Gen 2
-2111 Mushroom Bunny Gen 2nd Generation
-2112 Gekiramon Gen 2nd Generation
-2113 Mimi Fox Gen 2nd Generation
-2114 Ender Rat Gen 2
-2115 Tree Imp Gen 2nd Generation
-2201 Magma Gen 2nd Generation
-2202 Fossil Fish Gen Second Generation
-2203 Boomtail Frog Gen 2
-2204 Butterfly Rabbit Gen 2nd Generation
-2205 Gullion Gen 2nd Generation
-2206 Silk Songworm Gen 2nd Generation
-2301 Valley Hedgehog Gen 2
-2302 Tsunami Otter Gen 2nd Generation
-2303 Liluya Gen (Second Generation)
-2304 Shenmo Lamp Gen 2
-2305 Pokémon Gen 2nd Generation
-2306 Cang Guan Gen second generation
-2307 Raichugen Gen 2nd Generation
-2308 Stone-breaking Pig Gen 2
-2309 Hammersmith Gen 2
-2310 Fugui Gen 2nd generation
-2311 Sleepy Otter Gen 2nd Generation
-2312 Dora Gen 2nd Generation
-2401 Elysium Gen 2nd Generation
-2402 Cactus Gen 2nd Generation
-2403 Phantasmon Gen 2nd Generation
-2404 Ancient Rock Whale Gen 2nd Generation
-2405 Fujiyu Itachi Gen 2
-3101 Urodi Gen (Third Generation)
-3102 Masked Bear Gen (Third Generation)
-3103 Mechanical Snake Gen 3rd Generation
-3104 Locktooth Gen 3rd Generation
-3105 Paipai Gen (Third Generation)
-3106 Wind Fang Gen (Third Generation)
-3107 Electric Monkey Gen 3rd Generation
-3108 Ice Storm Gen 3rd Generation
-3109 BitCat Gen 3rd Generation
-3110 Starmon Gen 3rd Generation
-3111 Graveyard Sheep Gen 3rd Generation
-3112 Centrino Gen 3rd Generation
-3113 Jaeger Gen 3rd Generation
-3114 Steel Guardian Gen 3rd Generation
-3115 Banteli Gen 3rd Generation
-3201 Snowfoot Meerkat Gen, Third Generation
-3202 Electric Claw Dragon Gen 3rd Generation
-3203 Yuta Gen (Third Generation)
-3204 Clean Sheep Gen 3rd Generation
-3205 Maple Deer Gen 3rd Generation
-3206 Ant King Gen 3rd Generation
-3207 Honeywing Bee Gen, Third Generation
-3208 Honeywing Ant Gen 3rd Generation
-3209 Asamizu Kasumi Gen 3rd Generation
-3210 Cherry Eye Shark Gen 3rd Generation
-3301 Fire Nugget Gen 3rd Generation
-3302 Bloodmoon Gen (Third Generation)
-3303 Bag Gen 3rd Generation
-3304 Fighting Priest Gen 3rd Generation
-3305 Wu Kong Gen third generation
-3306 Mad Golden Leopard Gen 3rd Generation
-3307 Ziralus Gen (Third Generation)
-3308 Mudmo Gen (Third Generation)
-3309 Dawn Traveler Luna Gen Third Generation
-3310 Sunshine Captain Linda Gen (Third Generation)
-3401 Poppy & Ramby Gen 3rd Generation
-3402 Damu Gen (Third Generation)
-3403 Slug Gen (Third Generation)
-3404 Sea of the Female Gen, Third Generation
-3405 Herul Gen 3rd Generation
-3406 Sunny Holiday · Freya Gen 3rd Generation
-4101 Spyder Gen 4th Generation
-4102 Arrowbird Gen 4th Generation
-4103 Burning Mane Lion Gen 4th Generation
-4104 Phantasy Dragon Gen 4th Generation
-4105 Trifolium Gen 4th Generation
-4106 Sunflower Gen 4th Generation
-4107 Spiky Bunny Gen 4th Generation
-4108 Little Bear Gen 4th Generation
-4109 Chef Lizard Gen 4th Generation
-4110 Maple-tailed Fox Gen 4th Generation
-4111 Border Fox Gen 4
-4112 Dorindor Gen 4th Generation
-4113 Electric Dragon Gen 4th Generation
-4114 Aoandon Gen 4th Generation
-4115 Pipi Gen 4th Generation
-4116 Dora Fat Gen 4th Generation
-4117 Black Snail Beast Gen 4th Generation
-4201 Steel Armor Gen 4th Generation
-4202 Ishiyama Armor Gen 4th Generation
-4203 Timid Crab Gen 4th Generation
-4204 Mushroom Cap Crab Gen 4th Generation
-4301 Jinshanjia Gen 4th Generation
-4302 Mysterious Dragon Gen 4th Generation
-4303 Thundermon Gen 4th Generation
-4304 Bitter Demon Gen 4th Generation
-4305 Toxtricity Gen 4th Generation
-4306 Rabi Gen 4th Generation
-4307 Rockbiter Gen 4
-4308 Imagine Dragons Gen 4
-4309 Raichan Gen 4th Generation
-4310 Wetland Dragon Lizard Gen 4th Generation
-4311 Blazing Vision: Elena Gen 4th Generation
-4312 Dawn Caroline Gen 4th Generation
-4401 Phantom Sturgeon Gen 4th Generation
-4402 Glossopteryx Gen 4th Generation
-4403 Ancient Dog Scorpion Gen 4th Generation
-4404 Ghost Butterfly Gen 4th Generation
-4405 Crystal Turtle Gen 4th Generation
-4406 Forest Lord Gen 4th Generation
-4407 Vitality Bomb - Ji Chenyin Gen 4th Generation
-5101 Night Demon Gen 5th Generation
-5102 Rengoku Gen 5th Generation
-5103 Rockhorn Gen 5
-5104 Pharaoh Cats Gen 5th Generation
-5105 White Rock Giant Gen fifth generation
-5106 White Rock Statue Gen 5
-5107 Aubon Deer Gen 5th Generation
-5108 Manbang Deer Gen 5th Generation
-5110 Mini Sheep Gen 5th Generation
-5111 Dobby Gen 5th Generation
-5112 Polar Bear Gen 5th Generation
-5113 Polar Seal Gen 5th Generation
-5114 Articuno Gen 5th Generation
-5115 BeeBee Gen 5th Generation
-5116 Komodo Gen (Fifth Generation)
-5117 Nemo Gen 5th Generation
-5118 Electric Haima Gen 5th Generation
-5119 Bomb Crocodile Gen 5th Generation
-5120 Fat Fugu Gen fifth generation
-5121 Abyss Octopus Gen 5th Generation
-5122 Ravenclaw Gen 5th Generation
-5123 Firefox Gen 5th Generation
-5124 Firefox Gen 5th Generation
-5201 Steel Crystal Turtle Gen 5th Generation
-5202 Darkrat Gen 5th Generation
-5203 Leafwing Frog Gen 5th Generation
-5204 Pharaoh Gen 5th Generation
-5205 Gen. V: Ice Giant
-5206 Akame Madara Gen 5th Generation
-5207 Bubble Cat Gen 5th Generation
-5208 Coldwind Bear Gen 5th Generation
-5209 Noctiluca Gen 5th Generation
-5210 Horned Beast Gen 5th Generation
-5301 Octopus Cocoa Gen 5th Generation
-5302 Dream Bug Gen 5th Generation
-5303 DragonDodo Gen 5th Generation
-5304 Folios Gen 5
-5305 Tower Flower Beast Gen 5th Generation
-5306 Raikou Gen 5th Generation
-5307 Lava Tomb Dragon Gen 5th Generation
-5308 Thunder Beast Gen 5th Generation
-5309 Winterspring Gen 5th Generation
-5310 Shining Gen 5th Generation
-5311 Swimming Queen Su Liyin Gen 5th Generation
-5312 Blazing Youth: Kasugana Gen 5
-5401 Stone Bean Little Tyrant Gen 5th Generation
-5402 Mushroom Fish Gen 5th Generation
-5403 Armored Lizard Gen 5th Generation
-5404 Icefang Mammoth Gen 5th Generation
-5405 Grasshopper Gen 5th Generation
-5406 Steel Stone Gen 5th Generation
-5407 Gale Punch Boy - Nitta Hikaru Gen. 5th Generation
-6101 Ripple Gen VI
-6102 Glass Butterfly Gen 6th Generation
-6103 Corrupted Thunder Beast Gen VI
-6104 Ice Ape Gen VI
-6105 Ghost Shark Gen VI
-6106 Ghost Hedgehog Gen VI
-6107 One-Eyed Octopus Gen VI
-6108 Blue Finch Gen VI
-6109 Soul-Stealing Insect Gen VI
-6110 Nemesis Gen 6th Generation
-6111 Starlight Jellyfish Gen 6th Generation
-6112 Turtle Gen VI
-6113 Tusked Boar Gen VI
-6114 Crystal Beetle Gen VI
-6115 Rock Lizard Gen VI
-6116 Boxing Kangaroo Gen 6th Generation
-6117 Steel Rhino Gen VI
-6118 Mewbat Gen VI
-6119 Hypnotic Peacock Gen 6th Generation
-6120 Steelix Gen VI
-6121 Mechanical Bird Gen VI
-6123 Engineering Gen 6th Generation
-6124 Volcano Dragon Gen VI
-6125 Electromagnetic Dog Gen 6th Generation
-6126 Chameleon Gen 6
-6127 Gluttonous Dragon Gen VI
-6201 Rainbow Koala Gen 6th Generation
-6202 Hyōyuki Ryōbō Gen (Sixth Generation)
-6203 Faki Gen 6th Generation
-6204 Comic Sheep Gen 6th Generation
-6205 Rainbow Dragon Gen VI
-6206 Duck Gen 6
-6207 Steel-Toothed Dog Gen 6th Generation
-6208 Gore-Gen (Generation VI)
-6209 Angel Hawk Gen VI
-6301 Goblin Egg Gen VI
-6302 Lightning Sheep Gen VI
-6303 Radial Serpent Flower Gen 6th Generation
-6304 Bubble Gen 6th Generation
-6305 Bubble Jellyfish Gen 6th Generation
-6306 Gugu Gen 6th Generation
-6307 Lala Gen 6th Generation
-6308 Mud Hippo Gen 6th Generation
-6309 Sunshine Trainee - Natsume Rin Gen 6th Generation
-6310 Fighting Girl Emily Gen 6th Generation
-6311 Candle Fox Gen VI
-6312 Palmtail Gen VI
-6313 Naniwa Gen 6th Generation
-6314 Star Core Electric Spider Gen VI
-6315 Pod Gen 6th Generation
-6316 Velvet Vine Gen 6th Generation
-6317 Nightflower Gen 6th Generation
-6401 Sporodon Gen VI
-6402 Three-headed Man-eating Flower Gen VI
-6403 Pot Pot Gen 6th Generation
-6404 Flower Dream Gen 6th Generation
-6405 Giant Rock Gen VI
-6406 Squid Gen 6
-6407 Street Guy Bruno Gen 6th Generation
-6408 Cotton Seedling Gen 6th Generation
-7101 Raibou Gen (7th Generation)
-7102 Leaf Blade Gen VII
-7103 Leafclaw Gen VII
-7104 Garchomp Gen VII
-7105 Rockfist Gen VII
-7106 BabuGen (Seventh Generation)
-7107 Lakamon Gen VII
-7108 PK Cobra Gen VII
-7109 Starflow Deer Gen 7th Generation
-7110 Dark Bird Gen (Seventh Generation)
-7111 Gen VII (Gen)
-7112 Bubble Spirit Gen 7th Generation
-7113 Tidewing Gen 7th Generation
-7114 Thunderfish Gen 7th Generation
-7115 Firetail Gen VII
-7116 Fire Tiger Gen 7th Generation
-7117 Firewing Gen VII
-7118 Gen 7 (Squirrel Generation 7)
-7119 Embergron Gen VII
-7120 Lava Fang Gen (7th Generation)
-7201 Leafeon Gen 7th Generation
-7202 Winged Raider Gen VII
-7203 Flower Fairy Gen VII
-7204 Flower Winged Spirit Gen 7th Generation
-7205 Flower Spirit Gen 7th Generation
-7206 Blue Flame Spirit Gen VII
-7207 Bluebat Gen VII
-7208 Fujiyuu Rei Gen 7th Generation
-7209 Mushroom Spirit Gen 7th Generation
-7210 Crab Gen 7th Generation
-7211 Bubble Fox Gen 7th Generation
-7212 Greedy Spirits Gen VII
-7213 Fox Leap Gen 7th Generation
-7214 Leafeon Gen VII
-7301 Protocore Sequence - Kira Gen 7th Generation
-7302 Neon Girls: Rion Gen 7th Generation
-7303 Ember Gen 7th Generation
-7304 Sugar Horse Gen (Seventh Generation)
-7305 Bubble Chug Gen (Seventh Generation)
-7306 Blazing Wolf Gen 7th Generation
-7307 Frost Azure Wings Gen VII
-7308 Burning Shadow Gen 7th Generation
-7309 Moonlit Spirit Gen 7th Generation
-7310 Leaping Star Monkey Gen 7th Generation
-7311 Rock-type Beast Gen VII
-7312 Kola Gen 7th Generation
-7313 Thunder Explosion Charge - Guardian Rumble Gen 7th Generation
-7401 Bubblefin Gen VII
-7402 Runbo Whale Gen 7th Generation
-7403 Genmiaoling Gen 7th Generation
-7404 Starstrike Beast Gen VII
-7405 Flame Demon Gen VII
-7406 Illusionary Divine Messenger - Zhimiao Gen (Seventh Generation)
-7407 Hot-Blooded Chronicle: Blazing Sun Gen 7th Generation
-7408 Azron Gen 7th Generation
-7409 Enchanted Mumu Gen 7th Generation
-7410 Bladescale Shark Gen VII
-7411 Deathfin Whale Gen VII
-7412 Spinybug Gen VII
-7413 Lion of the Seventh Generation
-100001 Rain God - Ripple Gage Gen First Generation
-100002 Luna Aragon Gen First Generation
-100003 Vulcan·Lieluo Huangni Gen First Generation
-100004 Grass God Sprout Tree Gen First Generation
-9001 A-Yin Purple Gen Souvenir
-9002 Eric Gen Souvenir
-9003 Lingxue Gen Souvenir
-9004 KF Gen Souvenirs
-9005 Wawa Gen Souvenirs
-9006 Tobe Gen Souvenirs
-9007 EXIA Gen Souvenir
-9008 YIMING Gen Souvenirs
-9060 Killa Gen Souvenirs
-9061 An-chan Gen Souvenir
-9062 Snow White Maid Gen Souvenir
-9063 Bunny Girl Gen Souvenir
-9064 Alice Gen Souvenirs
-9065 ANO Gen Souvenirs
-9066 Dragon's Nest Princess Gen Souvenir
-9067 Fool's Gen Souvenir
-9068 ANT Gen Souvenirs
-9069 Sakura Girl Gen Souvenir
-9071 KaiKai is here - Gen Souvenir
-9072 Iron Pot Stewed Goose (Gen) Souvenir
-9073 Saka Cai Cai Gen Souvenirs
-9074 Cold Sun Junior Gen Souvenir
-1314 Cloud Fairy Gen Holiday Card Pack
-1315 Hozuki Gen Holiday Card Pack
-1316 Poisonous Mist Gen Holiday Card Pack
-1317 Komondo Gen Holiday Card Pack
-1318 Shadow Spectre Gen Holiday Card Pack
-1319 Pumpkin Head Gen Holiday Card Pack
-1320 Firebat Gen Holiday Card Pack
-1321 Giant Mouth Demon Gen Holiday Card Pack
-1322 White Pepper Gen Holiday Card Pack
-1323 Little Bone Gen Holiday Card Pack
-```
-
 ---
 ## Upload to Steam Workshop
 Please see https://partner.steamgames.com/doc/features/workshop/implementation
@@ -1032,6 +649,849 @@ steamcmd.exe +login myLoginName myPassword +workshop_build_item workshop_green_h
 If the command succeeds, the publishedfileid value in the VDF will be automatically updated to include the Workshop item ID. Therefore, subsequent calls to steamcmd.exe within the same VDF will update, rather than create, new items.
 
 ```
+
+---
+## Existing IDs （The following is an AI translation only.）Update 2026.1.8
+```lua
+1101 Sand Flame Dog, First Generation, Common, Fire
+
+1102 Minite, First Generation, Common, Animal
+
+1103 Stubborn Bear Cub, First Generation, Common, Animal
+
+1104 Turabi, First Generation, Common, Ground
+
+1105 Electric Bear, First Generation, Common, Electric
+
+1106 Muti, First Generation, Common, Ice
+
+1107 Electric Dog, First Generation, Common, Electric
+
+1108 Ice Cave Mouse, First Generation, Common, Ice
+
+1109 Rainbow Butterfly, First Generation, Common, Insect
+
+1110 Aiminyao, First Generation, Common, Animal
+
+1111 Ice Cave Otter, First Generation, Common, Ice
+
+1112 Strange Weasel, First Generation, Common, Animal
+
+1113 Le Song Fox, First Generation, Common, Animal
+
+1114 Coeus, First Generation, Common, Dragon
+
+1115 Berry-tailed Monkey, First Generation, Common, Grass
+
+1116 Bouncing Mouse, First Generation, Common, Animal
+
+1117 Grass Dragon, First Generation, Common, Animal
+
+1118 Leafy Pip, First Generation, Common, Grass
+
+1119 Gawu Bird, First Generation, Common, Rock
+
+1120 Big-eared Monkey, First Generation, Common, Animal
+
+1121 Mysterious Owl, First Generation, Common, Mystic
+
+1201 Rock-armored Lizard, First Generation, Rare, Rock
+
+1202 White Dolphin Beast, First Generation, Rare, Water
+
+1203 Snow Fairy, First Generation, Rare, Ice
+
+1204 Octopus, First Generation, Rare, Water
+
+1205 Kachi Fox, First Generation, Rare, Fire
+
+1206 Pan Xiaoda, First Generation, Rare, Animal
+
+1207 Volcano Spider, First Generation, Rare, Fire
+
+1208 Thunder Eagle, First Generation, Rare, Electric
+
+1209 Vampire Bat Dragon, First Generation, Rare, Dragon
+
+1210 White Bat Beast, First Generation, Rare, Mystic
+
+1211 Disaster Heat Lizard Dragon, First Generation, Rare, Dragon
+
+1212 Ice Ridge Dragon, First Generation, Rare, Ice
+
+1213 Young Ice Ridge Dragon First Generation Rare Ice
+
+1301 Mine Eye Emperor First Generation Rare Rock
+
+1302 Desmo First Generation Rare Psychic
+
+1303 Fire Pattern Wolf First Generation Rare Fire
+
+1304 Surging Dragon First Generation Rare Dragon
+
+1305 Ghostly Butterfly First Generation Rare Grass
+
+1306 Fierce Bird First Generation Rare Fire
+
+1307 Mischievous Demon First Generation Rare Animal
+
+1308 Frost Dragon First Generation Rare Ice
+
+1309 Magnetic Beetle First Generation Rare Steel
+
+1310 Assault Demon First Generation Rare Fire
+
+1311 Rainbow Catfish First Generation Rare Water
+
+1312 Bub First Generation Rare Ice
+
+1313 Thunder Bear First Generation Rare Electric
+
+1324 Pouch Punch First Generation Rare Animal
+
+1325 Lamp Hat Forest Spirit First Generation Rare Grass
+
+1326 Berry Deer First Generation Rare Animal
+
+1327 Dream Hat Dodo First Generation Rare Psychic
+
+1328 Smoke Furnace Dummy First Generation Rare Steel
+
+1401 Heterochromatic Shell First Generation Extremely Rare Water
+
+1402 Flame Feather Owl First Generation Extremely Rare Fire
+
+1403 Mind Reading Cat First Generation Extremely Rare Animal
+
+1404 Fist Emperor Ape First Generation Extremely Rare Fire
+
+2101 Seed Thief Beast Second Generation Common Animal
+
+2102 Octopus Skin Second Generation Common Water
+
+2103 Grass Tail Sparrow Second Generation Common Grass
+
+2104 Rock Chestnut Second Generation Common Earth
+
+2105 Dazzling Tail Monkey Second Generation Common Grass
+
+2106 Gem Bear Second Generation Common Earth
+
+2107 Shadow Dragon Second Generation Common Dragon
+
+2108 Ghost Jellyfish Second Generation Common Water
+
+2109 Burning Mane Fox Second Generation Common Fire
+
+2110 Double Fin Dragon Second Generation Common Grass
+
+2111 Mushroom Rabbit  Second Generation Common Animal
+
+2112 Thunder Beast Second Generation Common Electric
+
+2113 Bewitching Fox Second Generation Common Electric
+
+2114 Enderman Mouse Second Generation Common Psychic
+
+2115 Tree Goblin Second Generation Common Grass
+
+2201 Blazing Beast Second Generation Rare Fire
+
+2202 Fossil Fish Second Generation Rare Water
+
+2203 Exploding Tail Frog Second Generation Rare Fire
+
+2204 Butterfly Rabbit Fairy Second Generation Rare Mysterious
+
+2205 Golem Beetle Second Generation Rare Insect
+
+2206 Silk Song Insect Second Generation Rare Insect
+
+2301 Valley Hedgehog Second Generation Rare Animal
+
+2302 Tsunami Otter Second Generation Rare Water
+
+2303 Lilua Second Generation Rare Psychic
+
+2304 Divine Lantern Second Generation Rare Mysterious
+
+2305 Baby Beast Second Generation Rare Animal
+
+2306 Azure Gaze Second Generation Rare Mysterious
+
+2307 Fierce Charge Beast Second Generation Rare Fire
+
+2308 Stonebreaker Pig Second Generation Rare Rock
+
+2309 Forge Hammer Second Generation Rare Ground
+
+2310 Rune Ghost Second Generation Rare Mysterious
+
+2311 Sleepy Otter Second Generation Rare Water
+
+2312 Dwarf Dora Second Generation Rare Grass
+
+2313 Fluffy Snow Second Generation Rare Ice
+
+2314 Winter Night Bell Second Generation Rare Ice
+
+2315 Phantom Light Beast Second Generation Rare Electric
+
+2316 Green Surge Second Generation Rare Grass
+
+2317 Neon Shadow Second Generation Rare Mysterious
+
+2318 Scorching Frequency Second Generation Rare Fire
+
+2319 Ice Spirit Second Generation Rare Ice
+
+2401 Sheath Fluff Fairy Second Generation Extremely Rare Grass
+
+2402 Cactus Beast Second Generation Extremely Rare Grass
+
+2403 Phantasm Beast Second Generation Extremely Rare Electric
+
+2404 Ancient Rock Whale Second Generation Extremely Rare Rock
+
+2405 Vine Shadow Weasel Second Generation Extremely Rare Grass
+
+3101 Urodi Third Generation Common Mysterious
+
+3102 Mask Bear Third Generation Common Steel
+
+3103 Mechanical Snake Third Generation Common Steel
+
+3104 Lockfang Third Generation Common Ice
+
+3105 Pipette Third Generation Common Animal
+
+3106 Windfang Third Generation Common Animal
+
+3107 Electric Ape Third Generation Common Electric
+
+3108 Ice Storm Dragon Third Generation Common Ice
+
+3109 Bit Cat Third Generation Common Psychic
+
+3110 Star Beast Third Generation Common Fire
+
+3111 Graveyard Sheep Third Generation Common Electric
+
+3112 Swift Third Generation Common Fire
+
+3113 Jet Wing Third Generation Common Fire
+
+3114 Steel Guard Third Generation Common Steel
+
+3115 Bantley Third Generation Common Fire
+
+3201 Snowfoot Mongoose Third Generation Rare Ice
+
+3202 Electric Claw Dragon Third Generation Rare Electric
+
+3203 Yuta Third Generation Rare Grass
+
+3204 Kori Sheep Third Generation Rare Fire
+
+3205 Maple Deer Third Generation Rare Fire
+
+3206 Ant Nest King Third Generation Rare Insect
+
+3207 Honey Wing Bee Third Generation Rare Insect
+
+3208 Honey Wing Ant Third Generation Rare Insect
+
+3209 Shallow Water Mist Third Generation Rare Water
+
+3210 Cherry Eye Shark Third Generation Rare Water
+
+3301 Fire Nudi Third Generation Rare Fire
+
+3302 Blood Moon Beast Third Generation Rare Mysterious
+
+3303 Bag Third Generation Rare Animal
+
+3304 Fighting Shepherd Third Generation Rare Animal
+
+3305 Wukong Third Generation Rare Water
+
+3306 3306  Furious Golden Leopard  Third Generation  Rare Electric
+
+3307  Zilarus  Third Generation  Rare Ice
+
+3308  Mudgumo  Third Generation  Rare Insect
+
+3309  Morning Light Traveler Luna  Third Generation  Rare Grass
+
+3310  Sunshine Captain Linda  Third Generation  Rare Water
+
+3311  Candy Rush  Third Generation  Rare Mystic
+
+3312  One-Eyed Stone  Third Generation  Rare Rock
+
+3313  Bell Box  Third Generation  Rare Steel
+
+3314  Azure Lock  Third Generation  Rare Mystic
+
+3315  Star-Spitting Fish  Third Generation  Rare Water
+
+3401  Bobby Langby  Third Generation  Extremely Rare Water
+
+3402  Damu  Third Generation  Extremely Rare Grass
+
+3403  Whirlpool Snail  Third Generation  Extremely Rare Insect
+
+3404  Sea Serpent  Third Generation  Extremely Rare Water
+
+3405  Hyrule  Third Generation  Extremely Rare Psychic
+
+3406  Sunshine Holiday Freya  Third Generation  Extremely Rare Mystic
+
+4101  Spida  Fourth Generation  Common Animal
+
+4102  Arrow Feather Bird  Fourth Generation  Common Fire
+
+4103  Blazing Mane Lion  Fourth Generation  Common Fire
+
+4104  Dream Dragon  Fourth Generation  Common Mystic
+
+4105  Three-Leaf Palm  Fourth Generation  Common Grass
+
+4106  Sunflower Beast  Fourth Generation  Common Grass
+
+4107  Spiny Rabbit  Fourth Generation  Common Grass
+
+4108  Mysterious Little Bear  Fourth Generation  Common Fire
+
+4109  Chef Lizard  Fourth Generation  Common Animal
+
+4110  Maple Tail Fox  Fourth Generation  Common Animal
+
+4111  Border Fox  Fourth Generation  Common Psychic
+
+4112  Multi-Spirit Flower  Fourth Generation  Common Electric
+
+4113  Electric Dragon Lizard  Fourth Generation  Common Electric
+
+4114  Long-Tailed Dragon  Fourth Generation  Common Dragon
+
+4115  Pipi  Fourth Generation  Common Electric
+
+4116 Dora Fat  Fourth Generation  Common  Mysterious
+
+4117  Black Snail Beast  Fourth Generation  Common  Mysterious
+
+4201  Steel Armadillo  Fourth Generation  Rare  Steel
+
+4202  Stone Armadillo  Fourth Generation  Rare  Rock
+
+4203  Timid Crab  Fourth Generation  Rare  Ground
+
+4204  Mushroom Hat Crab  Fourth Generation  Rare  Rock
+
+4301  Golden Armadillo  Fourth Generation  Rare  Steel
+
+4302  Mystery Dragon  Fourth Generation  Rare  Mysterious
+
+4303  Thunderstorm Beast  Fourth Generation  Rare  Water
+
+4304  Bitter Demon  Fourth Generation  Rare  Psychic
+
+4305  Ghost Scale Salamander  Fourth Generation  Rare  Water
+
+4306  Rabi  Fourth Generation  Rare  Animal
+
+4307  Rock Pincer Beast  Fourth Generation  Rare  Rock
+
+4308  Dream Dragon  Fourth Generation  Rare  Dragon
+
+4309  Thunder Cat  Fourth Generation  Rare  Electric
+
+4310  Wetland Dragon Lizard  Fourth Generation  Rare  Dragon
+
+4311  Blazing Gaze Elena  Fourth Generation  Rare  Grass
+
+4312  Morning Light Caroline  Fourth Generation  Rare  Rock
+
+4313  Treasure Dragon  Fourth Generation  Rare  Dragon
+
+4314  Clockwork Duck  Fourth Generation  Rare  Mysterious
+
+4315  Phantom Amber Sturgeon  Fourth Generation  Rare  Water
+
+4316  Split Blade  Fourth Generation  Rare  Grass
+
+4317  Sand Electric Scorpion  Fourth Generation  Rare  Electric
+
+4318  Ghost Scale Salamander  Fourth Generation  Rare  Water
+
+4401  Phantom Amber Sturgeon  Fourth Generation  Extremely Rare  Water
+
+4402  Tongue Lizard Beast  Fourth Generation  Extremely Rare  Animal
+
+4403  Ancient Dog Scorpion  Fourth Generation  Extremely Rare  Insect
+
+4404  Ghost Wave Butterfly  Fourth Generation  Extremely Rare  Water
+
+4405  Crystal Shell Turtle  Fourth Generation  Extremely Rare  Water
+
+4406  Forest Vine Overlord  Fourth Generation Extremely Rare Grass
+
+4407 Energetic Bomb - Ji Chenyin  Fourth Generation Extremely Rare Psychic
+
+5101 White Night Demon Fifth Generation Common Fire
+
+5102 Ripple Tiger Fifth Generation Common Fire
+
+5103 Rock Horn Dragon Fifth Generation Common Earth
+
+5104 Pharaoh Cat Fifth Generation Common Steel
+
+5105 White Rock Giant Fifth Generation Common Rock
+
+5106 White Rock Statue Fifth Generation Common Rock
+
+5107 Australian Deer Fifth Generation Common Fire
+
+5108 Barbarian Deer Fifth Generation Common Earth
+
+5110 Mini Sheep Fifth Generation Common Fire
+
+5111 Dobby Fifth Generation Common Grass
+
+5112 Extreme Frost Bear Fifth Generation Common Ice
+
+5113 Arctic Seal Fifth Generation Common Ice
+
+5114 Arctic Bird Fifth Generation Common Ice
+
+5115 Bimong Bee Fifth Generation Common Electric
+
+5116 Komodo Fifth Generation Common Electric
+
+5117 Nemo Fifth Generation Common Electric
+
+5118 Electric Seahorse Fifth Generation Common Electric
+
+5119 Bomb Crocodile Fifth Generation Common Electric
+
+5120 Fat Pufferfish Fifth Generation Common Water
+5121 Abyssal Octopus  Fifth Generation Common Water
+
+5122 Dark Crow Fifth Generation Common Mystery
+
+5123 Fire Fox Fifth Generation Common Fire
+
+5124 Little Fire Fox Fifth Generation Common Fire
+
+5201 Steel Crystal Turtle Fifth Generation Rare Steel
+
+5202 Dark Night Mouse Fifth Generation Rare Animal
+
+5203 Leaf-Winged Frog Fifth Generation Rare Grass
+
+5204 Pharaoh Dog Fifth Generation Rare Psychic
+
+5205 Ice Plain Ape Fifth Generation Rare Ice
+
+5206 Red-Eyed Spotted Beast Fifth Generation Rare Fire
+
+5207 Bubble Cat Fifth Generation Rare Water
+
+5208 Cold Wind Bear Fifth Generation Rare Ice
+
+5209 Night Star Worm Fifth Generation Rare Electric
+
+5210 Horned Beast Fifth Generation Rare Steel
+
+5301 Octopus Cocoa Fifth Generation Rare Water
+
+5302 Dream Bug Fifth Generation Rare Insect
+
+5303 Dragon多多 Fifth Generation Rare Dragon
+
+5304 Lucky Leaf Frog Fifth Generation Rare Grass
+
+5305 Tower Flower Beast Fifth Generation Rare Ground
+
+5306 Thunder Flame Fang Fifth Generation Rare Dragon
+
+5307 Molten Tomb Dragon Fifth Generation Rare Dragon
+
+5308 Thunder Strike Beast Fifth Generation Rare Electric
+
+5309 Winter Spring Fifth Generation Rare Ice
+
+5310 Radiance Fifth Generation Rare Mystery
+
+5311 Swimming Sun Queen · Suriyin Fifth Generation Rare Water
+
+5312 Blazing Sun General · Haruna Fifth Generation Rare Fire
+
+5313 Ice Fang Mammoth Fifth Generation Rare Ice
+
+5314 Lucky Leaf Frog Fifth Generation Rare Grass
+
+5315 Cake Fifth Generation Rare Insect
+
+5316 Gift Box Boxer Fifth Generation Rare Steel
+
+5317 Christmas Elephant Fifth Generation Rare Animal
+
+5318 Tower Flower Beast Fifth Generation Rare Ground
+
+5319 Flat Ray Fifth Generation Rare Water
+
+5401 Stone Bean Tyrant Fifth Generation Extremely Rare Rock
+
+5402 Mushroom Fish Fifth Generation Extremely Rare Water
+
+5403 Split-Shelled Dragon Lizard Fifth Generation Extremely Rare Dragon
+
+5404 Ice Fang Mammoth Fifth Generation Extremely Rare Ice
+
+5405 Grass Mound Fifth Generation Extremely Rare Grass
+
+5406 Death Steel Stone Fifth Generation Extremely Rare Steel
+
+5407 Gale Fist Kid - Nitta Hikaru Fifth Generation Extremely Rare Rock
+
+6101 Ripple Snake Sixth Generation Common Ice
+
+6102 Glass Butterfly Sixth Generation Common Insect
+
+6103 Corrupted Thunder Beast Sixth Generation Common Electric
+
+6104 Ice Peak Ape Sixth Generation Common Ice
+
+6105 Ghost Shark Sixth Generation Common Mystery
+
+6106 Ghost Hedgehog Sixth Generation Common Mystery
+
+6107 One-Eyed Octopus Sixth Generation Common Mystery
+
+6108 Blue Feather Sparrow Sixth Generation Common Psychic
+
+6109 Soul-Leaving Insect Sixth Generation Common Psychic
+
+6110 Nemesis Elephant Sixth Generation Common Psychic
+
+6111 Starlight Jellyfish Sixth Generation Common Mystery
+
+6112 Earth Mountain Turtle Sixth Generation Common Ground
+
+6113 Tusked Pig Sixth Generation Common Ground
+
+6114 Crystal Beetle Sixth Generation Common Rock
+
+6115 Desert Lizard Sixth Generation Common Fire
+
+6116 Boxing Kangaroo Sixth Generation Common Fire
+
+6117 Steel Armored Rhino Sixth Generation Common Steel
+
+6118 Dream Bat Sixth Generation Common Mystery
+
+6119 Hypnotic Peacock Sixth Generation Common Psychic
+
+6120 Steel Spike Beast  Sixth Generation  Common Steel
+
+6121 Mechanical Bird  Sixth Generation  Common Steel
+
+6123 Engineering Elephant  Sixth Generation  Common Steel
+
+6124 Volcano Dragon  Sixth Generation  Common Fire
+
+6125 Electromagnetic Dog  Sixth Generation  Common Electric
+
+6126 Chameleon Deer  Sixth Generation  Common Grass
+
+6127 Gluttonous Dragon  Sixth Generation  Common Electric
+
+6201 Rainbow Koala  Sixth Generation  Rare Mystic
+
+6202 Ice Snow Spirit Wave  Sixth Generation  Rare Ice
+
+6203 Fachi  Sixth Generation  Rare Psychic
+
+6204 Komi Sheep  Sixth Generation  Rare Steel
+
+6205 Rainbow Dragon  Sixth Generation  Rare Psychic
+
+6206 Dada Duck  Sixth Generation  Rare Animal
+
+6207 Steel Fang Dog  Sixth Generation  Rare Steel
+
+6208 Ore Beast  Sixth Generation  Rare Mystic
+
+6209 Angel Eagle  Sixth Generation  Rare Electric
+
+6301 Ghost Egg  Sixth Generation  Rare Mystic
+
+6302 Lightning Sheep  Sixth Generation  Rare Electric
+
+6303 Radiation Snake Flower  Sixth Generation  Rare Grass
+
+6304 Bubble  Sixth Generation  Rare Water
+
+6305 Bubble Jellyfish  Sixth Generation  Rare Water
+
+6306 Gugu  Sixth Generation  Rare Animal
+
+6307 Lala  Sixth Generation  Rare Grass
+
+6308 Mud Hippo  Sixth Generation  Rare Water
+
+6309 Sunshine Trainee - Natsume Rin  Sixth Generation  Rare Electric
+
+6310 Fighting Girl - Emily  Sixth Generation  Rare Ground
+
+6311 Candle Fox  Sixth Generation  Rare Fire
+
+6312 Palm-tailed Frog  Sixth Generation  Rare Water
+
+6313 Wave Sprite  Sixth Generation  Rare Grass
+
+6314 Star Core Electric Spider  Sixth Generation  Rare Electric
+
+6315 Pod Pod  Sixth Generation Rare Grass
+
+6316 Fluffy Vine Sixth Generation Rare Grass
+
+6317 Night Flower Sixth Generation Rare Mysterious
+
+6318 Lanfu Sixth Generation Rare Water
+
+6319 Cotton Seedling Sixth Generation Rare Ground
+
+6320 Snow Hammer Sixth Generation Rare Ice
+
+6321 Owl Griffin Sixth Generation Rare Fire
+
+6322 Buu Sixth Generation Rare Ground
+
+6323 Korokoro Sixth Generation Rare Electric
+
+6401 Spore Dragon Sixth Generation Extremely Rare Dragon
+
+6402 Three-Headed Carnivorous Plant Sixth Generation Extremely Rare Grass
+
+6403 Potpot Sixth Generation Extremely Rare Grass
+
+6404 Flower Dream Sixth Generation Extremely Rare Psychic
+
+6405 Giant Beak Rock Sixth Generation Extremely Rare Rock
+
+6406 Hunter Squid Sixth Generation Extremely Rare Ice
+
+6407 Street Brother Bruno Sixth Generation Extremely Rare Ground
+
+6408 Cotton Seedling Sixth Generation Extremely Rare Ground
+
+7101 Joyful Feather Bird Seventh Generation Common Animal
+
+7102 Leaf Blade Seventh Generation Common Insect
+
+7103 Leaf Claw Beast Seventh Generation Common Grass
+
+7104 Earth Dragon Beast Seventh Generation Common Ground
+
+7105 Rock Fist Beast Seventh Generation Common Rock
+
+7106 Babu Seventh Generation Common Mysterious
+
+7107 Rakas Beast Seventh Generation Common Psychic
+
+7108 Punch Raccoon Seventh Generation Common Steel
+
+7109 Star Stream Deer Seventh Generation Common Electric
+
+7110 Secret Love Bird Seventh Generation Common Animal
+
+7111 Tree Elephant Beast Seventh Generation Common Ground
+
+7112 Water Bubble Spirit Seventh Generation Common Water
+
+7113 Tide Wave Wing Seventh Generation Common Fire
+
+7114 Thunderclap Fish Seventh Generation Common Fire
+
+7116 Fire Tiger  Seventh Generation Common Fire
+
+7117 Fire-Winged Dragon Seventh Generation Common Dragon
+
+7118 Spirit Squirrel Seventh Generation Common Animal
+
+7119 Flame-Horned Beast Seventh Generation Common Rock
+
+7120 Lava Fang Seventh Generation Common Fire
+
+7201 Green Leaf Spirit Seventh Generation Rare Grass
+
+7202 Winged Thunder Bug Seventh Generation Rare Electric
+
+7203 Flower Fairy Seventh Generation Rare Mystic
+
+7204 Flower-Winged Spirit Seventh Generation Rare Psychic
+
+7205 Flower Melody Spirit Seventh Generation Rare Psychic
+
+7206 Blue Flame Spirit Seventh Generation Rare Fire
+
+7207 Blue Bat Beast Seventh Generation Rare Ice
+
+7208 Vine Leaping Spirit Seventh Generation Rare Grass
+
+7209 Mushroom Spirit Seventh Generation Rare Ground
+
+7210 Crawling Crab Seventh Generation Rare Water
+
+7211 Sparkling Bubble Fox Seventh Generation Rare Electric
+
+7212 Sparkling Stone Spirit Seventh Generation Rare Ice
+
+7213 Sparkling Leaping Fox Seventh Generation Rare Fire
+
+7214 Deer Leaf Beast Seventh Generation Rare Grass
+
+7301 Primordial Nucleus Organism - Qimi Seventh Generation Rare Psychic
+
+7302 Neon Blade Maiden - Liyin Seventh Generation Rare Mystic
+
+7303 Shadow Ember Seventh Generation Rare Dragon
+
+7304 Candy Colt Seventh Generation Rare Animal
+
+7305 Bubble Chirp Seventh Generation Rare Water
+
+7306 Blazing Wolf Split Seventh Generation Rare Animal
+
+7307 Frost Azure Sky Wing Seventh Generation Rare Dragon
+
+7308 Burning Shadow Seventh Generation Rare Fire
+
+7309 Enchanting Moon Spirit Seventh Generation Rare Mystic
+
+7310 Leaping Star Monkey Seventh Generation Rare Animal
+
+7311 Rock Refining Beast Seventh Generation Rare Rock
+
+7312  Leaping Girl Kora  Seventh Generation  Rare Electric
+
+7313  Thunderbolt Charge Weiming  Seventh Generation  Rare Electric
+
+7314  Spine Beetle  Seventh Generation  Rare Insect
+
+7315  Gingerbread Frost  Seventh Generation  Rare Psychic
+
+7316  Snowflake  Seventh Generation  Rare Ice
+
+7317  Seahorse Star  Seventh Generation  Rare Water
+
+7318  Tuanlu Beast  Seventh Generation  Rare Grass
+
+7319  Zandara Dragon  Seventh Generation  Rare Dragon
+
+7401  Bubblefin Beast  Seventh Generation  Extremely Rare Mysterious
+
+7402  潤波鯨  Seventh Generation  Extremely Rare Water
+
+7403  Rootling Spirit  Seventh Generation  Extremely Rare Grass
+
+7404  Star Strike Beast  Seventh Generation  Extremely Rare Psychic
+
+7405  Flame Shadow Demon  Seventh Generation  Extremely Rare Fire
+
+7406  Illusionary Law Divine Envoy Zhimiao  Seventh Generation  Extremely Rare Ice
+
+7407  Passionate Discipline Lieyang  Seventh Generation  Extremely Rare Fire
+
+7408  Azulon  Seventh Generation  Extremely Rare Rock
+
+7409  Entwining Ghost  Seventh Generation  Extremely Rare Mysterious
+
+7410  Blade Scale Shark  Seventh Generation  Extremely Rare Dragon
+
+7411  Deadfin Whale  Seventh Generation  Extremely Rare Water
+
+7412  Spine Beetle  Seventh Generation  Extremely Rare Insect
+
+7413  Shimmering Mane Lion  Seventh Generation  Extremely Rare Psychic
+
+100001  Rain God Yilianjiaqi  First Generation  Divine Water
+
+100002  Moon God Alagus  First Generation  Divine Mysterious
+
+100003  Fire God Lieluohuangnie  First Generation  Divine Fire
+
+100004  Grass God Yahualimu  First Generation  Divine Grass
+
+9001  Aiyinzi  Souvenir  Extremely Rare Fire
+
+9002  Eric  Souvenir  Extremely Rare Mysterious
+
+9003 Lingxue Commemorative Item Extremely Rare Ice
+
+9004 KF Commemorative Item Extremely Rare Electric
+
+9005 wawa Commemorative Item Extremely Rare Fire
+
+9006 Tobe Commemorative Item Extremely Rare Rock
+
+9007 EXIA Commemorative Item Extremely Rare Psychic
+
+9008 YIMING Commemorative Item Extremely Rare Psychic
+
+9060 Killa Commemorative Item Extremely Rare Rock
+
+9061 An-chan Commemorative Item Extremely Rare Mysterious
+
+9062 Snow White Maid Commemorative Item Extremely Rare Ice
+
+9063 Bunny Girl Commemorative Item Extremely Rare Water
+
+9064 Alice Commemorative Item Extremely Rare Steel
+
+9065 ANO Commemorative Item Extremely Rare Mysterious
+
+9066 Dragon's Dwelling Princess Commemorative Item Extremely Rare Dragon
+
+9067 Fool Commemorative Item Extremely Rare Psychic
+
+9068 ANT Commemorative Item Extremely Rare Psychic
+
+9069 Cherry Blossom Girl Commemorative Item Extremely Rare Mysterious
+
+9071 KaiKai is Here Commemorative Item Extremely Rare Mysterious
+
+9072 Iron Pot Stewed Goose Commemorative Item Extremely Rare Mysterious
+
+9073 Saka Caicai Commemorative Item Extremely Rare Mysterious
+
+9074 Lengyang Junior Commemorative Item Extremely Rare Mysterious
+
+1314 Cloud Mist Demon Holiday Card Pack Rare Electric
+
+1315 Ghost Lantern Holiday Card Pack Rare Fire
+
+1316 Poisonous Mushroom Holiday Card Pack Rare Grass
+
+1317 Kemengduo Holiday Card Pack Rare Psychic
+
+1318 Shadow Ghost Holiday Card Pack Rare Mysterious
+
+1319 Pumpkin Head Holiday Card Pack Rare Earth
+
+1320 Magic Fire Bat Holiday Card Pack Rare Animal
+
+1321 Giant Mouth Demon Holiday Card Pack Rare Animal
+
+1322 White Pepper Spirit Holiday Card Pack Extremely Rare Grass
+
+1323 Little Bone Holiday Card Pack Extremely Rare Psychic
+```
+
+
 
 ## 📮More API interfaces and extensions: Contact information
 - QQ: 780231813
