@@ -442,6 +442,180 @@ end
 
 ```
 
+
+
+
+## ✅ Complete Runnable Example: Localization (Multi-language Support)
+This example demonstrates how to dynamically load card names and descriptions based on the game's current language settings (e.g., Chinese, English, Japanese).
+```lua
+-- ==========================================================================
+-- 1. Utility Function: Get Current Language
+--    Note: Must be placed at the top so subsequent logic can call it.
+-- ==========================================================================
+local function GetGameLanguage()
+    local culture = "en" -- Default fallback language
+    
+    -- Safety check: Ensure UE objects exist
+    -- (Prevents errors if the Mod Loader scans files outside of the game environment)
+    if UE and UE.UKismetInternationalizationLibrary and UE.UKismetInternationalizationLibrary.GetCurrentCulture then
+        local fullCulture = UE.UKismetInternationalizationLibrary.GetCurrentCulture() 
+        if fullCulture then
+            -- Extract first two characters and convert to lowercase (e.g., "zh-Hans-CN" -> "zh")
+            culture = string.sub(tostring(fullCulture), 1, 2):lower()
+        end
+    end
+    
+    -- Define supported languages list; fallback to 'en' if not in list
+    local supported = {
+        ["en"]=true, -- English
+        ["zh"]=true, -- Chinese
+        ["ja"]=true, -- Japanese
+        ["es"]=true, -- Spanish
+        ["fr"]=true, -- French
+        ["de"]=true, -- German
+        ["it"]=true, -- Italian
+        ["pt"]=true, -- Portuguese
+        ["ru"]=true  -- Russian
+    }
+    return supported[culture] and culture or "en"
+end
+
+-- Get current language and store it for later use
+local CurrentLang = GetGameLanguage()
+
+
+-- ==========================================================================
+-- 2. Mod Metadata Definition (For C++ Regex Parser)
+--    The C++ code scans these lines to display the Mod name in the UI list.
+--    We use the global variable format to ensure Regex matches `key = "value"`.
+-- ==========================================================================
+
+-- --- English (Default) ---
+name            = "Localization Example"
+description     = "Example mod showing how to support multiple languages."
+
+-- --- Chinese ---
+name_zh         = "多语言本地化示例"
+description_zh  = "这是一个演示如何支持多种语言的 Mod 示例。"
+
+-- --- Japanese ---
+name_ja         = "ローカライズ例"
+description_ja  = "多言語対応の方法を示すMod例です。"
+
+-- --- Spanish ---
+name_es         = "Ejemplo de Localización"
+description_es  = "Un mod de ejemplo que muestra cómo admitir varios idiomas."
+
+-- --- French ---
+name_fr         = "Exemple de Localisation"
+description_fr  = "Exemple de mod montrant comment supporter plusieurs langues."
+
+-- --- German ---
+name_de         = "Lokalisierungsbeispiel"
+description_de  = "Beispiel-Mod, der zeigt, wie mehrere Sprachen unterstützt werden."
+
+-- --- Russian ---
+name_ru         = "Пример локализации"
+description_ru  = "Пример мода, показывающий поддержку нескольких языков."
+
+-- (You can continue adding other languages, e.g., name_it, name_pt, etc.)
+
+
+-- ==========================================================================
+-- 3. Main Mod Table (M) (For Lua VM Execution)
+--    This implements dynamic name retrieval inside Lua.
+--    _G["name_"..CurrentLang] means:
+--    If the current lang is 'zh', look for the global variable 'name_zh';
+--    otherwise, use the default 'name'.
+-- ==========================================================================
+local M = {
+    id          = "LocalizedCardExample",
+    -- Dynamic assignment: Try to get name_zh, name_ja, etc., fallback to name
+    name        = _G["name_" .. CurrentLang] or name, 
+    description = _G["description_" .. CurrentLang] or description,
+    version     = "1.0.2",
+    author      = "yiming",
+}
+
+
+-- ==========================================================================
+-- 4. In-Game Content Translation Table (Card Data)
+--    Key = Card ID, Value = Text for each language
+-- ==========================================================================
+local CardLocalizationDB = {
+    [1102] = {
+        -- English
+        en = { Name = "Blue Slime",     Desc = "A sticky friend found in the water." },
+        -- Chinese
+        zh = { Name = "蓝色史莱姆",     Desc = "在水中发现的粘粘的朋友。" },
+        -- Japanese
+        ja = { Name = "ブルースライム",  Desc = "水辺で見つかるネバネバした友達。" },
+        -- Spanish
+        es = { Name = "Limo Azul",      Desc = "Un amigo pegajoso encontrado en el agua." },
+        -- French
+        fr = { Name = "Slime Bleu",     Desc = "Un ami gluant trouvé dans l'eau." },
+        -- German
+        de = { Name = "Blauer Schleim", Desc = "Ein klebriger Freund aus dem Wasser." },
+        -- Russian
+        ru = { Name = "Синий Слизень",  Desc = "Липкий друг, найденный в воде." },
+    },
+    -- You can add more cards here...
+    -- [1103] = { ... }
+}
+
+
+-- ==========================================================================
+-- 5. Core Logic: Register Card
+-- ==========================================================================
+local function AddLocalizedCard()
+    local W = MOD.GAA.WorldUtils:GetCurrentWorld()
+    local R = UE.UCardFunction.GetCardRegistryWS(W)
+    
+    local cardId = 1102
+    
+    -- --- 1. Get translation data ---
+    local cardData = CardLocalizationDB[cardId]
+    
+    -- Default fallback to English
+    local finalName = cardData["en"].Name
+    local finalDesc = cardData["en"].Desc
+
+    -- If translation exists for the current language, override the default
+    if cardData[CurrentLang] then
+        finalName = cardData[CurrentLang].Name
+        finalDesc = cardData[CurrentLang].Desc
+    end
+    -- -------------------------------
+
+    -- --- 2. Assemble card data ---
+    local D = UE.FCardDataAll()
+    D.CardID = cardId
+    D.Name = finalName
+    D.Description = finalDesc
+    D.Gen = 0
+    -- Ensure this image exists in your Mod folder
+    D.TexturePath = dir .. "1102.png"
+    D.Rarity = UE.ECardRarity.Common
+    D.BaseAttack = 15
+    D.BaseHealth = 25
+    D.CardElementFaction:Add(UE.ECardElementFaction.Water)
+    
+    -- --- 3. Register to game ---
+    R:RegisterCardData(D.CardID, D)
+end
+
+-- ==========================================================================
+-- 6. Mod Initialization Entry Point
+-- ==========================================================================
+function M.OnInit()
+    AddLocalizedCard()
+end
+
+return M
+
+```
+
+
 ---
 ## Existing IDs （The following is an AI translation only.）
 ```lua
