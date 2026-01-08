@@ -441,6 +441,177 @@ end
 
 ```
 
+## ✅ 完整可运行示例：本地化（多语言支持）
+本示例展示了如何根据游戏当前的语言设置（如中文、英文、日文），动态加载对应的卡牌名称和描述。
+```lua
+-- ==========================================================================
+-- 1. 工具函数：获取当前语言
+--    注意：必须放在最前面，这样后面的逻辑才能调用它。
+-- ==========================================================================
+local function GetGameLanguage()
+    local culture = "en" -- 默认回退语言
+    
+    -- 增加安全检查：确保 UE 对象存在
+    -- (防止 Mod 加载器在非游戏环境下仅扫描文件时报错)
+    if UE and UE.UKismetInternationalizationLibrary and UE.UKismetInternationalizationLibrary.GetCurrentCulture then
+        local fullCulture = UE.UKismetInternationalizationLibrary.GetCurrentCulture() 
+        if fullCulture then
+            -- 截取前两个字母并转为小写 (例如 "zh-Hans-CN" -> "zh")
+            culture = string.sub(tostring(fullCulture), 1, 2):lower()
+        end
+    end
+    
+    -- 定义支持的语言列表，不在列表内的统一回退到 en
+    local supported = {
+        ["en"]=true, -- 英语
+        ["zh"]=true, -- 中文
+        ["ja"]=true, -- 日语
+        ["es"]=true, -- 西班牙语
+        ["fr"]=true, -- 法语
+        ["de"]=true, -- 德语
+        ["it"]=true, -- 意大利语
+        ["pt"]=true, -- 葡萄牙语
+        ["ru"]=true  -- 俄语
+    }
+    return supported[culture] and culture or "en"
+end
+
+-- 获取当前语言并存入变量，供后续使用
+local CurrentLang = GetGameLanguage()
+
+
+-- ==========================================================================
+-- 2. Mod 元数据定义 (给 C++ 正则解析器看)
+--    C++ 代码会扫描这些行来显示 Mod 列表的名字。
+--    这里使用全局变量格式，确保正则能匹配到 `key = "value"`。
+-- ==========================================================================
+
+-- --- 英文 (默认) ---
+name            = "Localization Example"
+description     = "Example mod showing how to support multiple languages."
+
+-- --- 中文 (Chinese) ---
+name_zh         = "多语言本地化示例"
+description_zh  = "这是一个演示如何支持多种语言的 Mod 示例。"
+
+-- --- 日文 (Japanese) ---
+name_ja         = "ローカライズ例"
+description_ja  = "多言語対応の方法を示すMod例です。"
+
+-- --- 西班牙文 (Spanish) ---
+name_es         = "Ejemplo de Localización"
+description_es  = "Un mod de ejemplo que muestra cómo admitir varios idiomas."
+
+-- --- 法文 (French) ---
+name_fr         = "Exemple de Localisation"
+description_fr  = "Exemple de mod montrant comment supporter plusieurs langues."
+
+-- --- 德文 (German) ---
+name_de         = "Lokalisierungsbeispiel"
+description_de  = "Beispiel-Mod, der zeigt, wie mehrere Sprachen unterstützt werden."
+
+-- --- 俄文 (Russian) ---
+name_ru         = "Пример локализации"
+description_ru  = "Пример мода, показывающий поддержку нескольких языков."
+
+-- (你可以继续添加其他语言，例如 name_it, name_pt 等)
+
+
+-- ==========================================================================
+-- 3. Mod 主表 (M) (给 Lua 虚拟机运行看)
+--    这里实现了在 Lua 内部也动态获取名字。
+--    _G["name_"..CurrentLang] 的意思是：
+--    如果当前是 zh，就去找全局变量 name_zh，找不到就用默认的 name。
+-- ==========================================================================
+local M = {
+    id          = "LocalizedCardExample",
+    -- 动态赋值：尝试获取 name_zh, name_ja 等，失败则用 name
+    name        = _G["name_" .. CurrentLang] or name, 
+    description = _G["description_" .. CurrentLang] or description,
+    version     = "1.0.2",
+    author      = "yiming",
+}
+
+
+-- ==========================================================================
+-- 4. 游戏内内容翻译表 (卡牌数据)
+--    Key = 卡牌ID, Value = 各语言的文本
+-- ==========================================================================
+local CardLocalizationDB = {
+    [1102] = {
+        -- 英语
+        en = { Name = "Blue Slime",     Desc = "A sticky friend found in the water." },
+        -- 中文
+        zh = { Name = "蓝色史莱姆",     Desc = "在水中发现的粘粘的朋友。" },
+        -- 日语
+        ja = { Name = "ブルースライム",  Desc = "水辺で見つかるネバネバした友達。" },
+        -- 西班牙语
+        es = { Name = "Limo Azul",      Desc = "Un amigo pegajoso encontrado en el agua." },
+        -- 法语
+        fr = { Name = "Slime Bleu",     Desc = "Un ami gluant trouvé dans l'eau." },
+        -- 德语
+        de = { Name = "Blauer Schleim", Desc = "Ein klebriger Freund aus dem Wasser." },
+        -- 俄语
+        ru = { Name = "Синий Слизень",  Desc = "Липкий друг, найденный в воде." },
+    },
+    -- 你可以在这里添加更多卡牌...
+    -- [1103] = { ... }
+}
+
+
+-- ==========================================================================
+-- 5. 核心逻辑：注册卡牌
+-- ==========================================================================
+local function AddLocalizedCard()
+    local W = MOD.GAA.WorldUtils:GetCurrentWorld()
+    local R = UE.UCardFunction.GetCardRegistryWS(W)
+    
+    local cardId = 1102
+    
+    -- --- 1. 获取翻译数据 ---
+    local cardData = CardLocalizationDB[cardId]
+    
+    -- 默认使用英文作为保底
+    local finalName = cardData["en"].Name
+    local finalDesc = cardData["en"].Desc
+
+    -- 如果当前语言有翻译，则覆盖默认值
+    if cardData[CurrentLang] then
+        finalName = cardData[CurrentLang].Name
+        finalDesc = cardData[CurrentLang].Desc
+    end
+    -- -----------------------
+
+    -- --- 2. 组装卡牌数据 ---
+    local D = UE.FCardDataAll()
+    D.CardID = cardId
+    D.Name = finalName
+    D.Description = finalDesc
+    D.Gen = 0
+    -- 确保你的 Mod 文件夹里有这张图片
+    D.TexturePath = dir .. "1102.png"
+    D.Rarity = UE.ECardRarity.Common
+    D.BaseAttack = 15
+    D.BaseHealth = 25
+    D.CardElementFaction:Add(UE.ECardElementFaction.Water)
+    
+    -- --- 3. 注册到游戏 ---
+    R:RegisterCardData(D.CardID, D)
+end
+
+-- ==========================================================================
+-- 6. Mod 初始化入口
+-- ==========================================================================
+function M.OnInit()
+    AddLocalizedCard()
+end
+
+return M
+
+```
+
+
+
 ---
 ## 目前已有的ID
 ```lua
