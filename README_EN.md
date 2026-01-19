@@ -224,40 +224,62 @@ return M
 
 ---
 ## ✅Example : Add an interface to change the payment method to only accept QR code payments
-The function for setting the payment method will be modified using an overriding function to change its original logic.
-> 💡 **Only effective when added by the host** : This will modify the payment settings for everyone's cashier.
 
-** Principle :** The entire cashier function runs on the server; the client only receives the message. When a customer pays, they obtain the host's `playerState`, then call `GetPayMent` to get the return value—which sets the specific implementation effect of the cashier.
+>2026.1.19 Updated
 
-Contact the author to add a simple modification interface.
+>This example demonstrates how to Hook (override) the original GetPayMentOverall function to forcibly lock the payment method of all checkout counters to Scan Payment.
+
+>⚠️ Note (Host Only) This script is only effective when running on the host side (room owner).
+
+>Since the checkout function runs entirely on the server side, modifying the host logic will synchronously affect all connected clients (other players).
+
+>🛠️ Implementation Principle
+
+>Get State: Customers get the host's PlayerState when paying. (Here, use M's function instead of localFunction, as PlayerState might load after the Mod, so the Timer and function scope must be correct).
+
+>Intercept Call: The system calls GetPayMentOverall to get the payment method (original logic returns a random 0~2).
+
+>Override Result: We intercept this function and force return 2 (Scan), thereby changing the specific behavior of the checkout counter
+
+>Contact author to add simple modification interfaces
+
+
 ```lua
-local function try_patch()
+function M:try_patch()  -- Note M: here
 
-if not MOD or not MOD.Playercontroller or MOD.Playercontroller.PlayerIndex == -1 then
--- PlayerController is not ready yet, please try again later.
-MOD.GAA.TimerManager:AddTimer(1, M, function() M:try_patch() end)
-return
+	if not MOD or not MOD.Playercontroller or MOD.Playercontroller.PlayerIndex == -1 then
+		-- PlayerController not ready yet, retry later
+		MOD.GAA.TimerManager:AddTimer(1, M, M.try_patch)
+		return
+	end
+
+	local pc         = MOD.Playercontroller
+	local key        = "BasePlayerState0" -- Get player's BP_PlayerState
+	local klass      = pc.GetLuaObject and pc:GetLuaObject(key) or nil  -- Get the lua file of current BP_PlayerState
+
+    if pc.PlayerIndex and pc.PlayerIndex ~= 0  then
+        return --The client cannot find BasePlayerState0. Therefore, it needs to return. Prevent client-side duplicate checks.
+    end
+
+    if not klass then
+		MOD.GAA.TimerManager:AddTimer(1, M, M.try_patch)
+        return
+    end
+
+    klass.GetPayMentOverall = function(self)
+        -- Original function returns random three values
+        -- 0 -- Cash
+        -- 1 -- Card Reader
+        -- 2 -- Scan
+        -- return MOD.UE.UKismetMathLibrary.RandomIntegerInRange(0, 2) -- Call UE function for random value
+
+        MOD.Logger.LogScreen("Intercept Checkout", 5, 0, 1, 0, 1)
+        return 2
+    end
 end
-
-local pc = MOD.Playercontroller
-local key = "BasePlayerState0" -- Get the player's BP_PlayerState
-local klass = pc.GetLuaObject and pc:GetLuaObject(key) or nil -- Get the Lua file of the current BP_PlayerState.
-
-if not klass then
-MOD.GAA.TimerManager:AddTimer(1, M, function() M:try_patch() end)
-return
-end
-
-klass.GetPayMentOverall = function(self)
---The original function is three random values.
---0 --Cash
---1 --Card reader
---2 --Scan QR code
--- return MOD.UE.UKismetMathLibrary.RandomIntegerInRange(0, 2) -- Call the UE function to generate a random value
-
-MOD.Logger.LogScreen("Intercepting cashier", 5, 0, 1, 0, 1)
-return 2
-end
+-- OnInit calling method also needs change
+function M.OnInit()
+    M:try_patch()  -- Here M:
 end
 ```
 > 💡 **Additional PlayerState Interface** : To use it, add it after the klassfunction above.
