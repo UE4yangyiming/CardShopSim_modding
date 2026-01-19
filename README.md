@@ -253,6 +253,10 @@ function M:try_patch()  --这里注意M:
 	local key        = "BasePlayerState0" --获得玩家的BP_PlayerState
 	local klass      = pc.GetLuaObject and pc:GetLuaObject(key) or nil  --获得当前BP_PlayerState的lua文件
 
+    if pc.PlayerIndex and pc.PlayerIndex ~= 0  then
+        return --客户端找不到BasePlayerState0，这里要return。防止客户端重复检查。
+    end
+
     if not klass then
 		MOD.GAA.TimerManager:AddTimer(1, M, M.try_patch)
         return
