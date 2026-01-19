@@ -223,17 +223,29 @@ return M
 ---
 ## ✅ 示例：添加的接口 修改支付方式  仅用扫码支付
 将设置支付方式的函数通过覆盖函数 修改原逻辑 
-> 💡 **只有主机添加有效**：会修改所有人的收银台支付设置。
+>2026.1.19更新
 
-> **原理**：收银功能全部在服务器运行，客户端只是收到了消息。顾客在支付的时候获得主机的playerState.然后调用GetPayMent获得返回值-设置收银台的具体实现效果。
-
+>本示例展示了如何通过 Hook（覆盖）原有的 GetPayMentOverall 函数，将所有收银台的支付方式强制锁定为 扫码支付。
+>
+> ⚠️ 注意事项 (Host Only) 此脚本仅在主机端（房主）运行有效。
+>
+> 由于收银功能完全在服务器端运行，修改主机的逻辑将同步影响所有连接的客户端（其他玩家）。
+>
+> 🛠️ 实现原理
+>
+> 获取状态：顾客在支付时会获取主机的 PlayerState。（这里要使用M的函数，而不是localFunction，可能PlayerState的加载时间在Mod之后，所以Timer和函数区域不能写错）。
+>
+> 拦截调用：系统调用 GetPayMentOverall 获取支付方式（原逻辑为随机返回 0~2）。
+>
+> 覆盖结果：我们拦截该函数并强制返回 2（扫码），从而改变收银台的具体表现
+>
 > 联系作者添加简单的修改接口
 ```lua
-local function try_patch()
+function M:try_patch()  --这里注意M:
 
 	if not MOD or not MOD.Playercontroller or MOD.Playercontroller.PlayerIndex == -1 then
 		-- PlayerController 还没就绪，稍后重试
-		MOD.GAA.TimerManager:AddTimer(1, M, function() M:try_patch() end)
+		MOD.GAA.TimerManager:AddTimer(1, M, M.try_patch)
 		return
 	end
 
@@ -242,7 +254,7 @@ local function try_patch()
 	local klass      = pc.GetLuaObject and pc:GetLuaObject(key) or nil  --获得当前BP_PlayerState的lua文件
 
     if not klass then
-		MOD.GAA.TimerManager:AddTimer(1, M, function() M:try_patch() end)
+		MOD.GAA.TimerManager:AddTimer(1, M, M.try_patch)
         return
     end
 
@@ -256,6 +268,10 @@ local function try_patch()
         MOD.Logger.LogScreen("拦截收银", 5, 0, 1, 0, 1)
         return 2
     end
+end
+-- OnInit 也要改一下调用方式
+function M.OnInit()
+    M:try_patch()  --这里M:
 end
 ```
 > 💡 **额外PlayerState接口**：使用方法是加入到上方klassfunction之后。
